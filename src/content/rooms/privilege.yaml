@@ -28,6 +28,16 @@ description:
 amenities:
   [tv, intlChannels, accessible, safe, kettle, coffee, ac, showerOrBath, sofaBed, hairdryer]
 photos:
+  - src: ../../assets/photos/chambres/privilege-6.jpg
+    alt:
+      fr: Chambre Privilège lumineuse avec grand lit, fauteuil noir et moquette graphique
+      en: Bright Privilege Room with large bed, black armchair and graphic carpet
+      de: Helles Privilege-Zimmer mit großem Bett, schwarzem Sessel und grafischem Teppich
+  - src: ../../assets/photos/chambres/privilege-7.jpg
+    alt:
+      fr: Grand lit de la Chambre Privilège face aux fenêtres, bureau et chaise moutarde
+      en: Large bed in the Privilege Room facing the windows, desk and mustard chair
+      de: Großes Bett im Privilege-Zimmer vor den Fenstern, Schreibtisch und senffarbener Stuhl
   - src: ../../assets/photos/chambres/privilege-1.jpg
     alt:
       fr: Chambre Privilège avec grand lit, coussins noirs et lampadaire
@@ -43,16 +53,6 @@ photos:
       fr: Chambre Privilège accessible, avec grand lit et parquet clair
       en: Accessible Privilege Room with large bed and light parquet floor
       de: Barrierefreies Privilege-Zimmer mit großem Bett und hellem Parkett
-  - src: ../../assets/photos/chambres/privilege-4.jpg
-    alt:
-      fr: Bureau, télévision et machine à café dans une Chambre Privilège
-      en: Desk, television and coffee machine in a Privilege Room
-      de: Schreibtisch, Fernseher und Kaffeemaschine in einem Privilege-Zimmer
-  - src: ../../assets/photos/chambres/privilege-5.jpg
-    alt:
-      fr: Lit d’une Chambre Privilège avec coussins moutarde et plaid noir
-      en: Privilege Room bed with mustard cushions and black throw
-      de: Bett im Privilege-Zimmer mit senffarbenen Kissen und schwarzer Decke
   - src: ../../assets/photos/chambres/privilege-sdb-1.jpg
     alt:
       fr: Salle de bain avec douche vitrée et miroir rond
@@ -63,3 +63,8 @@ photos:
       fr: Douche accessible avec siège rabattable
       en: Accessible shower with fold-down seat
       de: Barrierefreie Dusche mit Klappsitz
+  - src: ../../assets/photos/chambres/privilege-sdb-3.jpg
+    alt:
+      fr: Salle de bain accessible avec douche de plain-pied et barres d’appui
+      en: Accessible bathroom with step-free shower and grab bars
+      de: Barrierefreies Bad mit bodengleicher Dusche und Haltegriffen

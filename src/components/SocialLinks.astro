@@ -1,0 +1,39 @@
+---
+import Icon from './Icon.astro';
+import { hotel } from '@/data/hotel';
+
+interface Props {
+  tone?: 'light' | 'dark';
+  /** Affiche le nom du réseau à côté de l'icône */
+  withLabels?: boolean;
+  class?: string;
+}
+
+const { tone = 'light', withLabels = false, class: className } = Astro.props;
+const socials = [
+  { name: 'Instagram', href: hotel.social.instagram, icon: 'instagram' },
+  { name: 'Facebook', href: hotel.social.facebook, icon: 'facebook' },
+  { name: 'LinkedIn', href: hotel.social.linkedin, icon: 'linkedin' },
+] as const;
+---
+
+<ul class:list={['flex flex-wrap gap-3', className]} data-stagger="90">
+  {socials.map((social) => (
+    <li>
+      <a
+        href={social.href}
+        rel="noopener"
+        class:list={[
+          'inline-flex min-h-11 items-center gap-3 border transition-colors',
+          withLabels ? 'px-4' : 'size-11 justify-center',
+          tone === 'dark'
+            ? 'border-ivoire/25 hover:border-or hover:text-or'
+            : 'border-brun/30 hover:border-velours hover:text-velours',
+        ]}
+      >
+        <Icon name={social.icon} label={withLabels ? undefined : social.name} />
+        {withLabels && <span class="text-sm tracking-wide">{social.name}</span>}
+      </a>
+    </li>
+  ))}
+</ul>

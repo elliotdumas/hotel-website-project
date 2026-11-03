@@ -5,6 +5,7 @@ import SectionHeading from '@/components/SectionHeading.astro';
 import ContactForm from '@/components/ContactForm.astro';
 import MapFacade from '@/components/MapFacade.astro';
 import Icon from '@/components/Icon.astro';
+import SocialLinks from '@/components/SocialLinks.astro';
 import { pick, useTranslations, type Locale } from '@/i18n/config';
 import { hotel } from '@/data/hotel';
 import { photos } from '@/data/photos';
@@ -23,12 +24,12 @@ const p = t.pages.contact;
   page="contact"
   title={p.title}
   description={p.description}
-  image={photos.facadeNuit.src}
+  image={photos.terrasseCour.src}
 >
   <PageHero
     locale={locale}
-    image={photos.pavillon2.src}
-    alt={pick(photos.pavillon2.alt, locale)}
+    image={photos.portailLogo.src}
+    alt={pick(photos.portailLogo.alt, locale)}
     title={p.heroTitle}
     text={p.heroText}
   />
@@ -70,6 +71,9 @@ const p = t.pages.contact;
             </a>
           </p>
         </address>
+
+        <h3 class="mt-10 text-3xl">{t.footer.follow}</h3>
+        <SocialLinks withLabels class="mt-5" />
 
         <h3 class="mt-12 text-3xl" id="comment-venir">
           {p.arrivalTitle}

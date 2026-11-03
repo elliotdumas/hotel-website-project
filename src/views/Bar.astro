@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import ContactBand from '@/components/ContactBand.astro';
 import PageHero from '@/components/PageHero.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
 import StorySection from '@/components/StorySection.astro';
@@ -16,6 +17,7 @@ const { locale } = Astro.props;
 const t = useTranslations(locale);
 const p = t.pages.bar;
 const barPhotos = [
+  photos.barLumineux,
   photos.barPanorama,
   photos.barSuspensions,
   photos.tireuses,
@@ -76,10 +78,13 @@ const barPhotos = [
 
   <StorySection
     id="terrasse"
+    tone="light"
+    reverse
     image={photos.terrasseSoir.src}
     alt={pick(photos.terrasseSoir.alt, locale)}
     eyebrow={p.terraceSubtitle}
     title={p.terraceTitle}
     text={p.terraceText}
   />
+  <ContactBand locale={locale} />
 </BaseLayout>

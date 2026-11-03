@@ -6,13 +6,10 @@ import courNuit from '@/assets/photos/hotel/cour-nuit.jpg';
 import courVueAerienne from '@/assets/photos/hotel/cour-vue-aerienne.jpg';
 import escalierColimacon from '@/assets/photos/hotel/escalier-colimacon.jpg';
 import escalierBois from '@/assets/photos/hotel/escalier-bois.jpg';
-import sculptureSinge from '@/assets/photos/hotel/sculpture-singe.jpg';
 import vaseApplique from '@/assets/photos/hotel/vase-applique.jpg';
 import salonCheminee from '@/assets/photos/hotel/salon-cheminee.jpg';
 import espaceDeVie1 from '@/assets/photos/hotel/espace-de-vie-1.jpg';
 import espaceDeVie2 from '@/assets/photos/hotel/espace-de-vie-2.jpg';
-import espaceDeVie3 from '@/assets/photos/hotel/espace-de-vie-3.jpg';
-import espaceDeVie4 from '@/assets/photos/hotel/espace-de-vie-4.jpg';
 import espaceDeVie5 from '@/assets/photos/hotel/espace-de-vie-5.jpg';
 import pavillon1 from '@/assets/photos/hotel/pavillon-1.jpg';
 import pavillon2 from '@/assets/photos/hotel/pavillon-2.jpg';
@@ -37,11 +34,26 @@ import petitDej3 from '@/assets/photos/services/petit-dejeuner-3.jpg';
 import salle1 from '@/assets/photos/seminaires/salle-1.jpg';
 import salle2 from '@/assets/photos/seminaires/salle-2.jpg';
 import salle3 from '@/assets/photos/seminaires/salle-3.jpg';
-import salle4 from '@/assets/photos/seminaires/salle-4.jpg';
-import salle5 from '@/assets/photos/seminaires/salle-5.jpg';
 import buffet from '@/assets/photos/seminaires/buffet.jpg';
 import jardin from '@/assets/photos/seminaires/jardin.jpg';
 import facadeJardin from '@/assets/photos/seminaires/facade-jardin.jpg';
+import terrasseCour from '@/assets/photos/hotel/terrasse-cour.jpg';
+import courPavillons from '@/assets/photos/hotel/cour-pavillons.jpg';
+import portailLogo from '@/assets/photos/hotel/portail-logo.jpg';
+import balconVegetal from '@/assets/photos/hotel/balcon-vegetal.jpg';
+import salonCheminee2 from '@/assets/photos/hotel/salon-cheminee-2.jpg';
+import chambre1 from '@/assets/photos/hotel/chambre-1.jpg';
+import chambre2 from '@/assets/photos/hotel/chambre-2.jpg';
+import chambre3 from '@/assets/photos/hotel/chambre-3.jpg';
+import chambre4 from '@/assets/photos/hotel/chambre-4.jpg';
+import chambre5 from '@/assets/photos/hotel/chambre-5.jpg';
+import sdb1 from '@/assets/photos/hotel/sdb-1.jpg';
+import sdb2 from '@/assets/photos/hotel/sdb-2.jpg';
+import sdb3 from '@/assets/photos/hotel/sdb-3.jpg';
+import sdb4 from '@/assets/photos/hotel/sdb-4.jpg';
+import barLumineux from '@/assets/photos/bar/bar-lumineux.jpg';
+import piscineTropicale1 from '@/assets/photos/services/piscine-tropicale-1.jpg';
+import piscineTropicale2 from '@/assets/photos/services/piscine-tropicale-2.jpg';
 
 export interface Photo {
   src: ImageMetadata;
@@ -85,12 +97,6 @@ export const photos = {
     'Curved wooden staircase and corridor lit by wall lights',
     'Geschwungene Holztreppe und von Wandleuchten erhellter Flur',
   ),
-  sculptureSinge: p(
-    sculptureSinge,
-    'Sculpture métallique d’une tête de singe dans le hall',
-    'Metal sculpture of a monkey’s head in the lobby',
-    'Metallskulptur eines Affenkopfs in der Lobby',
-  ),
   vaseApplique: p(
     vaseApplique,
     'Vase noir et doré éclairé par une applique murale',
@@ -114,18 +120,6 @@ export const photos = {
     'Salle avec niches décoratives et tables le long d’une cheminée',
     'Room with decorative niches and tables along a fireplace',
     'Raum mit Dekonischen und Tischen entlang eines Kamins',
-  ),
-  espaceDeVie3: p(
-    espaceDeVie3,
-    'Salle du petit-déjeuner avec banquettes camel et tables rondes',
-    'Breakfast room with tan banquettes and round tables',
-    'Frühstücksraum mit cognacfarbenen Sitzbänken und runden Tischen',
-  ),
-  espaceDeVie4: p(
-    espaceDeVie4,
-    'Tables et chaises blanches devant de grandes fenêtres lumineuses',
-    'Tables and white chairs in front of large bright windows',
-    'Tische und weiße Stühle vor großen hellen Fenstern',
   ),
   espaceDeVie5: p(
     espaceDeVie5,
@@ -271,18 +265,6 @@ export const photos = {
     'Meeting room with period fireplace and black chairs',
     'Seminarraum mit altem Kamin und schwarzen Stühlen',
   ),
-  salle4: p(
-    salle4,
-    'Tables en U dans la salle de séminaire, portes en bois sculpté',
-    'U-shaped tables in the meeting room, carved wooden doors',
-    'U-förmige Tische im Seminarraum, geschnitzte Holztüren',
-  ),
-  salle5: p(
-    salle5,
-    'Salle de séminaire avec écran interactif et paperboard',
-    'Meeting room with interactive screen and flipchart',
-    'Seminarraum mit interaktivem Bildschirm und Flipchart',
-  ),
   buffet: p(
     buffet,
     'Pause gourmande de séminaire : café, jus et douceurs',
@@ -300,6 +282,108 @@ export const photos = {
     'Façade de l’hôtel côté jardin sous un ciel bleu',
     'The hotel façade on the garden side under a blue sky',
     'Die Hotelfassade zur Gartenseite unter blauem Himmel',
+  ),
+  terrasseCour: p(
+    terrasseCour,
+    'Terrasse de l’hôtel dans la cour intérieure, avec salons d’extérieur, plantes et façade éclairée',
+    'The hotel terrace in the inner courtyard, with outdoor lounges, plants and lit façade',
+    'Die Hotelterrasse im Innenhof mit Lounge-Möbeln, Pflanzen und beleuchteter Fassade',
+  ),
+  courPavillons: p(
+    courPavillons,
+    'Cour pavée et pavillons de chambres de l’hôtel',
+    'The hotel’s paved courtyard and room pavilions',
+    'Gepflasterter Innenhof und Zimmerpavillons des Hotels',
+  ),
+  portailLogo: p(
+    portailLogo,
+    'Portail de l’hôtel orné du logo Les Coulisses du Théâtre, au coucher du soleil',
+    'The hotel gate with the Les Coulisses du Théâtre logo at sunset',
+    'Das Hoteltor mit dem Logo von Les Coulisses du Théâtre bei Sonnenuntergang',
+  ),
+  balconVegetal: p(
+    balconVegetal,
+    'Balcon végétalisé avec fauteuils en rotin et vue sur les toits',
+    'Planted balcony with rattan armchairs and rooftop views',
+    'Begrünter Balkon mit Rattansesseln und Blick über die Dächer',
+  ),
+  salonCheminee2: p(
+    salonCheminee2,
+    'Salon avec canapés, coussins moutarde et cheminée',
+    'Lounge with sofas, mustard cushions and fireplace',
+    'Lounge mit Sofas, senffarbenen Kissen und Kamin',
+  ),
+  chambre1: p(
+    chambre1,
+    'Chambre avec grand lit, coussins gris et vue sur les toits',
+    'Room with large bed, grey cushions and rooftop views',
+    'Zimmer mit großem Bett, grauen Kissen und Blick über die Dächer',
+  ),
+  chambre2: p(
+    chambre2,
+    'Chambre lumineuse avec bureau, télévision et porte-fenêtre',
+    'Bright room with desk, television and French window',
+    'Helles Zimmer mit Schreibtisch, Fernseher und Fenstertür',
+  ),
+  chambre3: p(
+    chambre3,
+    'Chambre avec tapisserie murale et porte-fenêtre ouverte sur la verdure',
+    'Room with wall tapestry and French window opening onto greenery',
+    'Zimmer mit Wandteppich und Fenstertür zum Grünen',
+  ),
+  chambre4: p(
+    chambre4,
+    'Lit double, tapisserie et grandes fenêtres',
+    'Double bed, tapestry and tall windows',
+    'Doppelbett, Wandteppich und hohe Fenster',
+  ),
+  chambre5: p(
+    chambre5,
+    'Chambre avec lit double, bureau et grande fenêtre',
+    'Room with double bed, desk and large window',
+    'Zimmer mit Doppelbett, Schreibtisch und großem Fenster',
+  ),
+  sdb1: p(
+    sdb1,
+    'Salle de bain avec douche à l’italienne et miroir rond',
+    'Bathroom with walk-in shower and round mirror',
+    'Bad mit begehbarer Dusche und rundem Spiegel',
+  ),
+  sdb2: p(
+    sdb2,
+    'Lavabo, miroir rond et douche vitrée',
+    'Washbasin, round mirror and glass shower',
+    'Waschbecken, runder Spiegel und Glasdusche',
+  ),
+  sdb3: p(
+    sdb3,
+    'Salle de bain avec miroir ovale et douche',
+    'Bathroom with oval mirror and shower',
+    'Bad mit ovalem Spiegel und Dusche',
+  ),
+  sdb4: p(
+    sdb4,
+    'Salle de bain avec miroir ovale rétroéclairé',
+    'Bathroom with backlit oval mirror',
+    'Bad mit hinterleuchtetem ovalem Spiegel',
+  ),
+  barLumineux: p(
+    barLumineux,
+    'Le bar l’Entracte en journée, tables et banquettes camel',
+    'L’Entracte bar by day, with tables and tan banquettes',
+    'Die Bar L’Entracte bei Tag mit Tischen und cognacfarbenen Bänken',
+  ),
+  piscineTropicale1: p(
+    piscineTropicale1,
+    'Piscine chauffée avec salon en bois et plafond tropical',
+    'Heated pool with wooden lounge and tropical ceiling',
+    'Beheiztes Hallenbad mit Holz-Lounge und tropischer Decke',
+  ),
+  piscineTropicale2: p(
+    piscineTropicale2,
+    'Vue d’ensemble de la piscine intérieure, palmiers et transats',
+    'Overview of the indoor pool, palms and loungers',
+    'Gesamtansicht des Hallenbads mit Palmen und Liegen',
   ),
 } satisfies Record<string, Photo>;
 

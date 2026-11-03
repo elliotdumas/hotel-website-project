@@ -60,7 +60,11 @@
     "children": "Enfants (0 à 11 ans)",
     "submit": "Voir les disponibilités",
     "bestRate": "Meilleur tarif garanti en réservant directement sur notre site officiel.",
-    "byPhone": "Ou par téléphone :"
+    "byPhone": "Ou par téléphone :",
+    "phoneTitle": "Réservation directe par téléphone",
+    "landline": "Fixe",
+    "mobile": "Portable",
+    "followUs": "Suivez-nous sur"
   },
   "amenities": {
     "tv": "Télévision",
@@ -143,7 +147,7 @@
       "heroEyebrow": "Hôtel ★★★ · Saint-Quentin",
       "heroTitle": "Bienvenue dans un univers cosy et raffiné",
       "heroText": "Au cœur du centre historique, à quelques pas du Théâtre Jean-Vilar et de la Basilique.",
-      "heroAlt": "Façade illuminée de l'hôtel Les Coulisses du Théâtre à la tombée de la nuit",
+      "heroAlt": "Terrasse de l'hôtel Les Coulisses du Théâtre dans la cour intérieure, avec salons d'extérieur et façade éclairée",
       "introEyebrow": "En coulisses",
       "introTitle": "L'élégance chaleureuse",
       "introText": [
@@ -187,7 +191,93 @@
         "Wi-Fi haut débit gratuit dans tout l'hôtel"
       ],
       "instagramTitle": "Suivez-nous sur Instagram",
-      "instagramText": "Les coulisses de l'hôtel au quotidien : #LesCoulissesDuThéâtre"
+      "instagramText": "Les coulisses de l'hôtel au quotidien : #LesCoulissesDuThéâtre",
+      "marquee": [
+        "Cosy",
+        "Raffiné",
+        "Saint-Quentin",
+        "Piscine chauffée",
+        "Bar l'Entracte",
+        "Au cœur du centre historique"
+      ],
+      "featuresEyebrow": "En un coup d'œil",
+      "featuresTitle": "Tout pour un séjour réussi",
+      "features": [
+        {
+          "icon": "wifi",
+          "title": "Wi-Fi haut débit",
+          "text": "Gratuit dans tout l'hôtel"
+        },
+        {
+          "icon": "pool",
+          "title": "Piscine chauffée",
+          "text": "Couloir de nage à contre-courant, 9h – 21h"
+        },
+        {
+          "icon": "glass",
+          "title": "Bar l'Entracte",
+          "text": "Tous les jours de 6h30 à 23h, avec terrasse"
+        },
+        {
+          "icon": "coffee",
+          "title": "Petit-déjeuner",
+          "text": "Buffet bio et local, 6h30 – 10h30"
+        },
+        {
+          "icon": "car",
+          "title": "Parking privé sécurisé",
+          "text": "Voitures et motos, en supplément"
+        },
+        {
+          "icon": "bolt",
+          "title": "Bornes de recharge",
+          "text": "Pour véhicules électriques"
+        },
+        {
+          "icon": "bell",
+          "title": "Réception 24 h/24",
+          "text": "Accueil en personne, conciergerie"
+        },
+        {
+          "icon": "bike",
+          "title": "Vélos électriques",
+          "text": "Location à la demi-journée ou à la journée"
+        },
+        {
+          "icon": "paw",
+          "title": "Animaux acceptés",
+          "text": "Selon la catégorie de chambre (supplément)"
+        },
+        {
+          "icon": "snow",
+          "title": "Climatisation",
+          "text": "Dans toutes les chambres, insonorisées"
+        }
+      ],
+      "practicalTitle": "Infos pratiques",
+      "practical": [
+        {
+          "label": "Arrivée",
+          "value": "à partir de 15h"
+        },
+        {
+          "label": "Départ",
+          "value": "avant 11h"
+        },
+        {
+          "label": "Gare",
+          "value": "à 2 km (5 min en voiture)"
+        },
+        {
+          "label": "Bus",
+          "value": "arrêt Basilique, à 3 min à pied"
+        }
+      ],
+      "contactEyebrow": "Réservation directe",
+      "contactTitle": "Appelez-nous, nous sommes là",
+      "contactText": "Pour réserver au meilleur tarif, poser une question ou préparer votre séjour, notre équipe vous répond de vive voix.",
+      "followTitle": "Suivez-nous",
+      "followText": "Actualités, coulisses et évènements de l'hôtel sur nos réseaux."
     },
     "hotel": {
       "title": "L'hôtel",
@@ -438,12 +528,30 @@
       "arrival": "L'entrée de l'hôtel se trouve à droite de la rue. Entrez sous le porche pour vous garer au niveau de la réception, puis accédez au parking sécurisé.",
       "accessTitle": "Accès et transports",
       "access": [
-        { "label": "Gare", "value": "2 km : 5 min en voiture, 13 min en bus, 18 min à pied" },
-        { "label": "Bus", "value": "Lignes 1, 2, 3, 4, 5 et 6, arrêt Basilique (3 min à pied)" },
-        { "label": "Navette", "value": "Navette de l'hôtel sur demande" },
-        { "label": "Taxi / VTC", "value": "Taxi Vasseurs : 03 23 62 22 23" },
-        { "label": "Parkings publics", "value": "Souterrain Indigo, place du Marché" },
-        { "label": "Routes", "value": "A26, A29, A1, N2044, N2029, D1, D8, D930, D1029 et D1044" }
+        {
+          "label": "Gare",
+          "value": "2 km : 5 min en voiture, 13 min en bus, 18 min à pied"
+        },
+        {
+          "label": "Bus",
+          "value": "Lignes 1, 2, 3, 4, 5 et 6, arrêt Basilique (3 min à pied)"
+        },
+        {
+          "label": "Navette",
+          "value": "Navette de l'hôtel sur demande"
+        },
+        {
+          "label": "Taxi / VTC",
+          "value": "Taxi Vasseurs : 03 23 62 22 23"
+        },
+        {
+          "label": "Parkings publics",
+          "value": "Souterrain Indigo, place du Marché"
+        },
+        {
+          "label": "Routes",
+          "value": "A26, A29, A1, N2044, N2029, D1, D8, D930, D1029 et D1044"
+        }
       ],
       "feedbackTitle": "Votre avis compte",
       "feedbackText": "Vous souhaitez nous faire un retour sur votre séjour ? Téléchargez nos formulaires :",

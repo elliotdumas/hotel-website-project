@@ -2,6 +2,8 @@
 import Logo from './Logo.astro';
 import Icon from './Icon.astro';
 import LanguageSwitcher from './LanguageSwitcher.astro';
+import PhoneLinks from './PhoneLinks.astro';
+import SocialLinks from './SocialLinks.astro';
 import { useTranslations, type Locale } from '@/i18n/config';
 import { mainNav, url, type PageKey } from '@/i18n/routes';
 import { hotel } from '@/data/hotel';
@@ -20,6 +22,21 @@ const bookHref = hotel.bookingUrl ?? url('contact', locale, 'reserver');
   id="site-header"
   class="absolute inset-x-0 top-0 z-40 text-ivoire transition-[background-color,box-shadow] duration-300"
 >
+  <!-- Bandeau supérieur (grand écran) : réservation par téléphone et réseaux sociaux -->
+  <div id="header-utility" class="hidden border-b border-ivoire/15 xl:block">
+    <div class="mx-auto flex h-10 max-w-7xl items-center justify-between px-8 text-xs tracking-wide">
+      <p class="flex items-center gap-2">
+        <Icon name="phone" class="size-3.5 text-or" />
+        <span>{t.booking.phoneTitle}</span>
+        <span aria-hidden="true">—</span>
+        <PhoneLinks locale={locale} variant="inline" class="no-underline" />
+      </p>
+      <SocialLinks
+        tone="dark"
+        class="scale-90 gap-1 [&_a]:size-8 [&_a]:min-h-8 [&_a]:border-transparent"
+      />
+    </div>
+  </div>
   <div class="mx-auto flex h-20 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 xl:h-24 xl:px-8">
     <!-- Menu mobile et tablette : <details> fonctionne sans JavaScript -->
     <details class="group xl:hidden" id="mobile-menu">
@@ -119,6 +136,7 @@ const bookHref = hotel.bookingUrl ?? url('contact', locale, 'reserver');
       const scrolled = window.scrollY > 40;
       header.classList.toggle('bg-nuit', scrolled);
       header.classList.toggle('shadow-lg', scrolled);
+      document.getElementById('header-utility')?.classList.toggle('xl:block', !scrolled);
     };
     update();
     window.addEventListener('scroll', update, { passive: true });

@@ -8,7 +8,9 @@ import SectionHeading from '@/components/SectionHeading.astro';
 import StorySection from '@/components/StorySection.astro';
 import RoomCard from '@/components/RoomCard.astro';
 import CheckList from '@/components/CheckList.astro';
-import Icon from '@/components/Icon.astro';
+import Marquee from '@/components/Marquee.astro';
+import FeatureGrid from '@/components/FeatureGrid.astro';
+import ContactBand from '@/components/ContactBand.astro';
 import { pick, useTranslations, type Locale } from '@/i18n/config';
 import { url } from '@/i18n/routes';
 import { hotel } from '@/data/hotel';
@@ -27,19 +29,25 @@ const places = (await getCollection('places'))
   .slice(0, 4);
 
 const figures = [
-  { value: String(hotel.rooms), label: p.figures.rooms },
-  { value: String(hotel.roomCategories), label: p.figures.categories },
-  { value: String(hotel.apartments), label: p.figures.apartments },
+  { value: hotel.rooms, label: p.figures.rooms },
+  { value: hotel.roomCategories, label: p.figures.categories },
+  { value: hotel.apartments, label: p.figures.apartments },
   { value: '24/7', label: p.figures.reception },
 ];
 
-const mosaic = [photos.courNuit, photos.salonCheminee, photos.escalierColimacon];
+const mosaic = [photos.courPavillons, photos.salonCheminee2, photos.portailLogo];
 ---
 
-<BaseLayout locale={locale} page="home" title={p.title} description={p.description}>
+<BaseLayout
+  locale={locale}
+  page="home"
+  title={p.title}
+  description={p.description}
+  image={photos.terrasseCour.src}
+>
   <PageHero
     locale={locale}
-    image={photos.facadeNuit.src}
+    image={photos.terrasseCour.src}
     alt={p.heroAlt}
     eyebrow={p.heroEyebrow}
     title={p.heroTitle}
@@ -81,7 +89,10 @@ const mosaic = [photos.courNuit, photos.salonCheminee, photos.escalierColimacon]
     </div>
 
     <div class="mx-auto mt-16 grid max-w-7xl grid-cols-2 gap-3 px-4 sm:px-6 md:grid-cols-12 lg:px-8">
-      <div class="col-span-2 aspect-[16/10] overflow-hidden md:col-span-7 md:row-span-2 md:aspect-auto">
+      <div
+        class="col-span-2 aspect-[16/10] overflow-hidden md:col-span-7 md:row-span-2 md:aspect-auto"
+        data-reveal="curtain"
+      >
         <Picture
           src={mosaic[0].src}
           alt={pick(mosaic[0].alt, locale)}
@@ -92,7 +103,10 @@ const mosaic = [photos.courNuit, photos.salonCheminee, photos.escalierColimacon]
         />
       </div>
       {mosaic.slice(1).map((photo) => (
-        <div class="aspect-[4/5] overflow-hidden md:col-span-5 md:aspect-[16/11]">
+        <div
+          class="aspect-[4/5] overflow-hidden md:col-span-5 md:aspect-[16/11]"
+          data-reveal="curtain"
+        >
           <Picture
             src={photo.src}
             alt={pick(photo.alt, locale)}
@@ -105,14 +119,49 @@ const mosaic = [photos.courNuit, photos.salonCheminee, photos.escalierColimacon]
       ))}
     </div>
 
-    <dl class="mx-auto mt-16 grid max-w-5xl grid-cols-2 gap-y-10 px-4 text-center sm:px-6 md:grid-cols-4">
+    <dl
+      class="mx-auto mt-16 grid max-w-5xl grid-cols-2 gap-y-10 px-4 text-center sm:px-6 md:grid-cols-4"
+      data-stagger="120"
+    >
       {figures.map((figure) => (
         <div class="flex flex-col-reverse items-center gap-2">
           <dt class="eyebrow max-w-[12rem] text-taupe">{figure.label}</dt>
-          <dd class="font-serif text-5xl text-encre sm:text-6xl">{figure.value}</dd>
+          <dd
+            class="font-serif text-5xl text-encre sm:text-6xl"
+            data-count-to={typeof figure.value === 'number' ? figure.value : undefined}
+          >
+            {figure.value}
+          </dd>
         </div>
       ))}
     </dl>
+  </section>
+
+  <Marquee words={p.marquee} />
+
+  <!-- Services en un coup d'œil -->
+  <section aria-labelledby="atouts-titre" class="py-20 md:py-28">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-end">
+        <div class="lg:col-span-7" data-reveal>
+          <SectionHeading eyebrow={p.featuresEyebrow} title={p.featuresTitle} id="atouts-titre" />
+        </div>
+        <div class="lg:col-span-5">
+          <p class="eyebrow text-or-fonce">{p.practicalTitle}</p>
+          <dl class="mt-4 grid grid-cols-2 gap-4" data-stagger="80">
+            {p.practical.map((item) => (
+              <div class="border-l border-or pl-4">
+                <dt class="text-xs tracking-widest text-taupe uppercase">{item.label}</dt>
+                <dd class="mt-1 font-serif text-xl">{item.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </div>
+      <div class="mt-12">
+        <FeatureGrid features={p.features} />
+      </div>
+    </div>
   </section>
 
   <!-- Chambres en carrousel -->
@@ -129,7 +178,7 @@ const mosaic = [photos.courNuit, photos.salonCheminee, photos.escalierColimacon]
       </div>
     </div>
     <div class="mx-auto mt-12 max-w-7xl pl-4 sm:pl-6 lg:px-8">
-      <div class="scroller auto-cols-max gap-5 pr-4 pb-4 sm:pr-6 lg:pr-0">
+      <div class="scroller auto-cols-max gap-5 pr-4 pb-4 sm:pr-6 lg:pr-0" data-stagger="110">
         {rooms.map((room) => (
           <RoomCard room={room} locale={locale} />
         ))}
@@ -150,8 +199,8 @@ const mosaic = [photos.courNuit, photos.salonCheminee, photos.escalierColimacon]
   />
   <StorySection
     id="piscine"
-    image={photos.piscine1.src}
-    alt={pick(photos.piscine1.alt, locale)}
+    image={photos.piscineTropicale2.src}
+    alt={pick(photos.piscineTropicale2.alt, locale)}
     eyebrow={p.poolEyebrow}
     title={p.poolTitle}
     text={p.poolText}
@@ -191,7 +240,7 @@ const mosaic = [photos.courNuit, photos.salonCheminee, photos.escalierColimacon]
           {t.nav.discover}
         </a>
       </div>
-      <ol class="grid gap-px bg-lin sm:grid-cols-2 lg:col-span-7">
+      <ol class="grid gap-px bg-lin sm:grid-cols-2 lg:col-span-7" data-stagger="100">
         {places.map((place, index) => (
           <li class="bg-creme p-6 sm:p-8">
             <span class="eyebrow text-or-fonce">{String(index + 1).padStart(2, '0')}</span>
@@ -206,33 +255,15 @@ const mosaic = [photos.courNuit, photos.salonCheminee, photos.escalierColimacon]
   <!-- Réserver en direct -->
   <section aria-labelledby="direct-titre" class="bg-brun py-20 text-ivoire md:py-24">
     <div class="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:items-center lg:px-8">
-      <div data-reveal>
+      <div data-reveal="left">
         <SectionHeading title={p.directTitle} tone="dark" id="direct-titre" />
         <CheckList items={p.directPerks} tone="dark" class="mt-8 text-lg" />
-        <div class="mt-8 flex flex-wrap gap-3">
-          {hotel.phones.map((phone) => (
-            <a href={phone.href} class="btn btn-outline">
-              <Icon name="phone" class="size-4" />
-              {phone.display}
-            </a>
-          ))}
-        </div>
       </div>
-      <BookingForm locale={locale} variant="card" id="booking-direct" />
+      <div data-reveal="right">
+        <BookingForm locale={locale} variant="card" id="booking-direct" />
+      </div>
     </div>
   </section>
 
-  <!-- Instagram -->
-  <section aria-labelledby="instagram-titre" class="py-16 text-center md:py-20">
-    <div class="mx-auto max-w-2xl px-4 sm:px-6">
-      <Icon name="instagram" class="mx-auto size-8 text-or-fonce" />
-      <h2 id="instagram-titre" class="mt-4 text-3xl sm:text-4xl">
-        {p.instagramTitle}
-      </h2>
-      <p class="mt-3 text-taupe">{p.instagramText}</p>
-      <a href={hotel.social.instagram} rel="noopener" class="btn btn-outline-dark mt-8">
-        @hotel_lescoulisses
-      </a>
-    </div>
-  </section>
+  <ContactBand locale={locale} />
 </BaseLayout>

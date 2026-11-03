@@ -25,6 +25,7 @@ const items = await Promise.all(
 
 <div class="gallery" data-gallery data-label-of={t.a11y.photoOf}>
   <ul
+    data-stagger="80"
     aria-label={label}
     class:list={[
       layout === 'scroller'

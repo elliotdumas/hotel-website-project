@@ -32,6 +32,16 @@ highlight:
   de: Angrenzender Wohnbereich und Ankleide
 noPets: true
 photos:
+  - src: ../../assets/photos/chambres/suite-6.jpg
+    alt:
+      fr: La Suite avec lit king-size, fauteuil vert et moquette fleurie
+      en: The Suite with king-size bed, green armchair and floral carpet
+      de: Die Suite mit Kingsize-Bett, grünem Sessel und geblümtem Teppich
+  - src: ../../assets/photos/chambres/suite-7.jpg
+    alt:
+      fr: Coin salon de la Suite avec fauteuil vert et grand écran
+      en: Suite seating area with green armchair and large screen
+      de: Sitzbereich der Suite mit grünem Sessel und großem Bildschirm
   - src: ../../assets/photos/chambres/suite-1.jpg
     alt:
       fr: La Suite avec lit king-size, fauteuil jaune et moquette fleurie
@@ -62,3 +72,13 @@ photos:
       fr: Baignoire et douche vitrée dans la salle de bain de la Suite
       en: Bathtub and glass shower in the Suite bathroom
       de: Badewanne und Glasdusche im Bad der Suite
+  - src: ../../assets/photos/chambres/suite-8.jpg
+    alt:
+      fr: Lit de la Suite et douche vitrée au décor végétal
+      en: Suite bed and glass shower with botanical décor
+      de: Bett der Suite und Glasdusche mit Pflanzendekor
+  - src: ../../assets/photos/chambres/suite-sdb-3.jpg
+    alt:
+      fr: Salle de bain de la Suite avec baignoire, douche et papier peint végétal
+      en: Suite bathroom with bathtub, shower and botanical wallpaper
+      de: Bad der Suite mit Badewanne, Dusche und Pflanzentapete

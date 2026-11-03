@@ -1,0 +1,24 @@
+---
+import Icon from './Icon.astro';
+
+type IconName = Parameters<typeof Icon>[0]['name'];
+
+interface Props {
+  features: { icon: string; title: string; text: string }[];
+}
+
+const { features } = Astro.props;
+---
+
+<ul class="grid grid-cols-2 gap-px bg-lin sm:grid-cols-3 lg:grid-cols-5" data-stagger="70">
+  {features.map((feature) => (
+    <li class="group bg-creme p-5 transition-colors duration-500 hover:bg-ivoire sm:p-7">
+      <Icon
+        name={feature.icon as IconName}
+        class="size-8 text-or-fonce transition-transform duration-500 group-hover:-translate-y-1"
+      />
+      <h3 class="mt-4 font-serif text-xl leading-tight sm:text-2xl">{feature.title}</h3>
+      <p class="mt-2 text-sm text-taupe">{feature.text}</p>
+    </li>
+  ))}
+</ul>

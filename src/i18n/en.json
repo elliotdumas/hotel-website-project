@@ -60,7 +60,11 @@
     "children": "Children (0–11)",
     "submit": "Check availability",
     "bestRate": "Best rate guaranteed when you book directly on our official website.",
-    "byPhone": "Or by phone:"
+    "byPhone": "Or by phone:",
+    "phoneTitle": "Book direct by phone",
+    "landline": "Landline",
+    "mobile": "Mobile",
+    "followUs": "Follow us on"
   },
   "amenities": {
     "tv": "Television",
@@ -143,7 +147,7 @@
       "heroEyebrow": "Hotel ★★★ · Saint-Quentin",
       "heroTitle": "Welcome to a cosy, refined world",
       "heroText": "In the historic centre, a short walk from the Théâtre Jean-Vilar and the Basilica.",
-      "heroAlt": "The illuminated façade of Hôtel Les Coulisses du Théâtre at nightfall",
+      "heroAlt": "The terrace of Hôtel Les Coulisses du Théâtre in the inner courtyard, with outdoor lounges and lit façade",
       "introEyebrow": "Behind the scenes",
       "introTitle": "Warm elegance",
       "introText": [
@@ -187,7 +191,93 @@
         "Free high-speed Wi-Fi throughout the hotel"
       ],
       "instagramTitle": "Follow us on Instagram",
-      "instagramText": "Daily life behind the scenes: #LesCoulissesDuThéâtre"
+      "instagramText": "Daily life behind the scenes: #LesCoulissesDuThéâtre",
+      "marquee": [
+        "Cosy",
+        "Refined",
+        "Saint-Quentin",
+        "Heated pool",
+        "L'Entracte bar",
+        "In the historic centre"
+      ],
+      "featuresEyebrow": "At a glance",
+      "featuresTitle": "Everything for a perfect stay",
+      "features": [
+        {
+          "icon": "wifi",
+          "title": "High-speed Wi-Fi",
+          "text": "Free throughout the hotel"
+        },
+        {
+          "icon": "pool",
+          "title": "Heated pool",
+          "text": "Counter-current swimming lane, 9 am – 9 pm"
+        },
+        {
+          "icon": "glass",
+          "title": "L'Entracte bar",
+          "text": "Daily from 6:30 am to 11 pm, with terrace"
+        },
+        {
+          "icon": "coffee",
+          "title": "Breakfast",
+          "text": "Organic, local buffet, 6:30 – 10:30 am"
+        },
+        {
+          "icon": "car",
+          "title": "Private secure parking",
+          "text": "Cars and motorbikes, extra charge"
+        },
+        {
+          "icon": "bolt",
+          "title": "EV charging",
+          "text": "For electric vehicles"
+        },
+        {
+          "icon": "bell",
+          "title": "24-hour reception",
+          "text": "Staffed welcome desk, concierge"
+        },
+        {
+          "icon": "bike",
+          "title": "E-bikes",
+          "text": "Rental by the half day or full day"
+        },
+        {
+          "icon": "paw",
+          "title": "Pets welcome",
+          "text": "Depending on room category (supplement)"
+        },
+        {
+          "icon": "snow",
+          "title": "Air conditioning",
+          "text": "In every soundproofed room"
+        }
+      ],
+      "practicalTitle": "Practical information",
+      "practical": [
+        {
+          "label": "Check-in",
+          "value": "from 3 pm"
+        },
+        {
+          "label": "Check-out",
+          "value": "by 11 am"
+        },
+        {
+          "label": "Train station",
+          "value": "2 km away (5 min by car)"
+        },
+        {
+          "label": "Bus",
+          "value": "Basilique stop, 3 min walk"
+        }
+      ],
+      "contactEyebrow": "Book direct",
+      "contactTitle": "Call us, we're here for you",
+      "contactText": "To book at the best rate, ask a question or plan your stay, our team will be happy to talk to you.",
+      "followTitle": "Follow us",
+      "followText": "News, behind-the-scenes and events at the hotel on our social networks."
     },
     "hotel": {
       "title": "The hotel",
@@ -438,12 +528,30 @@
       "arrival": "The hotel entrance is on the right-hand side of the street. Drive in under the archway to park by reception, then access the secure car park.",
       "accessTitle": "Access and transport",
       "access": [
-        { "label": "Train station", "value": "2 km: 5 min by car, 13 min by bus, 18 min on foot" },
-        { "label": "Bus", "value": "Lines 1, 2, 3, 4, 5 and 6, Basilique stop (3 min walk)" },
-        { "label": "Shuttle", "value": "Hotel shuttle on request" },
-        { "label": "Taxi / ride-hailing", "value": "Taxi Vasseurs: +33 3 23 62 22 23" },
-        { "label": "Public car parks", "value": "Souterrain Indigo, Place du Marché" },
-        { "label": "Roads", "value": "A26, A29, A1, N2044, N2029, D1, D8, D930, D1029 and D1044" }
+        {
+          "label": "Train station",
+          "value": "2 km: 5 min by car, 13 min by bus, 18 min on foot"
+        },
+        {
+          "label": "Bus",
+          "value": "Lines 1, 2, 3, 4, 5 and 6, Basilique stop (3 min walk)"
+        },
+        {
+          "label": "Shuttle",
+          "value": "Hotel shuttle on request"
+        },
+        {
+          "label": "Taxi / ride-hailing",
+          "value": "Taxi Vasseurs: +33 3 23 62 22 23"
+        },
+        {
+          "label": "Public car parks",
+          "value": "Souterrain Indigo, Place du Marché"
+        },
+        {
+          "label": "Roads",
+          "value": "A26, A29, A1, N2044, N2029, D1, D8, D930, D1029 and D1044"
+        }
       ],
       "feedbackTitle": "Your opinion matters",
       "feedbackText": "Would you like to give us feedback on your stay? Download our forms (in French):",

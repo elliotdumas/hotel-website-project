@@ -1,0 +1,45 @@
+---
+import Icon from './Icon.astro';
+import { useTranslations, type Locale } from '@/i18n/config';
+import { hotel } from '@/data/hotel';
+
+/** Les deux numéros de l'hôtel (fixe et portable) pour réserver par téléphone. */
+interface Props {
+  locale: Locale;
+  variant?: 'buttons' | 'inline';
+  tone?: 'light' | 'dark';
+  class?: string;
+}
+
+const { locale, variant = 'buttons', tone = 'light', class: className } = Astro.props;
+const t = useTranslations(locale);
+const labels = [t.booking.landline, t.booking.mobile];
+---
+
+{variant === 'buttons' ? (
+  <ul class:list={['flex flex-wrap gap-3', className]}>
+    {hotel.phones.map((phone, index) => (
+      <li>
+        <a
+          href={phone.href}
+          class:list={['btn gap-3', tone === 'dark' ? 'btn-outline' : 'btn-outline-dark']}
+        >
+          <Icon name="phone" class="size-4" />
+          <span class="opacity-75">{labels[index]}</span>
+          <span class="tracking-wider normal-case">{phone.display}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+) : (
+  <span class={className}>
+    {hotel.phones.map((phone, index) => (
+      <>
+        {index > 0 && <span aria-hidden="true"> · </span>}
+        <a href={phone.href} class="whitespace-nowrap underline underline-offset-2">
+          {phone.display}
+        </a>
+      </>
+    ))}
+  </span>
+)}

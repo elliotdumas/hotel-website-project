@@ -12,6 +12,7 @@ const { items, columns = 1, tone = 'light', class: className } = Astro.props;
 ---
 
 <ul
+  data-stagger="60"
   class:list={[
     'grid gap-x-8 gap-y-2.5',
     columns === 2 && 'sm:grid-cols-2',

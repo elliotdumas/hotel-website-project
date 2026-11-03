@@ -36,6 +36,16 @@ highlight:
   de: Dachterrasse und Balkon
 noPets: true
 photos:
+  - src: ../../assets/photos/chambres/rooftop-terrasse-4.jpg
+    alt:
+      fr: Terrasse rooftop avec fauteuils en rotin, palmiers et vue sur la ville
+      en: Rooftop terrace with rattan armchairs, palms and city views
+      de: Dachterrasse mit Rattansesseln, Palmen und Stadtblick
+  - src: ../../assets/photos/chambres/rooftop-5.jpg
+    alt:
+      fr: Chambre Rooftop avec porte-fenêtre ouverte sur la terrasse
+      en: Rooftop Room with French window open onto the terrace
+      de: Rooftop-Zimmer mit offener Fenstertür zur Terrasse
   - src: ../../assets/photos/chambres/rooftop-terrasse-1.jpg
     alt:
       fr: Terrasse rooftop avec salon de jardin, plantes et vue sur les toits de Saint-Quentin
@@ -66,3 +76,8 @@ photos:
       fr: Salon extérieur de la terrasse rooftop sous un ciel bleu
       en: Outdoor lounge on the rooftop terrace under a blue sky
       de: Außenlounge auf der Dachterrasse unter blauem Himmel
+  - src: ../../assets/photos/chambres/rooftop-6.jpg
+    alt:
+      fr: Lit de la Chambre Rooftop et accès direct à la terrasse
+      en: Rooftop Room bed with direct access to the terrace
+      de: Bett im Rooftop-Zimmer mit direktem Zugang zur Terrasse

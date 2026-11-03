@@ -1,0 +1,22 @@
+---
+/** Bandeau de mots qui défile lentement (décoratif). */
+interface Props {
+  words: string[];
+}
+
+const { words } = Astro.props;
+const sequence = [...words, ...words];
+---
+
+<div class="overflow-hidden border-y border-lin bg-creme py-6" aria-hidden="true">
+  <div class="marquee-track flex w-max items-center gap-10 pr-10">
+    {sequence.map((word) => (
+      <>
+        <span class="font-serif text-3xl whitespace-nowrap text-encre italic sm:text-4xl">
+          {word}
+        </span>
+        <span class="text-or">✦</span>
+      </>
+    ))}
+  </div>
+</div>

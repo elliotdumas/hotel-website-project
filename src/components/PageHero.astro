@@ -26,16 +26,20 @@ const t = useTranslations(locale);
     size === 'full' ? 'min-h-[100svh] items-end' : 'min-h-[62svh] items-end md:min-h-[70svh]',
   ]}
 >
-  <Picture
-    src={image}
-    alt={alt}
-    widths={[640, 960, 1280, 1600, 1920]}
-    sizes="100vw"
-    formats={['avif', 'webp']}
-    loading="eager"
-    fetchpriority="high"
-    class="absolute inset-0 -z-10 size-full object-cover"
-  />
+  <div class="absolute inset-0 -z-10 overflow-hidden">
+    <div class="size-full" data-parallax="0.12">
+      <Picture
+        src={image}
+        alt={alt}
+        widths={[640, 960, 1280, 1600, 1920, 2000]}
+        sizes="100vw"
+        formats={['avif', 'webp']}
+        loading="eager"
+        fetchpriority="high"
+        class="hero-kenburns size-full object-cover"
+      />
+    </div>
+  </div>
   <div
     class="absolute inset-0 -z-10 bg-linear-to-b from-nuit/70 via-nuit/25 to-nuit/85"
     aria-hidden="true"
@@ -43,7 +47,7 @@ const t = useTranslations(locale);
 
   <div
     class:list={[
-      'mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8',
+      'hero-intro mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8',
       size === 'full' ? 'pt-32 pb-24 md:pb-10' : 'pt-32 pb-12 md:pb-16',
     ]}
   >
@@ -63,7 +67,7 @@ const t = useTranslations(locale);
         </ol>
       </nav>
     )}
-    {eyebrow && <p class="eyebrow mb-4 text-or">{eyebrow}</p>}
+    {eyebrow && <p class="eyebrow mb-4 text-ivoire/90">{eyebrow}</p>}
     <h1
       class:list={[
         'max-w-4xl text-ivoire',

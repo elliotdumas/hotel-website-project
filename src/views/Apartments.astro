@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import ContactBand from '@/components/ContactBand.astro';
 import PageHero from '@/components/PageHero.astro';
 import AccommodationDetail from '@/components/AccommodationDetail.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
@@ -57,4 +58,5 @@ const hero = apartments[0].data.photos[0];
       availability={p.availability}
     />
   ))}
+  <ContactBand locale={locale} />
 </BaseLayout>

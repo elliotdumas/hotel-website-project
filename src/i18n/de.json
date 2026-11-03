@@ -60,7 +60,11 @@
     "children": "Kinder (0–11 Jahre)",
     "submit": "Verfügbarkeit prüfen",
     "bestRate": "Bestpreisgarantie bei Direktbuchung auf unserer offiziellen Website.",
-    "byPhone": "Oder telefonisch:"
+    "byPhone": "Oder telefonisch:",
+    "phoneTitle": "Direkt telefonisch buchen",
+    "landline": "Festnetz",
+    "mobile": "Mobil",
+    "followUs": "Folgen Sie uns auf"
   },
   "amenities": {
     "tv": "Fernseher",
@@ -143,7 +147,7 @@
       "heroEyebrow": "Hotel ★★★ · Saint-Quentin",
       "heroTitle": "Willkommen in einer gemütlichen, raffinierten Welt",
       "heroText": "Im historischen Zentrum, wenige Schritte vom Théâtre Jean-Vilar und der Basilika entfernt.",
-      "heroAlt": "Die beleuchtete Fassade des Hôtel Les Coulisses du Théâtre bei Einbruch der Dunkelheit",
+      "heroAlt": "Die Terrasse des Hôtel Les Coulisses du Théâtre im Innenhof mit Lounge-Möbeln und beleuchteter Fassade",
       "introEyebrow": "Hinter den Kulissen",
       "introTitle": "Warme Eleganz",
       "introText": [
@@ -187,7 +191,93 @@
         "Kostenloses Highspeed-WLAN im ganzen Hotel"
       ],
       "instagramTitle": "Folgen Sie uns auf Instagram",
-      "instagramText": "Der Hotelalltag hinter den Kulissen: #LesCoulissesDuThéâtre"
+      "instagramText": "Der Hotelalltag hinter den Kulissen: #LesCoulissesDuThéâtre",
+      "marquee": [
+        "Gemütlich",
+        "Raffiniert",
+        "Saint-Quentin",
+        "Beheiztes Hallenbad",
+        "Bar L'Entracte",
+        "Im historischen Zentrum"
+      ],
+      "featuresEyebrow": "Auf einen Blick",
+      "featuresTitle": "Alles für einen gelungenen Aufenthalt",
+      "features": [
+        {
+          "icon": "wifi",
+          "title": "Highspeed-WLAN",
+          "text": "Kostenlos im ganzen Hotel"
+        },
+        {
+          "icon": "pool",
+          "title": "Beheiztes Hallenbad",
+          "text": "Gegenstromanlage, 9:00 – 21:00 Uhr"
+        },
+        {
+          "icon": "glass",
+          "title": "Bar L'Entracte",
+          "text": "Täglich 6:30 – 23:00 Uhr, mit Terrasse"
+        },
+        {
+          "icon": "coffee",
+          "title": "Frühstück",
+          "text": "Bio-Buffet aus der Region, 6:30 – 10:30 Uhr"
+        },
+        {
+          "icon": "car",
+          "title": "Privater, gesicherter Parkplatz",
+          "text": "Autos und Motorräder, gegen Aufpreis"
+        },
+        {
+          "icon": "bolt",
+          "title": "E-Ladestationen",
+          "text": "Für Elektrofahrzeuge"
+        },
+        {
+          "icon": "bell",
+          "title": "Rezeption rund um die Uhr",
+          "text": "Persönlicher Empfang, Concierge"
+        },
+        {
+          "icon": "bike",
+          "title": "E-Bikes",
+          "text": "Verleih für einen halben oder ganzen Tag"
+        },
+        {
+          "icon": "paw",
+          "title": "Haustiere willkommen",
+          "text": "Je nach Zimmerkategorie (Aufpreis)"
+        },
+        {
+          "icon": "snow",
+          "title": "Klimaanlage",
+          "text": "In allen schallisolierten Zimmern"
+        }
+      ],
+      "practicalTitle": "Praktische Informationen",
+      "practical": [
+        {
+          "label": "Anreise",
+          "value": "ab 15:00 Uhr"
+        },
+        {
+          "label": "Abreise",
+          "value": "bis 11:00 Uhr"
+        },
+        {
+          "label": "Bahnhof",
+          "value": "2 km entfernt (5 Min. mit dem Auto)"
+        },
+        {
+          "label": "Bus",
+          "value": "Haltestelle Basilique, 3 Min. zu Fuß"
+        }
+      ],
+      "contactEyebrow": "Direkt buchen",
+      "contactTitle": "Rufen Sie uns an, wir sind für Sie da",
+      "contactText": "Für den besten Preis, Fragen oder die Planung Ihres Aufenthalts – unser Team ist persönlich für Sie erreichbar.",
+      "followTitle": "Folgen Sie uns",
+      "followText": "Neuigkeiten, Blicke hinter die Kulissen und Veranstaltungen des Hotels in unseren Netzwerken."
     },
     "hotel": {
       "title": "Das Hotel",
@@ -446,10 +536,22 @@
           "label": "Bus",
           "value": "Linien 1, 2, 3, 4, 5 und 6, Haltestelle Basilique (3 Min. zu Fuß)"
         },
-        { "label": "Shuttle", "value": "Hotel-Shuttle auf Anfrage" },
-        { "label": "Taxi / Fahrdienst", "value": "Taxi Vasseurs: +33 3 23 62 22 23" },
-        { "label": "Öffentliche Parkhäuser", "value": "Souterrain Indigo, Place du Marché" },
-        { "label": "Straßen", "value": "A26, A29, A1, N2044, N2029, D1, D8, D930, D1029 und D1044" }
+        {
+          "label": "Shuttle",
+          "value": "Hotel-Shuttle auf Anfrage"
+        },
+        {
+          "label": "Taxi / Fahrdienst",
+          "value": "Taxi Vasseurs: +33 3 23 62 22 23"
+        },
+        {
+          "label": "Öffentliche Parkhäuser",
+          "value": "Souterrain Indigo, Place du Marché"
+        },
+        {
+          "label": "Straßen",
+          "value": "A26, A29, A1, N2044, N2029, D1, D8, D930, D1029 und D1044"
+        }
       ],
       "feedbackTitle": "Ihre Meinung zählt",
       "feedbackText": "Möchten Sie uns eine Rückmeldung zu Ihrem Aufenthalt geben? Laden Sie unsere Formulare herunter (auf Französisch):",

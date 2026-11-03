@@ -33,6 +33,7 @@
   }
 
   body {
+    overflow-x: clip;
     background-color: var(--color-creme);
     color: var(--color-encre);
     font-family: var(--font-sans);
@@ -231,18 +232,123 @@
   }
 }
 
-/* Apparition douce au défilement, activée seulement si JavaScript est disponible */
+/*
+ * Animations au défilement (activées seulement si JavaScript est disponible et si
+ * l'utilisateur n'a pas demandé à réduire les animations).
+ *   data-reveal            : fondu + montée
+ *   data-reveal="left"     : arrive de la gauche   | "right" : de la droite
+ *   data-reveal="zoom"     : léger zoom arrière
+ *   data-reveal="curtain"  : image dévoilée comme un rideau de théâtre qui se lève
+ *   data-stagger           : sur un parent, ses enfants apparaissent l'un après l'autre
+ */
 @media (prefers-reduced-motion: no-preference) {
   .js [data-reveal] {
     opacity: 0;
-    transform: translateY(1.5rem);
+    transform: translateY(2.5rem);
     transition:
-      opacity 0.9s var(--ease-scene),
-      transform 0.9s var(--ease-scene);
+      opacity 1s var(--ease-scene),
+      transform 1s var(--ease-scene),
+      clip-path 1.4s var(--ease-scene);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  .js [data-reveal='left'] {
+    transform: translateX(-3rem);
+  }
+
+  .js [data-reveal='right'] {
+    transform: translateX(3rem);
+  }
+
+  .js [data-reveal='zoom'] {
+    transform: scale(1.08);
+  }
+
+  .js [data-reveal='curtain'] {
+    opacity: 1;
+    transform: none;
+    clip-path: inset(0 0 100% 0);
+  }
+
+  .js [data-reveal='curtain'] img {
+    transform: scale(1.15);
+    transition: transform 1.8s var(--ease-scene);
   }
 
   .js [data-reveal].is-visible {
     opacity: 1;
     transform: none;
+    clip-path: inset(0 0 0 0);
   }
+
+  .js [data-reveal='curtain'].is-visible img {
+    transform: scale(1);
+  }
+
+  /* Visuel d'accueil : zoom lent (effet « Ken Burns ») et titre qui apparaît */
+  .hero-kenburns {
+    animation: kenburns 18s ease-out both;
+  }
+
+  .hero-intro > * {
+    animation: rise 1.2s var(--ease-scene) both;
+  }
+
+  .hero-intro > :nth-child(2) {
+    animation-delay: 0.15s;
+  }
+
+  .hero-intro > :nth-child(3) {
+    animation-delay: 0.3s;
+  }
+
+  .hero-intro > :nth-child(4) {
+    animation-delay: 0.45s;
+  }
+
+  .hero-intro > :nth-child(5) {
+    animation-delay: 0.6s;
+  }
+
+  .marquee-track {
+    animation: marquee 40s linear infinite;
+  }
+}
+
+@keyframes kenburns {
+  from {
+    transform: scale(1.12);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Barre de progression de lecture, en haut de l'écran */
+.scroll-progress {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 60;
+  height: 2px;
+  background-color: var(--color-or);
+  transform: scaleX(var(--progress, 0));
+  transform-origin: left;
+  pointer-events: none;
 }

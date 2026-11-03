@@ -67,7 +67,7 @@ Avant de considérer une tâche terminée : `pnpm check && pnpm lint && pnpm bui
 
 ```
 src/
-  assets/photos/     # photos de l'hôtel (reprises du site actuel), optimisées au build
+  assets/photos/     # photos de l'hôtel (site actuel + séance pro 2025 publiée sur The Originals), optimisées au build
   assets/logo/       # logo PNG (TODO : version SVG)
   components/        # composants .astro réutilisables (Header, Footer, BookingForm, Gallery…)
   content/
@@ -129,7 +129,7 @@ Tenir la liste complète des redirections dans le fichier de configuration de l'
 - **Typographie :** *Cormorant Garamond* pour les titres, *DM Sans* pour le texte, auto-hébergées via `@fontsource-variable` (aucun appel à Google Fonts, pour le RGPD).
 - **Vocabulaire théâtral** possible dans les intitulés, à petite dose : « Entracte », « En coulisses », « Votre scène », etc.
 - **Photos :** elles doivent être grandes, immersives et en plein écran sur l'accueil. Ne jamais utiliser de photos de banque d'images à la place de vraies photos de l'hôtel sans accord.
-- **Animations :** sobres (fondu, léger parallaxe) et respectueuses de `prefers-reduced-motion`.
+- **Animations :** sobres et respectueuses de `prefers-reduced-motion`. Attributs disponibles : `data-reveal` (`left`, `right`, `zoom`, `curtain`), `data-stagger` sur un parent, `data-count-to` pour un compteur, `data-parallax` (vitesse) — voir `global.css` et le script de `BaseLayout.astro`.
 - **Mobile first :** la majorité du trafic hôtelier vient du mobile. Prévoir une barre « Réserver » collante en bas d'écran sur mobile.
 
 ## Réservation
@@ -182,7 +182,8 @@ Tenir la liste complète des redirections dans le fichier de configuration de l'
 ## Informations à demander au client
 
 - [ ] Logo en version vectorielle et charte graphique, s'il en existe une
-- [ ] Photos haute définition : celles du site actuel (1440 px) sont utilisées en attendant, et l'accord pour les réutiliser est à confirmer
+- [ ] Photos : séance professionnelle 2025 (récupérée sur theoriginalshotels.com, 2000 px) + photos du site actuel. Fournir les originaux HD et des photos plus récentes de la Chambre Supérieure (les actuelles sont pâles)
+- [ ] Préciser la catégorie des photos de chambres non classées (`hotel/chambre-1` à `chambre-5`)
 - [ ] Validation des fiches chambres et appartements (reprises du site actuel)
 - [ ] Choix de l'hébergeur et du service de formulaires
 - [ ] Traductions anglaise et allemande à faire relire
