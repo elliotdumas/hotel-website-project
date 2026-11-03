@@ -571,5 +571,74 @@
       "text": "Diese Seite ist hinter den Kulissen geblieben. Kehren Sie zur Startseite zurück, um Ihren Besuch fortzusetzen.",
       "back": "Zur Startseite"
     }
+  },
+  "roadmap": {
+    "eyebrow": "Anreise",
+    "title": "Am Knotenpunkt der großen Autobahnen Nordeuropas",
+    "text": [
+      "Saint-Quentin liegt an der A26, der „Autobahn der Engländer“: Sie verbindet Calais und den Eurotunnel mit Reims und Troyes und führt weiter in den Osten und Süden Frankreichs.",
+      "Die A29 führt nach Amiens und in die Normandie. Ganz in der Nähe verbinden die A1 und A2 mit Paris, Lille und Brüssel, während A4 und A31 den Weg nach Luxemburg und Deutschland öffnen."
+    ],
+    "hint": "Ziehen Sie die Karte, um sie zu erkunden. Zoomen mit den Schaltflächen, Strg + Mausrad oder zwei Fingern.",
+    "zoomIn": "Vergrößern",
+    "zoomOut": "Verkleinern",
+    "reset": "Zentrieren",
+    "legend": "Strecke hervorheben",
+    "all": "Alle Strecken",
+    "ariaLabel": "Karte: Saint-Quentin am Kreuzungspunkt der Autobahnen A26, A29, A1, A2, A4 und A31 zwischen England, Belgien, Luxemburg sowie Ost- und Südfrankreich",
+    "source": "Kartengrundlage: Natural Earth. Vereinfachte Streckenführung, ohne Gewähr.",
+    "tunnel": "Eurotunnel",
+    "hotel": "Ihr Hotel",
+    "corridors": {
+      "a26": {
+        "name": "A26",
+        "desc": "England · Calais · Reims · Troyes"
+      },
+      "a29": {
+        "name": "A29",
+        "desc": "Amiens · Normandie"
+      },
+      "a1": {
+        "name": "A1 · A2",
+        "desc": "Paris · Lille · Brüssel"
+      },
+      "a4": {
+        "name": "A4 · A31",
+        "desc": "Luxemburg · Metz · Straßburg"
+      },
+      "south": {
+        "name": "A5 · A31 · A6",
+        "desc": "Dijon · Lyon · Südfrankreich"
+      }
+    },
+    "places": {
+      "gb": "Vereinigtes Königreich",
+      "fr": "Frankreich",
+      "be": "Belgien",
+      "nl": "Niederlande",
+      "lu": "Luxemburg",
+      "de": "Deutschland",
+      "ch": "Schweiz",
+      "channel": "Ärmelkanal",
+      "northsea": "Nordsee"
+    },
+    "cities": {
+      "saint-quentin": "Saint-Quentin",
+      "london": "London",
+      "calais": "Calais",
+      "lille": "Lille",
+      "brussels": "Brüssel",
+      "amiens": "Amiens",
+      "paris": "Paris",
+      "reims": "Reims",
+      "luxembourg": "Luxemburg",
+      "metz": "Metz",
+      "strasbourg": "Straßburg",
+      "troyes": "Troyes",
+      "dijon": "Dijon",
+      "lyon": "Lyon",
+      "cologne": "Köln",
+      "rouen": "Rouen"
+    }
   }
 }

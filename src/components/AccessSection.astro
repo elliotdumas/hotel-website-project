@@ -1,0 +1,51 @@
+---
+import RoadMap from './RoadMap.astro';
+import { useTranslations, type Locale } from '@/i18n/config';
+import { url } from '@/i18n/routes';
+import { hotel } from '@/data/hotel';
+
+/** Section « Accès » : texte et carte interactive des autoroutes. */
+interface Props {
+  locale: Locale;
+  /** Lien vers la page contact (masqué sur la page contact elle-même) */
+  showContactLink?: boolean;
+}
+
+const { locale, showContactLink = true } = Astro.props;
+const t = useTranslations(locale);
+const r = t.roadmap;
+---
+
+<section
+  id="acces"
+  aria-labelledby="acces-titre"
+  class="scroll-mt-24 overflow-hidden bg-nuit py-20 text-ivoire md:py-28"
+>
+  <div class="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-4 sm:px-6 lg:grid-cols-12 lg:items-center lg:px-8">
+    <div class="lg:col-span-4" data-reveal="left">
+      <p class="eyebrow text-or">{r.eyebrow}</p>
+      <h2 id="acces-titre" class="mt-4 text-4xl sm:text-5xl">
+        {r.title}
+      </h2>
+      <span class="rule mt-6" aria-hidden="true"></span>
+      <div class="mt-6 space-y-4 text-ivoire/85">
+        {r.text.map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
+      </div>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href={hotel.mapsUrl} rel="noopener" class="btn btn-primary">
+          {t.cta.directions}
+        </a>
+        {showContactLink && (
+          <a href={url('contact', locale, 'comment-venir')} class="btn btn-outline">
+            {t.pages.contact.arrivalTitle}
+          </a>
+        )}
+      </div>
+    </div>
+    <div class="lg:col-span-8" data-reveal="zoom">
+      <RoadMap locale={locale} />
+    </div>
+  </div>
+</section>

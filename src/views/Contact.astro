@@ -6,6 +6,7 @@ import ContactForm from '@/components/ContactForm.astro';
 import MapFacade from '@/components/MapFacade.astro';
 import Icon from '@/components/Icon.astro';
 import SocialLinks from '@/components/SocialLinks.astro';
+import AccessSection from '@/components/AccessSection.astro';
 import { pick, useTranslations, type Locale } from '@/i18n/config';
 import { hotel } from '@/data/hotel';
 import { photos } from '@/data/photos';
@@ -103,7 +104,9 @@ const p = t.pages.contact;
     </div>
   </section>
 
-  <section aria-label={t.map.title} class="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
+  <AccessSection locale={locale} showContactLink={false} />
+
+  <section aria-label={t.map.title} class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
     <MapFacade locale={locale} />
   </section>
 

@@ -571,5 +571,74 @@
       "text": "This page has stayed behind the scenes. Head back to the home page to continue your visit.",
       "back": "Back to home"
     }
+  },
+  "roadmap": {
+    "eyebrow": "Getting here",
+    "title": "At the crossroads of northern Europe's major motorways",
+    "text": [
+      "Saint-Quentin sits on the A26, the “English motorway”: it links Calais and the Channel Tunnel to Reims and Troyes, then heads on to eastern and southern France.",
+      "The A29 leads to Amiens and Normandy. Close by, the A1 and A2 run to Paris, Lille and Brussels, while the A4 and A31 open the way to Luxembourg and Germany."
+    ],
+    "hint": "Drag the map to explore it. Zoom with the buttons, Ctrl + scroll wheel or two fingers.",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out",
+    "reset": "Reset view",
+    "legend": "Highlight a route",
+    "all": "All routes",
+    "ariaLabel": "Map: Saint-Quentin at the junction of the A26, A29, A1, A2, A4 and A31 motorways, between England, Belgium, Luxembourg and eastern and southern France",
+    "source": "Base map: Natural Earth. Simplified routes, for guidance only.",
+    "tunnel": "Channel Tunnel",
+    "hotel": "Your hotel",
+    "corridors": {
+      "a26": {
+        "name": "A26",
+        "desc": "England · Calais · Reims · Troyes"
+      },
+      "a29": {
+        "name": "A29",
+        "desc": "Amiens · Normandy"
+      },
+      "a1": {
+        "name": "A1 · A2",
+        "desc": "Paris · Lille · Brussels"
+      },
+      "a4": {
+        "name": "A4 · A31",
+        "desc": "Luxembourg · Metz · Strasbourg"
+      },
+      "south": {
+        "name": "A5 · A31 · A6",
+        "desc": "Dijon · Lyon · southern France"
+      }
+    },
+    "places": {
+      "gb": "United Kingdom",
+      "fr": "France",
+      "be": "Belgium",
+      "nl": "Netherlands",
+      "lu": "Luxembourg",
+      "de": "Germany",
+      "ch": "Switzerland",
+      "channel": "English Channel",
+      "northsea": "North Sea"
+    },
+    "cities": {
+      "saint-quentin": "Saint-Quentin",
+      "london": "London",
+      "calais": "Calais",
+      "lille": "Lille",
+      "brussels": "Brussels",
+      "amiens": "Amiens",
+      "paris": "Paris",
+      "reims": "Reims",
+      "luxembourg": "Luxembourg",
+      "metz": "Metz",
+      "strasbourg": "Strasbourg",
+      "troyes": "Troyes",
+      "dijon": "Dijon",
+      "lyon": "Lyon",
+      "cologne": "Cologne",
+      "rouen": "Rouen"
+    }
   }
 }

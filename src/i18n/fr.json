@@ -571,5 +571,74 @@
       "text": "Cette page est restée en coulisses. Revenez à l'accueil pour poursuivre la visite.",
       "back": "Retour à l'accueil"
     }
+  },
+  "roadmap": {
+    "eyebrow": "Accès",
+    "title": "Au carrefour des grandes autoroutes du nord de l'Europe",
+    "text": [
+      "Saint-Quentin est posée sur l'A26, l'« autoroute des Anglais » : elle relie Calais et le tunnel sous la Manche à Reims et Troyes, puis file vers l'est et le sud de la France.",
+      "L'A29 rejoint Amiens et la Normandie. Toutes proches, l'A1 et l'A2 mènent à Paris, Lille et Bruxelles, tandis que l'A4 et l'A31 ouvrent la route du Luxembourg et de l'Allemagne."
+    ],
+    "hint": "Faites glisser la carte pour l'explorer. Zoomez avec les boutons, Ctrl + molette ou deux doigts.",
+    "zoomIn": "Zoomer",
+    "zoomOut": "Dézoomer",
+    "reset": "Recentrer",
+    "legend": "Afficher un axe",
+    "all": "Tous les axes",
+    "ariaLabel": "Carte : Saint-Quentin au croisement des autoroutes A26, A29, A1, A2, A4 et A31, entre l'Angleterre, la Belgique, le Luxembourg et l'est et le sud de la France",
+    "source": "Fond de carte : Natural Earth. Tracés simplifiés, donnés à titre indicatif.",
+    "tunnel": "Tunnel sous la Manche",
+    "hotel": "Votre hôtel",
+    "corridors": {
+      "a26": {
+        "name": "A26",
+        "desc": "Angleterre · Calais · Reims · Troyes"
+      },
+      "a29": {
+        "name": "A29",
+        "desc": "Amiens · Normandie"
+      },
+      "a1": {
+        "name": "A1 · A2",
+        "desc": "Paris · Lille · Bruxelles"
+      },
+      "a4": {
+        "name": "A4 · A31",
+        "desc": "Luxembourg · Metz · Strasbourg"
+      },
+      "south": {
+        "name": "A5 · A31 · A6",
+        "desc": "Dijon · Lyon · sud de la France"
+      }
+    },
+    "places": {
+      "gb": "Royaume-Uni",
+      "fr": "France",
+      "be": "Belgique",
+      "nl": "Pays-Bas",
+      "lu": "Luxembourg",
+      "de": "Allemagne",
+      "ch": "Suisse",
+      "channel": "La Manche",
+      "northsea": "Mer du Nord"
+    },
+    "cities": {
+      "saint-quentin": "Saint-Quentin",
+      "london": "Londres",
+      "calais": "Calais",
+      "lille": "Lille",
+      "brussels": "Bruxelles",
+      "amiens": "Amiens",
+      "paris": "Paris",
+      "reims": "Reims",
+      "luxembourg": "Luxembourg",
+      "metz": "Metz",
+      "strasbourg": "Strasbourg",
+      "troyes": "Troyes",
+      "dijon": "Dijon",
+      "lyon": "Lyon",
+      "cologne": "Cologne",
+      "rouen": "Rouen"
+    }
   }
 }

@@ -1,0 +1,595 @@
+---
+/**
+ * Carte interactive : Saint-Quentin au carrefour des grandes autoroutes.
+ * Données générées par scripts/build-roadmap.py (Natural Earth, domaine public).
+ * Aucun service tiers : la carte est un SVG dessiné par le site, déplaçable et zoomable.
+ */
+import roadmap from '@/data/roadmap.json';
+import { useTranslations, type Locale } from '@/i18n/config';
+
+interface Props {
+  locale: Locale;
+  id?: string;
+}
+
+const { locale, id = 'carte-acces' } = Astro.props;
+const t = useTranslations(locale);
+const r = t.roadmap;
+
+type CorridorId = keyof typeof r.corridors;
+const corridorOrder: CorridorId[] = ['a26', 'a29', 'a1', 'a4', 'south'];
+
+// Panneaux d'autoroute : texte affiché et axe auquel ils appartiennent
+const shields: { key: keyof typeof roadmap.shields; text: string; corridor: CorridorId }[] = [
+  { key: 'M20', text: 'M20', corridor: 'a26' },
+  { key: 'A26', text: 'A26', corridor: 'a26' },
+  { key: 'A26b', text: 'A26', corridor: 'a26' },
+  { key: 'A29', text: 'A29', corridor: 'a29' },
+  { key: 'A1', text: 'A1', corridor: 'a1' },
+  { key: 'A2', text: 'A2', corridor: 'a1' },
+  { key: 'A4', text: 'A4', corridor: 'a4' },
+  { key: 'A31', text: 'A31', corridor: 'a4' },
+  { key: 'A5', text: 'A5', corridor: 'south' },
+  { key: 'A6', text: 'A6', corridor: 'south' },
+];
+
+// Position des noms de villes par rapport au point (d = droite, g = gauche, b = bas)
+type CityKey = keyof typeof roadmap.cities;
+const cityAnchor: Partial<Record<CityKey, 'g' | 'b'>> = {
+  amiens: 'g',
+  paris: 'g',
+  rouen: 'g',
+  calais: 'g',
+  troyes: 'g',
+  lyon: 'g',
+};
+const cities = (Object.keys(roadmap.cities) as CityKey[]).filter((key) => key !== 'saint-quentin');
+const [sqX, sqY] = roadmap.cities['saint-quentin'];
+const [tunnelLabelX, tunnelLabelY] = [roadmap.cities.calais[0] - 52, roadmap.cities.calais[1] - 28];
+const placeKeys = Object.keys(roadmap.labels) as (keyof typeof roadmap.labels)[];
+---
+
+<div class="roadmap" id={id} data-roadmap>
+  <div class="roadmap-frame relative aspect-square overflow-hidden border border-or/30 bg-[#17110e] sm:aspect-[5/4] lg:aspect-square">
+    <svg
+      viewBox={`0 0 ${roadmap.width} ${roadmap.height}`}
+      preserveAspectRatio="xMidYMid slice"
+      role="img"
+      aria-label={r.ariaLabel}
+      class="roadmap-svg absolute inset-0 size-full cursor-grab touch-none select-none active:cursor-grabbing"
+      data-width={roadmap.width}
+      data-height={roadmap.height}
+      data-focus-x={sqX}
+      data-focus-y={sqY}
+    >
+      <defs>
+        <pattern id={`${id}-grid`} width="50" height="50" patternUnits="userSpaceOnUse">
+          <path
+            d="M50 0H0V50"
+            fill="none"
+            stroke="#b8955c"
+            stroke-opacity="0.07"
+            stroke-width="1"
+          ></path>
+        </pattern>
+        <filter id={`${id}-glow`} x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="4" result="blur"></feGaussianBlur>
+          <feMerge>
+            <feMergeNode in="blur"></feMergeNode>
+            <feMergeNode in="SourceGraphic"></feMergeNode>
+          </feMerge>
+        </filter>
+        <radialGradient id={`${id}-halo`}>
+          <stop offset="0" stop-color="#f0c87a" stop-opacity="0.35"></stop>
+          <stop offset="1" stop-color="#f0c87a" stop-opacity="0"></stop>
+        </radialGradient>
+      </defs>
+
+      <g class="roadmap-world">
+        <rect x="-2000" y="-2000" width="5000" height="5000" fill={`url(#${id}-grid)`}></rect>
+
+        <!-- Pays -->
+        <g class="roadmap-land">
+          {roadmap.countries.map((country) => (
+            <path d={country.d} data-country={country.id} vector-effect="non-scaling-stroke" />
+          ))}
+        </g>
+
+        <!-- Halo autour de Saint-Quentin -->
+        <circle cx={sqX} cy={sqY} r="140" fill={`url(#${id}-halo)`}></circle>
+
+        <!-- Noms des pays et des mers -->
+        <g class="roadmap-places" aria-hidden="true">
+          {placeKeys.map((key) => (
+            <text
+              x={roadmap.labels[key][0]}
+              y={roadmap.labels[key][1]}
+              class:list={[key === 'channel' || key === 'northsea' ? 'is-sea' : 'is-country']}
+            >
+              {r.places[key]}
+            </text>
+          ))}
+        </g>
+
+        <!-- Tunnel sous la Manche -->
+        <path d={roadmap.tunnel} class="roadmap-tunnel" vector-effect="non-scaling-stroke"></path>
+        <text x={tunnelLabelX} y={tunnelLabelY} class="roadmap-tunnel-label" aria-hidden="true">
+          {r.tunnel}
+        </text>
+
+        <!-- Autoroutes -->
+        {roadmap.corridors.map((corridor) => (
+          <g class="roadmap-corridor" data-corridor={corridor.id}>
+            {corridor.paths.map((d) => (
+              <>
+                <path
+                  d={d}
+                  class="glow"
+                  filter={`url(#${id}-glow)`}
+                  vector-effect="non-scaling-stroke"
+                />
+                <path d={d} class="line" vector-effect="non-scaling-stroke" />
+                <path d={d} class="flow" vector-effect="non-scaling-stroke" />
+              </>
+            ))}
+          </g>
+        ))}
+
+        <!-- Panneaux d'autoroute -->
+        <g aria-hidden="true">
+          {shields.map((shield) => (
+            <g
+              class="roadmap-shield"
+              data-corridor={shield.corridor}
+              transform={`translate(${roadmap.shields[shield.key][0]} ${roadmap.shields[shield.key][1]})`}
+            >
+              <g class="scale">
+                <rect x="-17" y="-10" width="34" height="20" rx="4" />
+                <text y="4.5">{shield.text}</text>
+              </g>
+            </g>
+          ))}
+        </g>
+
+        <!-- Villes -->
+        <g class="roadmap-cities" aria-hidden="true">
+          {cities.map((key) => {
+            const [x, y] = roadmap.cities[key];
+            const anchor = cityAnchor[key];
+            return (
+              <g transform={`translate(${x} ${y})`}>
+                <g class="scale">
+                  <circle r="3.5" />
+                  <text
+                    x={anchor === 'g' ? -8 : 8}
+                    y="4"
+                    text-anchor={anchor === 'g' ? 'end' : 'start'}
+                  >
+                    {r.cities[key]}
+                  </text>
+                </g>
+              </g>
+            );
+          })}
+        </g>
+
+        <!-- Saint-Quentin -->
+        <g transform={`translate(${sqX} ${sqY})`} class="roadmap-sq">
+          <g class="scale">
+            <circle r="22" class="pulse" />
+            <circle r="22" class="pulse pulse-2" />
+            <circle r="7" class="core" />
+            <text x="14" y="-12" class="sq-name">
+              {r.cities['saint-quentin']}
+            </text>
+            <text x="14" y="5" class="sq-hotel">
+              {r.hotel}
+            </text>
+          </g>
+        </g>
+      </g>
+    </svg>
+
+    <!-- Commandes de zoom -->
+    <div class="absolute top-3 right-3 flex flex-col gap-1">
+      <button type="button" class="roadmap-btn" data-zoom="in" aria-label={r.zoomIn}>
+        +
+      </button>
+      <button type="button" class="roadmap-btn" data-zoom="out" aria-label={r.zoomOut}>
+        −
+      </button>
+      <button type="button" class="roadmap-btn text-base" data-zoom="reset" aria-label={r.reset}>
+        ⌖
+      </button>
+    </div>
+    <p class="pointer-events-none absolute bottom-3 left-3 max-w-[75%] bg-[#17110e]/80 px-2 py-1 text-[0.6875rem] text-ivoire/70">
+      {r.hint}
+    </p>
+  </div>
+
+  <!-- Légende : surligner un axe -->
+  <div class="mt-5">
+    <p class="eyebrow text-ivoire/60">{r.legend}</p>
+    <ul class="mt-3 flex flex-wrap gap-2">
+      <li>
+        <button type="button" class="roadmap-chip" data-focus="" aria-pressed="true">
+          {r.all}
+        </button>
+      </li>
+      {corridorOrder.map((corridorId) => (
+        <li>
+          <button type="button" class="roadmap-chip" data-focus={corridorId} aria-pressed="false">
+            <span class="font-semibold">{r.corridors[corridorId].name}</span>
+            <span class="opacity-75">{r.corridors[corridorId].desc}</span>
+          </button>
+        </li>
+      ))}
+    </ul>
+    <p class="mt-4 text-xs text-ivoire/50">{r.source}</p>
+  </div>
+</div>
+
+<style>
+  .roadmap-svg {
+    --k: 1;
+    font-family: var(--font-sans);
+  }
+
+  .roadmap-land path {
+    fill: #2b221d;
+    stroke: #b8955c;
+    stroke-opacity: 0.35;
+    stroke-width: 1;
+  }
+
+  .roadmap-land path[data-country='fr'] {
+    fill: #352a23;
+  }
+
+  .roadmap-places text {
+    font-size: calc(13px / var(--k));
+    letter-spacing: 0.3em;
+    text-anchor: middle;
+    text-transform: uppercase;
+    fill: #fff9e9;
+    fill-opacity: 0.32;
+  }
+
+  .roadmap-places text.is-sea {
+    font-family: var(--font-serif);
+    font-style: italic;
+    letter-spacing: 0.08em;
+    text-transform: none;
+    font-size: calc(17px / var(--k));
+    fill: #b8955c;
+    fill-opacity: 0.55;
+  }
+
+  .roadmap-tunnel {
+    fill: none;
+    stroke: #f0c87a;
+    stroke-width: 2;
+    stroke-dasharray: 4 5;
+    opacity: 0.85;
+  }
+
+  .roadmap-tunnel-label {
+    font-size: calc(10px / var(--k));
+    fill: #f0c87a;
+    fill-opacity: 0.8;
+    text-anchor: middle;
+    font-style: italic;
+  }
+
+  .roadmap-corridor path {
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: opacity 0.4s ease;
+  }
+
+  .roadmap-corridor .glow {
+    stroke: #f0c87a;
+    stroke-width: 7;
+    stroke-opacity: 0.22;
+  }
+
+  .roadmap-corridor .line {
+    stroke: #d9ad62;
+    stroke-width: 2.4;
+  }
+
+  .roadmap-corridor[data-corridor='a26'] .line {
+    stroke: #f6d38f;
+    stroke-width: 3.2;
+  }
+
+  .roadmap-corridor .flow {
+    stroke: #fff9e9;
+    stroke-width: 1.6;
+    stroke-dasharray: 2 16;
+    opacity: 0.85;
+  }
+
+  .roadmap-shield rect {
+    fill: #6e1f2a;
+    stroke: #fff9e9;
+    stroke-width: 1.2;
+  }
+
+  .roadmap-shield text {
+    font-size: 11px;
+    font-weight: 700;
+    fill: #fff9e9;
+    text-anchor: middle;
+    letter-spacing: 0.04em;
+  }
+
+  .roadmap-shield,
+  .roadmap-corridor {
+    transition: opacity 0.4s ease;
+  }
+
+  /* Les marqueurs gardent la même taille quel que soit le zoom */
+  .scale {
+    transform: scale(calc(1 / var(--k)));
+  }
+
+  .roadmap-cities circle {
+    fill: #fff9e9;
+    stroke: #17110e;
+    stroke-width: 1.5;
+  }
+
+  .roadmap-cities text {
+    font-size: 12px;
+    fill: #fff9e9;
+    fill-opacity: 0.88;
+    paint-order: stroke;
+    stroke: #17110e;
+    stroke-width: 3px;
+    stroke-linejoin: round;
+  }
+
+  .roadmap-sq .core {
+    fill: #f0c87a;
+    stroke: #fff9e9;
+    stroke-width: 2;
+  }
+
+  .roadmap-sq .pulse {
+    fill: none;
+    stroke: #f0c87a;
+    stroke-width: 1.5;
+    opacity: 0;
+  }
+
+  .roadmap-sq text {
+    paint-order: stroke;
+    stroke: #17110e;
+    stroke-width: 4px;
+    stroke-linejoin: round;
+  }
+
+  .roadmap-sq .sq-name {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    font-weight: 600;
+    fill: #fff9e9;
+  }
+
+  .roadmap-sq .sq-hotel {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    fill: #f0c87a;
+  }
+
+  /* Mise en avant d'un axe */
+  [data-focus-active] .roadmap-corridor:not(.is-focus),
+  [data-focus-active] .roadmap-shield:not(.is-focus) {
+    opacity: 0.15;
+  }
+
+  .roadmap-btn {
+    display: inline-flex;
+    width: 2.75rem;
+    height: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgb(184 149 92 / 0.5);
+    background: rgb(23 17 14 / 0.8);
+    color: #fff9e9;
+    font-size: 1.375rem;
+    line-height: 1;
+    backdrop-filter: blur(4px);
+    transition:
+      background-color 0.2s,
+      border-color 0.2s;
+  }
+
+  .roadmap-btn:hover {
+    border-color: #f0c87a;
+    background: rgb(110 31 42 / 0.9);
+  }
+
+  .roadmap-chip {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid rgb(255 249 233 / 0.2);
+    padding: 0.4rem 0.9rem;
+    font-size: 0.8125rem;
+    color: #fff9e9;
+    transition:
+      border-color 0.2s,
+      background-color 0.2s;
+  }
+
+  .roadmap-chip:hover {
+    border-color: #f0c87a;
+  }
+
+  .roadmap-chip[aria-pressed='true'] {
+    border-color: #f0c87a;
+    background: rgb(240 200 122 / 0.12);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .roadmap-corridor .flow {
+      animation: roadmap-flow 3s linear infinite;
+    }
+
+    .roadmap-sq .pulse {
+      animation: roadmap-pulse 2.6s ease-out infinite;
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+
+    .roadmap-sq .pulse-2 {
+      animation-delay: 1.3s;
+    }
+  }
+
+  @keyframes roadmap-flow {
+    to {
+      stroke-dashoffset: -72;
+    }
+  }
+
+  @keyframes roadmap-pulse {
+    from {
+      opacity: 0.9;
+      transform: scale(0.3);
+    }
+    to {
+      opacity: 0;
+      transform: scale(2.2);
+    }
+  }
+</style>
+
+<script>
+  // Déplacement et zoom de la carte (souris, tactile, clavier) et mise en avant d'un axe.
+  document.querySelectorAll<HTMLElement>('[data-roadmap]').forEach((root) => {
+    const svg = root.querySelector<SVGSVGElement>('svg');
+    if (!svg) return;
+    const width = Number(svg.dataset.width);
+    const height = Number(svg.dataset.height);
+    const focusX = Number(svg.dataset.focusX);
+    const focusY = Number(svg.dataset.focusY);
+    const MIN = 1;
+    const MAX = 6;
+
+    // Vue initiale : zoomée sur Saint-Quentin (davantage sur petit écran)
+    const initialView = () => ({
+      k: svg.clientWidth < 640 ? 2 : 1.35,
+      cx: focusX + 40,
+      cy: focusY + 60,
+    });
+    let view = initialView();
+
+    const apply = () => {
+      const w = width / view.k;
+      const h = height / view.k;
+      view.cx = Math.min(Math.max(view.cx, w / 2), width - w / 2);
+      view.cy = Math.min(Math.max(view.cy, h / 2), height - h / 2);
+      svg.setAttribute('viewBox', `${view.cx - w / 2} ${view.cy - h / 2} ${w} ${h}`);
+      // --k = pixels écran par unité de carte : textes et marqueurs gardent une taille lisible
+      const pixelsPerUnit = Math.max(svg.clientWidth / w, svg.clientHeight / h) || 1;
+      svg.style.setProperty('--k', String(pixelsPerUnit));
+    };
+
+    // Conversion d'un point écran en coordonnées de la carte
+    const toMap = (clientX: number, clientY: number) => {
+      const point = new DOMPoint(clientX, clientY).matrixTransform(svg.getScreenCTM()?.inverse());
+      return { x: point.x, y: point.y };
+    };
+
+    const zoomAt = (factor: number, mapX = view.cx, mapY = view.cy) => {
+      const k = Math.min(MAX, Math.max(MIN, view.k * factor));
+      const ratio = view.k / k;
+      view = { k, cx: mapX + (view.cx - mapX) * ratio, cy: mapY + (view.cy - mapY) * ratio };
+      apply();
+    };
+
+    // Glisser (un pointeur) et pincer (deux pointeurs)
+    const pointers = new Map<number, { x: number; y: number }>();
+    let pinchDistance = 0;
+    svg.addEventListener('pointerdown', (event) => {
+      svg.setPointerCapture(event.pointerId);
+      pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+      if (pointers.size === 2) {
+        const [a, b] = [...pointers.values()];
+        pinchDistance = Math.hypot(a.x - b.x, a.y - b.y);
+      }
+    });
+    svg.addEventListener('pointermove', (event) => {
+      const previous = pointers.get(event.pointerId);
+      if (!previous) return;
+      const current = { x: event.clientX, y: event.clientY };
+      pointers.set(event.pointerId, current);
+      if (pointers.size === 1) {
+        const a = toMap(previous.x, previous.y);
+        const b = toMap(current.x, current.y);
+        view.cx -= b.x - a.x;
+        view.cy -= b.y - a.y;
+        apply();
+      } else if (pointers.size === 2) {
+        const [a, b] = [...pointers.values()];
+        const distance = Math.hypot(a.x - b.x, a.y - b.y);
+        if (pinchDistance > 0) {
+          const middle = toMap((a.x + b.x) / 2, (a.y + b.y) / 2);
+          zoomAt(distance / pinchDistance, middle.x, middle.y);
+        }
+        pinchDistance = distance;
+      }
+    });
+    const release = (event: PointerEvent) => {
+      pointers.delete(event.pointerId);
+      pinchDistance = 0;
+    };
+    svg.addEventListener('pointerup', release);
+    svg.addEventListener('pointercancel', release);
+
+    // Molette : zoom avec Ctrl (ou geste de pincement du pavé tactile), sinon la page défile
+    svg.addEventListener(
+      'wheel',
+      (event) => {
+        if (!event.ctrlKey && !event.metaKey) return;
+        event.preventDefault();
+        const point = toMap(event.clientX, event.clientY);
+        zoomAt(Math.exp(-event.deltaY * 0.01), point.x, point.y);
+      },
+      { passive: false },
+    );
+
+    root.querySelectorAll<HTMLButtonElement>('[data-zoom]').forEach((button) => {
+      button.addEventListener('click', () => {
+        if (button.dataset.zoom === 'in') zoomAt(1.5);
+        else if (button.dataset.zoom === 'out') zoomAt(1 / 1.5);
+        else {
+          view = initialView();
+          apply();
+        }
+      });
+    });
+
+    // Légende : mettre en avant un axe
+    const chips = root.querySelectorAll<HTMLButtonElement>('[data-focus]');
+    chips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        const id = chip.dataset.focus ?? '';
+        chips.forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
+        svg.toggleAttribute('data-focus-active', id !== '');
+        svg.querySelectorAll('[data-corridor]').forEach((el) => {
+          el.classList.toggle('is-focus', (el as SVGElement).dataset.corridor === id);
+        });
+      });
+    });
+
+    apply();
+    new ResizeObserver(apply).observe(svg);
+  });
+</script>

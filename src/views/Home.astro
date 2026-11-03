@@ -11,6 +11,7 @@ import CheckList from '@/components/CheckList.astro';
 import Marquee from '@/components/Marquee.astro';
 import FeatureGrid from '@/components/FeatureGrid.astro';
 import ContactBand from '@/components/ContactBand.astro';
+import AccessSection from '@/components/AccessSection.astro';
 import { pick, useTranslations, type Locale } from '@/i18n/config';
 import { url } from '@/i18n/routes';
 import { hotel } from '@/data/hotel';
@@ -251,6 +252,8 @@ const mosaic = [photos.courPavillons, photos.salonCheminee2, photos.portailLogo]
       </ol>
     </div>
   </section>
+
+  <AccessSection locale={locale} />
 
   <!-- Réserver en direct -->
   <section aria-labelledby="direct-titre" class="bg-brun py-20 text-ivoire md:py-24">

@@ -78,6 +78,7 @@ src/
   data/
     hotel.ts         # faits de l'hôtel : adresse, téléphones, horaires, tarifs, lien de réservation
     photos.ts        # photos hors chambres, avec texte alternatif FR/EN/DE
+    roadmap.json     # carte des autoroutes (générée par scripts/build-roadmap.py depuis Natural Earth)
   i18n/
     fr.json, en.json, de.json   # tous les textes d'interface ET des pages
     routes.ts        # plan du site : URL de chaque page dans chaque langue
@@ -162,7 +163,8 @@ Tenir la liste complète des redirections dans le fichier de configuration de l'
 - Précharger l'image hero et les polices critiques.
 - Le site doit rester utilisable sans JavaScript (navigation, contenu, liens de réservation).
 - Le contraste doit être conforme AA, la navigation possible au clavier et le focus visible. Toutes les images informatives ont un `alt` descriptif (en FR, EN et DE).
-- La carte est chargée seulement au clic (façade), pour la performance et le RGPD.
+- La carte OpenStreetMap de la page contact est chargée seulement au clic (façade), pour la performance et le RGPD.
+- La carte « Accès » des autoroutes (`RoadMap.astro`) est un SVG maison, sans service tiers. Pour la modifier : ajuster `scripts/build-roadmap.py` (axes, villes, étiquettes) puis le relancer avec les fichiers Natural Earth `ne_50m_admin_0_countries.geojson` et `ne_10m_roads.geojson`.
 
 ## RGPD et mentions légales
 
