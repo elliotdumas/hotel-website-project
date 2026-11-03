@@ -9,7 +9,8 @@
     "preview": "astro preview",
     "check": "astro check",
     "lint": "eslint . && prettier --check .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "brochure": "node brochure/build.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
