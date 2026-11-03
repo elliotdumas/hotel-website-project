@@ -108,6 +108,7 @@ Tenir la liste complète des redirections dans le fichier de configuration de l'
 
 ## Direction artistique
 
+- **Référence visuelle :** `assets-source/inspiration/maquette-mobile-reference.webp` est une maquette mobile d'un autre hôtel, fournie comme **inspiration de mise en page uniquement**. À reprendre : le hero plein écran avec le titre en serif, l'alternance de fonds crème et brun foncé, les grandes photos pleine largeur, les chiffres clés, le carrousel des chambres et les sections empilées (restaurant, spa, piscine, lounge, activités) avec leur petit lien. Ne copier ni ses textes, ni ses photos, ni sa marque.
 - **Ambiance :** l'élégance chaleureuse d'un théâtre à l'italienne. On peut s'inspirer d'un rideau de velours, de dorures discrètes et de lumières tamisées, sans tomber dans le kitsch.
 - **Palette proposée** (à valider avec le client, le site actuel n'en définit pas) :
   - `--color-velours` : rouge bordeaux profond (accent principal, CTA)
