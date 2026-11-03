@@ -1,0 +1,15 @@
+# Configuration Netlify : Netlify lit ce fichier automatiquement.
+[build]
+  command = "pnpm build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Version de prévisualisation : on demande à Google de ne pas indexer le site,
+# pour ne pas concurrencer le site actuel.
+# TODO: supprimer ce bloc le jour de la mise en ligne sur le vrai domaine.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Robots-Tag = "noindex"
