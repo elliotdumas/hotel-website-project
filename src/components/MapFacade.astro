@@ -1,0 +1,48 @@
+---
+import Icon from './Icon.astro';
+import { useTranslations, type Locale } from '@/i18n/config';
+import { hotel } from '@/data/hotel';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+---
+
+<!-- Carte chargée uniquement au clic (performance et RGPD) -->
+<div
+  class="map-facade relative aspect-[4/3] overflow-hidden bg-sable sm:aspect-[16/9]"
+  data-src={hotel.osmEmbedUrl}
+  data-title={t.map.title}
+>
+  <div class="absolute inset-0 flex flex-col items-center justify-center gap-4 p-6 text-center">
+    <Icon name="pin" class="size-10 text-velours" />
+    <p class="font-serif text-2xl">
+      {hotel.address.street}, {hotel.address.postalCode} {hotel.address.city}
+    </p>
+    <div class="flex flex-wrap justify-center gap-3">
+      <button type="button" class="btn btn-outline-dark" data-load-map>
+        {t.map.load}
+      </button>
+      <a href={hotel.mapsUrl} rel="noopener" class="btn btn-primary">
+        {t.cta.directions}
+      </a>
+    </div>
+    <p class="max-w-md text-xs text-taupe">{t.map.notice}</p>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.map-facade').forEach((facade) => {
+    facade.querySelector('[data-load-map]')?.addEventListener('click', () => {
+      const iframe = document.createElement('iframe');
+      iframe.src = facade.dataset.src ?? '';
+      iframe.title = facade.dataset.title ?? '';
+      iframe.loading = 'lazy';
+      iframe.className = 'absolute inset-0 size-full border-0';
+      facade.replaceChildren(iframe);
+    });
+  });
+</script>

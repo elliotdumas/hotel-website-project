@@ -1,0 +1,141 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import StorySection from '@/components/StorySection.astro';
+import CheckList from '@/components/CheckList.astro';
+import Gallery from '@/components/Gallery.astro';
+import { format, pick, useTranslations, type Locale } from '@/i18n/config';
+import { url } from '@/i18n/routes';
+import { photos } from '@/data/photos';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const p = t.pages.hotel;
+const rooms = (await getCollection('rooms')).sort((a, b) => a.data.order - b.data.order);
+
+const equipment = [
+  { title: p.equipmentRoom, items: p.equipmentRoomList },
+  { title: p.equipmentBath, items: p.equipmentBathList },
+  { title: p.equipmentRequest, items: p.equipmentRequestList },
+];
+
+const ambiance = [
+  photos.espaceDeVie1,
+  photos.escalierBois,
+  photos.sculptureSinge,
+  photos.espaceDeVie3,
+  photos.courVueAerienne,
+  photos.signaletiqueScene,
+  photos.espaceDeVie5,
+  photos.vaseApplique,
+];
+---
+
+<BaseLayout
+  locale={locale}
+  page="hotel"
+  title={p.title}
+  description={p.description}
+  image={photos.courNuit.src}
+>
+  <PageHero
+    locale={locale}
+    image={photos.courNuit.src}
+    alt={pick(photos.courNuit.alt, locale)}
+    title={p.heroTitle}
+    text={p.heroText}
+  />
+
+  <section aria-labelledby="intro-titre" class="py-20 md:py-28">
+    <div class="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-4 sm:px-6 lg:grid-cols-12 lg:px-8">
+      <div class="lg:col-span-6" data-reveal>
+        <SectionHeading title={p.introTitle} id="intro-titre" />
+        <div class="mt-8 space-y-4 text-lg text-taupe">
+          {p.introText.map((paragraph) => (
+            <p>{paragraph}</p>
+          ))}
+        </div>
+      </div>
+      <div class="lg:col-span-6">
+        <h2 class="eyebrow text-or-fonce">{p.categoriesTitle}</h2>
+        <ul class="mt-6 divide-y divide-lin border-y border-lin">
+          {rooms.map((room) => (
+            <li>
+              <a
+                href={url('rooms', locale, room.id)}
+                class="group flex items-baseline justify-between gap-4 py-4"
+              >
+                <span class="font-serif text-2xl transition-colors group-hover:text-velours">
+                  {pick(room.data.name, locale)}
+                </span>
+                <span class="shrink-0 text-sm text-taupe">
+                  {format(t.room.sizeValue, { size: room.data.size })}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="equipements-titre" class="bg-sable py-20 md:py-28">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        eyebrow={p.equipmentEyebrow}
+        title={p.equipmentTitle}
+        id="equipements-titre"
+      />
+      <div class="mt-12 grid gap-12 md:grid-cols-3">
+        {equipment.map((group) => (
+          <div data-reveal>
+            <h3 class="text-2xl">{group.title}</h3>
+            <CheckList items={group.items} class="mt-6 text-sm" />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <StorySection
+    image={photos.pavillon1.src}
+    alt={pick(photos.pavillon1.alt, locale)}
+    title={p.relaxTitle}
+    text={p.relaxText}
+    link={{ href: url('services', locale), label: t.nav.services }}
+  />
+  <StorySection
+    image={photos.espaceDeVie4.src}
+    alt={pick(photos.espaceDeVie4.alt, locale)}
+    title={p.servicesTitle}
+    text={p.servicesText}
+    link={{ href: url('services', locale), label: t.nav.services }}
+    reverse
+  />
+  <StorySection
+    image={photos.numeroChambre.src}
+    alt={pick(photos.numeroChambre.alt, locale)}
+    title={p.comfortTitle}
+    text={p.comfortText}
+    link={{ href: url('rooms', locale), label: t.cta.seeRooms }}
+  />
+
+  <section class="py-16 md:py-20" aria-label={t.nav.gallery}>
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <Gallery
+        locale={locale}
+        label={t.nav.gallery}
+        photos={ambiance.map((photo) => ({ src: photo.src, alt: pick(photo.alt, locale) }))}
+      />
+      <a href={url('gallery', locale)} class="link-arrow mt-8 text-or-fonce">
+        {t.cta.seeGallery}
+      </a>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,68 @@
+# Chambre Rooftop — source : https://www.hotel-coulisses-du-theatre.com/nos-chambres/
+order: 2
+name:
+  fr: Chambre Rooftop
+  en: Rooftop Room
+  de: Rooftop-Zimmer
+tagline:
+  fr: Une vaste terrasse sur les toits, rien que pour vous
+  en: A large rooftop terrace, all to yourself
+  de: Eine große Dachterrasse ganz für Sie allein
+size: '14'
+guests:
+  fr: 2 personnes
+  en: 2 guests
+  de: 2 Personen
+bed:
+  fr: Lit double ou lits jumeaux
+  en: Double bed or twin beds
+  de: Doppelbett oder zwei Einzelbetten
+priceFrom: 89
+priceNote:
+  fr: À partir de 89 € l’hiver et 125 € l’été
+  en: From €89 in winter and €125 in summer
+  de: Ab 89 € im Winter und 125 € im Sommer
+description:
+  - fr: Pensée pour offrir une expérience exclusive, la Chambre Rooftop allie un espace intérieur de 14 m² conçu pour l’essentiel du confort à une vaste terrasse rooftop, véritable petite oasis végétalisée.
+    en: Designed as an exclusive experience, the Rooftop Room pairs a 14 m² interior with everything you need for comfort and a large rooftop terrace, a small green oasis.
+    de: Das Rooftop-Zimmer ist als exklusives Erlebnis gedacht. Es verbindet 14 m² Innenraum mit allem Komfort und eine große Dachterrasse, eine kleine grüne Oase.
+  - fr: Avec son salon de jardin et ses deux bains de soleil, c’est l’endroit idéal pour se prélasser au soleil ou admirer les étoiles. Idéale pour une escapade romantique ou un séjour en solo alliant sérénité et élégance.
+    en: With its garden furniture and two sun loungers, it is the perfect spot to relax in the sun or gaze at the stars. Ideal for a romantic getaway or a calm, elegant solo stay.
+    de: Mit Gartenmöbeln und zwei Sonnenliegen ist sie der perfekte Ort, um in der Sonne zu entspannen oder die Sterne zu betrachten. Ideal für eine romantische Auszeit oder einen ruhigen, eleganten Aufenthalt allein.
+amenities: [tv, intlChannels, kettle, coffee, ac, shower, outdoorLounge, sunLoungers, hairdryer]
+highlight:
+  fr: Terrasse et balcon en rooftop
+  en: Rooftop terrace and balcony
+  de: Dachterrasse und Balkon
+noPets: true
+photos:
+  - src: ../../assets/photos/chambres/rooftop-terrasse-1.jpg
+    alt:
+      fr: Terrasse rooftop avec salon de jardin, plantes et vue sur les toits de Saint-Quentin
+      en: Rooftop terrace with garden lounge, plants and views over the rooftops of Saint-Quentin
+      de: Dachterrasse mit Lounge-Möbeln, Pflanzen und Blick über die Dächer von Saint-Quentin
+  - src: ../../assets/photos/chambres/rooftop-1.jpg
+    alt:
+      fr: Chambre Rooftop avec lit double et porte-fenêtre ouverte sur la terrasse
+      en: Rooftop Room with double bed and French window opening onto the terrace
+      de: Rooftop-Zimmer mit Doppelbett und offener Fenstertür zur Terrasse
+  - src: ../../assets/photos/chambres/rooftop-2.jpg
+    alt:
+      fr: Bureau et télévision dans la Chambre Rooftop, terrasse en arrière-plan
+      en: Desk and television in the Rooftop Room, terrace in the background
+      de: Schreibtisch und Fernseher im Rooftop-Zimmer, Terrasse im Hintergrund
+  - src: ../../assets/photos/chambres/rooftop-3.jpg
+    alt:
+      fr: Lit double et miroir sur pied de la Chambre Rooftop
+      en: Double bed and floor mirror in the Rooftop Room
+      de: Doppelbett und Standspiegel im Rooftop-Zimmer
+  - src: ../../assets/photos/chambres/rooftop-terrasse-2.jpg
+    alt:
+      fr: Terrasse rooftop végétalisée avec bains de soleil
+      en: Planted rooftop terrace with sun loungers
+      de: Begrünte Dachterrasse mit Sonnenliegen
+  - src: ../../assets/photos/chambres/rooftop-terrasse-3.jpg
+    alt:
+      fr: Salon extérieur de la terrasse rooftop sous un ciel bleu
+      en: Outdoor lounge on the rooftop terrace under a blue sky
+      de: Außenlounge auf der Dachterrasse unter blauem Himmel

@@ -1,0 +1,65 @@
+# Chambre Privilège — source : https://www.hotel-coulisses-du-theatre.com/nos-chambres/
+order: 5
+name:
+  fr: Chambre Privilège
+  en: Privilege Room
+  de: Privilege-Zimmer
+tagline:
+  fr: Le summum du confort, spacieuse et lumineuse
+  en: The height of comfort, spacious and bright
+  de: Komfort auf höchstem Niveau, geräumig und hell
+size: '21 à 25'
+guests:
+  fr: 2 personnes (+1 enfant en canapé-lit selon les chambres)
+  en: 2 guests (+1 child on a sofa bed in some rooms)
+  de: 2 Personen (+1 Kind auf dem Schlafsofa in einigen Zimmern)
+bed:
+  fr: Lit 180 × 200 cm
+  en: 180 × 200 cm bed
+  de: Bett 180 × 200 cm
+priceFrom: 109
+description:
+  - fr: De 21 à 25 m², nos Chambres Privilège incarnent le summum du confort, avec un espace de vie spacieux et lumineux dans un cadre élégant. Vous y attend un lit de 180 × 200 cm, douillet grâce à notre linge français en coton et duvet de canard.
+    en: At 21 to 25 m², our Privilege Rooms are the height of comfort, with a spacious, bright living area in an elegant setting. A 180 × 200 cm bed awaits you, made cosy with our French cotton linen and duck down.
+    de: Mit 21 bis 25 m² bieten unsere Privilege-Zimmer höchsten Komfort mit einem geräumigen, hellen Wohnbereich in elegantem Ambiente. Sie erwartet ein 180 × 200 cm großes Bett mit französischer Baumwollwäsche und Entendaunen.
+  - fr: Idéales pour une escapade romantique, un voyage d’affaires ou des vacances en famille, elles peuvent disposer d’un canapé-lit pour un enfant.
+    en: Ideal for a romantic getaway, a business trip or a family holiday, they can include a sofa bed for one child.
+    de: Ideal für eine romantische Auszeit, eine Geschäftsreise oder einen Familienurlaub; ein Schlafsofa für ein Kind ist möglich.
+amenities:
+  [tv, intlChannels, accessible, safe, kettle, coffee, ac, showerOrBath, sofaBed, hairdryer]
+photos:
+  - src: ../../assets/photos/chambres/privilege-1.jpg
+    alt:
+      fr: Chambre Privilège avec grand lit, coussins noirs et lampadaire
+      en: Privilege Room with large bed, black cushions and floor lamp
+      de: Privilege-Zimmer mit großem Bett, schwarzen Kissen und Stehlampe
+  - src: ../../assets/photos/chambres/privilege-2.jpg
+    alt:
+      fr: Chambre Privilège en rez-de-chaussée, lumineuse, avec grand lit
+      en: Bright ground-floor Privilege Room with large bed
+      de: Helles Privilege-Zimmer im Erdgeschoss mit großem Bett
+  - src: ../../assets/photos/chambres/privilege-3.jpg
+    alt:
+      fr: Chambre Privilège accessible, avec grand lit et parquet clair
+      en: Accessible Privilege Room with large bed and light parquet floor
+      de: Barrierefreies Privilege-Zimmer mit großem Bett und hellem Parkett
+  - src: ../../assets/photos/chambres/privilege-4.jpg
+    alt:
+      fr: Bureau, télévision et machine à café dans une Chambre Privilège
+      en: Desk, television and coffee machine in a Privilege Room
+      de: Schreibtisch, Fernseher und Kaffeemaschine in einem Privilege-Zimmer
+  - src: ../../assets/photos/chambres/privilege-5.jpg
+    alt:
+      fr: Lit d’une Chambre Privilège avec coussins moutarde et plaid noir
+      en: Privilege Room bed with mustard cushions and black throw
+      de: Bett im Privilege-Zimmer mit senffarbenen Kissen und schwarzer Decke
+  - src: ../../assets/photos/chambres/privilege-sdb-1.jpg
+    alt:
+      fr: Salle de bain avec douche vitrée et miroir rond
+      en: Bathroom with glass shower and round mirror
+      de: Bad mit Glasdusche und rundem Spiegel
+  - src: ../../assets/photos/chambres/privilege-sdb-2.jpg
+    alt:
+      fr: Douche accessible avec siège rabattable
+      en: Accessible shower with fold-down seat
+      de: Barrierefreie Dusche mit Klappsitz

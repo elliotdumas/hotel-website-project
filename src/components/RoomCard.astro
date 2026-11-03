@@ -1,0 +1,42 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Picture } from 'astro:assets';
+import { format, pick, useTranslations, type Locale } from '@/i18n/config';
+import { url } from '@/i18n/routes';
+
+interface Props {
+  room: CollectionEntry<'rooms'>;
+  locale: Locale;
+}
+
+const { room, locale } = Astro.props;
+const t = useTranslations(locale);
+const cover = room.data.photos[0];
+const href = url('rooms', locale, room.id);
+---
+
+<article class="group relative w-[78vw] max-w-sm sm:w-[22rem]">
+  <div class="aspect-[4/5] overflow-hidden bg-sable">
+    <Picture
+      src={cover.src}
+      alt={pick(cover.alt, locale)}
+      widths={[360, 540, 720]}
+      sizes="(min-width: 640px) 22rem, 78vw"
+      formats={['avif', 'webp']}
+      class="size-full object-cover transition-transform duration-700 group-hover:scale-105"
+    />
+  </div>
+  <h3 class="mt-5 text-3xl">
+    <a href={href} class="after:absolute after:inset-0">
+      {pick(room.data.name, locale)}
+    </a>
+  </h3>
+  <p class="mt-1 text-sm text-taupe">
+    {format(t.room.sizeValue, { size: room.data.size })} · {pick(room.data.guests, locale)}
+  </p>
+  <p class="mt-3 flex items-baseline gap-1.5 text-sm">
+    <span class="text-taupe">{t.room.from}</span>
+    <span class="font-serif text-2xl text-encre">{room.data.priceFrom} €</span>
+    <span class="text-taupe">{t.room.perNight}</span>
+  </p>
+</article>

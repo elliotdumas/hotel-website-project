@@ -1,0 +1,124 @@
+---
+import Icon from './Icon.astro';
+import { useTranslations, type Locale } from '@/i18n/config';
+import { url } from '@/i18n/routes';
+import { hotel } from '@/data/hotel';
+
+interface Props {
+  locale: Locale;
+  /** `bar` : bandeau horizontal (hero) ; `card` : bloc vertical */
+  variant?: 'bar' | 'card';
+  id?: string;
+}
+
+const { locale, variant = 'bar', id = 'booking' } = Astro.props;
+const t = useTranslations(locale);
+
+/*
+ * Tant que le moteur de réservation n'est pas connu (hotel.bookingUrl = null), le formulaire
+ * envoie vers la page contact, qui pré-remplit une demande de réservation avec ces paramètres.
+ * TODO: adapter les noms des paramètres au lien profond du moteur de réservation.
+ */
+const action = hotel.bookingUrl ?? url('contact', locale, 'reserver');
+const field =
+  'w-full min-w-0 border-0 border-b border-current/30 bg-transparent px-0 py-2 text-base focus:border-or focus:ring-0 focus:outline-none';
+const label = 'eyebrow mb-1 block opacity-80';
+---
+
+<form
+  id={id}
+  action={action}
+  method="get"
+  class:list={[
+    'booking-form',
+    variant === 'bar'
+      ? 'grid grid-cols-2 gap-x-5 gap-y-4 bg-nuit/85 p-5 text-ivoire backdrop-blur-md md:grid-cols-[1.2fr_1.2fr_0.7fr_0.7fr_0.7fr_auto] md:items-end md:p-6'
+      : 'grid grid-cols-1 gap-5 bg-sable p-6 text-encre sm:grid-cols-2 sm:p-8',
+  ]}
+>
+  <p class:list={['col-span-full font-serif text-2xl', variant === 'bar' ? 'md:sr-only' : '']}>
+    {t.booking.title}
+  </p>
+  <div>
+    <label for={`${id}-arrivee`} class={label}>
+      {t.booking.checkIn}
+    </label>
+    <input id={`${id}-arrivee`} name="arrivee" type="date" required class={field} data-checkin />
+  </div>
+  <div>
+    <label for={`${id}-depart`} class={label}>
+      {t.booking.checkOut}
+    </label>
+    <input id={`${id}-depart`} name="depart" type="date" required class={field} data-checkout />
+  </div>
+  <div>
+    <label for={`${id}-chambres`} class={label}>
+      {t.booking.rooms}
+    </label>
+    <select id={`${id}-chambres`} name="chambres" class={field}>
+      {[1, 2, 3, 4, 5].map((n) => (
+        <option class="text-encre">{n}</option>
+      ))}
+    </select>
+  </div>
+  <div>
+    <label for={`${id}-adultes`} class={label}>
+      {t.booking.adults}
+    </label>
+    <select id={`${id}-adultes`} name="adultes" class={field}>
+      {[1, 2, 3, 4, 5, 6].map((n) => (
+        <option class="text-encre" selected={n === 2}>
+          {n}
+        </option>
+      ))}
+    </select>
+  </div>
+  <div class="col-span-2 md:col-span-1">
+    <label for={`${id}-enfants`} class={label}>
+      {t.booking.children}
+    </label>
+    <select id={`${id}-enfants`} name="enfants" class={field}>
+      {[0, 1, 2, 3, 4].map((n) => (
+        <option class="text-encre">{n}</option>
+      ))}
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary col-span-full md:col-span-1">
+    <Icon name="calendar" class="size-4" />
+    {t.booking.submit}
+  </button>
+  <p class="col-span-full text-sm opacity-85">
+    {t.booking.bestRate}{' '}
+    <span class="whitespace-nowrap">
+      {t.booking.byPhone}{' '}
+      <a href={hotel.phones[0].href} class="underline underline-offset-2">
+        {hotel.phones[0].display}
+      </a>
+    </span>
+  </p>
+</form>
+
+<script>
+  // Dates par défaut (ce soir → demain) et départ toujours après l'arrivée.
+  const iso = (d: Date) => {
+    const local = new Date(d.getTime() - d.getTimezoneOffset() * 60000);
+    return local.toISOString().slice(0, 10);
+  };
+  document.querySelectorAll<HTMLFormElement>('.booking-form').forEach((form) => {
+    const checkIn = form.querySelector<HTMLInputElement>('[data-checkin]');
+    const checkOut = form.querySelector<HTMLInputElement>('[data-checkout]');
+    if (!checkIn || !checkOut) return;
+    const today = new Date();
+    const tomorrow = new Date(today.getTime() + 86400000);
+    checkIn.min = iso(today);
+    if (!checkIn.value) checkIn.value = iso(today);
+    const sync = () => {
+      const next = new Date(new Date(checkIn.value).getTime() + 86400000);
+      checkOut.min = iso(next);
+      if (!checkOut.value || checkOut.value <= checkIn.value) checkOut.value = iso(next);
+    };
+    if (!checkOut.value) checkOut.value = iso(tomorrow);
+    sync();
+    checkIn.addEventListener('change', sync);
+  });
+</script>

@@ -1,0 +1,11 @@
+# Redirections 301 de l'ancien site (format Netlify).
+# Les URL françaises sont conservées à l'identique ; seules les anciennes adresses EN/DE changent.
+/en/home/            /en/                301
+/en/home             /en/                301
+/de/willkommen/      /de/                301
+/de/willkommen       /de/                301
+# TODO: compléter avec les autres URL anglaises et allemandes de l'ancien site.
+# Anciens documents PDF
+/wp-content/uploads/2026/04/car-bar-entracte.pdf               /docs/carte-bar-entracte.pdf       301
+/wp-content/uploads/2025/04/Formulaire-de-satisfaction.pdf     /docs/formulaire-satisfaction.pdf  301
+/wp-content/uploads/2025/04/Formulaire-de-reclamation.pdf      /docs/formulaire-reclamation.pdf   301

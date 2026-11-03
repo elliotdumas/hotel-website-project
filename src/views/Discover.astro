@@ -1,0 +1,84 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import Icon from '@/components/Icon.astro';
+import { pick, useTranslations, type Locale } from '@/i18n/config';
+import { url } from '@/i18n/routes';
+import { hotel } from '@/data/hotel';
+import { photos } from '@/data/photos';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const p = t.pages.discover;
+const places = (await getCollection('places')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout
+  locale={locale}
+  page="discover"
+  title={p.title}
+  description={p.description}
+  image={photos.facadeJardin.src}
+>
+  <PageHero
+    locale={locale}
+    image={photos.facadeJardin.src}
+    alt={pick(photos.facadeJardin.alt, locale)}
+    title={p.heroTitle}
+    text={p.heroText}
+  />
+
+  <section class="py-20 md:py-24">
+    <div class="mx-auto max-w-3xl space-y-4 px-4 text-lg text-taupe sm:px-6" data-reveal>
+      {p.intro.map((paragraph) => (
+        <p>{paragraph}</p>
+      ))}
+      <a href={url('contact', locale)} class="link-arrow pt-4 text-or-fonce">
+        {t.cta.contactUs}
+      </a>
+    </div>
+  </section>
+
+  <section aria-labelledby="lieux-titre" class="bg-sable py-20 md:py-28">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <SectionHeading title={p.placesTitle} id="lieux-titre" />
+      <ol class="mt-12 grid gap-px bg-lin sm:grid-cols-2 lg:grid-cols-3">
+        {places.map((place, index) => (
+          <li class="flex flex-col bg-creme p-8">
+            <span class="eyebrow text-or-fonce">{String(index + 1).padStart(2, '0')}</span>
+            <h3 class="mt-3 text-3xl">{pick(place.data.name, locale)}</h3>
+            <p class="mt-3 grow text-taupe">{pick(place.data.description, locale)}</p>
+            {place.data.url && (
+              <a href={place.data.url} rel="noopener" class="link-arrow mt-6 text-or-fonce">
+                {t.cta.website}
+              </a>
+            )}
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section aria-labelledby="evenements-titre" class="py-20 text-center md:py-24">
+    <div class="mx-auto max-w-2xl px-4 sm:px-6">
+      <h2 id="evenements-titre" class="text-4xl">
+        {p.eventsTitle}
+      </h2>
+      <p class="mt-4 text-lg text-taupe">{p.eventsText}</p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <a href={hotel.social.instagram} rel="noopener" class="btn btn-outline-dark">
+          <Icon name="instagram" class="size-4" /> Instagram
+        </a>
+        <a href={hotel.social.facebook} rel="noopener" class="btn btn-outline-dark">
+          <Icon name="facebook" class="size-4" /> Facebook
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

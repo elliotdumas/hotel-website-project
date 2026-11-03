@@ -1,0 +1,84 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import AccommodationDetail from '@/components/AccommodationDetail.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import CheckList from '@/components/CheckList.astro';
+import { pick, useTranslations, type Locale } from '@/i18n/config';
+import { photos } from '@/data/photos';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const p = t.pages.rooms;
+const rooms = (await getCollection('rooms')).sort((a, b) => a.data.order - b.data.order);
+const heroPhoto = rooms.find((room) => room.id === 'suite')?.data.photos[0];
+---
+
+<BaseLayout
+  locale={locale}
+  page="rooms"
+  title={p.title}
+  description={p.description}
+  image={heroPhoto?.src}
+>
+  <PageHero
+    locale={locale}
+    image={heroPhoto?.src ?? photos.facadeNuit.src}
+    alt={heroPhoto ? pick(heroPhoto.alt, locale) : pick(photos.facadeNuit.alt, locale)}
+    title={p.heroTitle}
+    text={p.heroText}
+  />
+
+  <section class="bg-sable py-16 md:py-20" aria-label={p.jumpTo}>
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl space-y-4 text-lg text-taupe">
+        {p.intro.map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
+      </div>
+      <nav aria-label={p.jumpTo} class="mt-10">
+        <ul class="flex flex-wrap gap-2">
+          {rooms.map((room) => (
+            <li>
+              <a href={`#${room.id}`} class="btn btn-outline-dark px-4 py-2 text-xs">
+                {pick(room.data.name, locale)}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+  </section>
+
+  {rooms.map((room, index) => (
+    <AccommodationDetail
+      locale={locale}
+      id={room.id}
+      index={index}
+      name={room.data.name}
+      tagline={room.data.tagline}
+      size={room.data.size}
+      guests={room.data.guests}
+      bed={room.data.bed}
+      priceFrom={room.data.priceFrom}
+      priceNote={room.data.priceNote}
+      description={room.data.description}
+      amenities={room.data.amenities}
+      highlight={room.data.highlight}
+      noPets={room.data.noPets}
+      photos={room.data.photos}
+    />
+  ))}
+
+  <section aria-labelledby="infos-titre" class="bg-nuit py-20 text-ivoire md:py-24">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <SectionHeading title={p.infoTitle} tone="dark" id="infos-titre" />
+      <CheckList items={p.infoList} tone="dark" class="mt-10 text-ivoire/90" />
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,64 @@
+# La Suite — source : https://www.hotel-coulisses-du-theatre.com/nos-chambres/
+order: 6
+name:
+  fr: La Suite
+  en: The Suite
+  de: Die Suite
+tagline:
+  fr: Un havre de luxe et de sérénité
+  en: A haven of luxury and serenity
+  de: Ein Refugium aus Luxus und Ruhe
+size: '24 et 30'
+guests:
+  fr: 2 personnes
+  en: 2 guests
+  de: 2 Personen
+bed:
+  fr: Lit king-size
+  en: King-size bed
+  de: Kingsize-Bett
+priceFrom: 129
+description:
+  - fr: Nos Suites de 24 et 30 m² sont un havre de luxe et de sérénité. La décoration combine matériaux nobles et touches de design contemporain, autour d’un lit king-size de grande qualité, d’un mobilier sur mesure et d’un dressing spacieux.
+    en: Our 24 and 30 m² Suites are a haven of luxury and serenity. The décor combines fine materials and contemporary design around a high-quality king-size bed, bespoke furniture and a spacious dressing area.
+    de: Unsere Suiten mit 24 und 30 m² sind ein Refugium aus Luxus und Ruhe. Edle Materialien und zeitgenössisches Design umgeben ein hochwertiges Kingsize-Bett, maßgefertigte Möbel und einen großzügigen Ankleidebereich.
+  - fr: Le salon attenant invite à la détente et la salle de bain, avec grande douche et baignoire, promet des moments de relaxation sublimés par des produits de toilette haut de gamme.
+    en: The adjoining lounge invites you to unwind, and the bathroom, with a large shower and a bathtub, promises moments of relaxation with premium toiletries.
+    de: Der angrenzende Wohnbereich lädt zum Entspannen ein, und das Bad mit großer Dusche und Badewanne verspricht Erholung mit hochwertigen Pflegeprodukten.
+amenities: [tv, intlChannels, minibar, safe, kettle, coffee, ac, showerAndBath, seating, hairdryer]
+highlight:
+  fr: Salon attenant et dressing
+  en: Adjoining lounge and dressing area
+  de: Angrenzender Wohnbereich und Ankleide
+noPets: true
+photos:
+  - src: ../../assets/photos/chambres/suite-1.jpg
+    alt:
+      fr: La Suite avec lit king-size, fauteuil jaune et moquette fleurie
+      en: The Suite with king-size bed, yellow armchair and floral carpet
+      de: Die Suite mit Kingsize-Bett, gelbem Sessel und geblümtem Teppich
+  - src: ../../assets/photos/chambres/suite-2.jpg
+    alt:
+      fr: Lit king-size de la Suite face à une grande fenêtre
+      en: Suite king-size bed facing a large window
+      de: Kingsize-Bett der Suite vor einem großen Fenster
+  - src: ../../assets/photos/chambres/suite-3.jpg
+    alt:
+      fr: Console et coin salon de la Suite
+      en: Console and seating area in the Suite
+      de: Konsole und Sitzecke in der Suite
+  - src: ../../assets/photos/chambres/suite-4.jpg
+    alt:
+      fr: Suite avec fauteuil vert, lit et peignoirs
+      en: Suite with green armchair, bed and bathrobes
+      de: Suite mit grünem Sessel, Bett und Bademänteln
+  - src: ../../assets/photos/chambres/suite-sdb-1.jpg
+    alt:
+      fr: Salle de bain de la Suite avec baignoire et papier peint végétal
+      en: Suite bathroom with bathtub and botanical wallpaper
+      de: Bad der Suite mit Badewanne und Pflanzentapete
+  - src: ../../assets/photos/chambres/suite-sdb-2.jpg
+    alt:
+      fr: Baignoire et douche vitrée dans la salle de bain de la Suite
+      en: Bathtub and glass shower in the Suite bathroom
+      de: Badewanne und Glasdusche im Bad der Suite

@@ -1,0 +1,199 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import StorySection from '@/components/StorySection.astro';
+import CheckList from '@/components/CheckList.astro';
+import Gallery from '@/components/Gallery.astro';
+import Icon from '@/components/Icon.astro';
+import { format, pick, useTranslations, type Locale } from '@/i18n/config';
+import { url } from '@/i18n/routes';
+import { hotel } from '@/data/hotel';
+import { photos } from '@/data/photos';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const p = t.pages.services;
+const rows = p.hoursRows;
+const hours = [
+  [rows.checkin, rows.checkinValue],
+  [rows.reception, rows.receptionValue],
+  [rows.breakfast, rows.breakfastValue],
+  [
+    rows.breakfastPrice,
+    format(rows.breakfastPriceValue, {
+      adult: hotel.prices.breakfastAdult,
+      child: hotel.prices.breakfastChild,
+      room: hotel.prices.breakfastRoomService,
+    }),
+  ],
+  [rows.pool, rows.poolValue],
+  [rows.housekeeping, rows.housekeepingValue],
+];
+const poolPhotos = [photos.piscine1, photos.piscine2, photos.piscine3, photos.spheresLumineuses];
+const breakfastPhotos = [photos.petitDej1, photos.petitDej2, photos.petitDej3, photos.espaceDeVie3];
+---
+
+<BaseLayout
+  locale={locale}
+  page="services"
+  title={p.title}
+  description={p.description}
+  image={photos.piscine1.src}
+>
+  <PageHero
+    locale={locale}
+    image={photos.piscine3.src}
+    alt={pick(photos.piscine3.alt, locale)}
+    title={p.heroTitle}
+    text={p.heroText}
+  />
+
+  <!-- Piscine -->
+  <section id="piscine" aria-labelledby="piscine-titre" class="scroll-mt-24 py-20 md:py-28">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid gap-12 lg:grid-cols-12">
+        <div class="lg:col-span-7" data-reveal>
+          <SectionHeading eyebrow={t.pages.home.poolTitle} title={p.poolTitle} id="piscine-titre" />
+          <div class="mt-8 space-y-4 text-lg text-taupe">
+            {p.poolText.map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
+          </div>
+        </div>
+        <div class="self-end lg:col-span-4 lg:col-start-9">
+          <CheckList items={p.poolList} />
+        </div>
+      </div>
+      <div class="mt-12">
+        <Gallery
+          locale={locale}
+          label={p.poolTitle}
+          photos={poolPhotos.map((photo) => ({ src: photo.src, alt: pick(photo.alt, locale) }))}
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Bar -->
+  <StorySection
+    id="bar"
+    image={photos.barSuspensions.src}
+    alt={pick(photos.barSuspensions.alt, locale)}
+    title={p.barTitle}
+    text={p.barText}
+    link={{ href: url('bar', locale), label: t.cta.discover }}
+  />
+
+  <!-- Petit-déjeuner -->
+  <section
+    id="petit-dejeuner"
+    aria-labelledby="petit-dejeuner-titre"
+    class="scroll-mt-24 py-20 md:py-28"
+  >
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl" data-reveal>
+        <SectionHeading title={p.breakfastTitle} id="petit-dejeuner-titre" />
+        <div class="mt-8 space-y-4 text-lg text-taupe">
+          {p.breakfastText.map((paragraph) => (
+            <p>{paragraph}</p>
+          ))}
+        </div>
+        <p class="mt-6 font-serif text-2xl">
+          {format(rows.breakfastPriceValue, {
+            adult: hotel.prices.breakfastAdult,
+            child: hotel.prices.breakfastChild,
+            room: hotel.prices.breakfastRoomService,
+          })}
+        </p>
+      </div>
+      <div class="mt-12">
+        <Gallery
+          locale={locale}
+          label={p.breakfastTitle}
+          photos={breakfastPhotos.map((photo) => ({
+            src: photo.src,
+            alt: pick(photo.alt, locale),
+          }))}
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Vélo et day-use -->
+  <section class="bg-sable py-20 md:py-28">
+    <div class="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-4 sm:px-6 md:grid-cols-2 lg:px-8">
+      <article
+        id="velo"
+        aria-labelledby="velo-titre"
+        class="scroll-mt-24 bg-creme p-8 sm:p-10"
+        data-reveal
+      >
+        <h2 id="velo-titre" class="text-4xl">
+          {p.bikeTitle}
+        </h2>
+        <span class="rule mt-6" aria-hidden="true"></span>
+        <p class="mt-6 font-serif text-2xl">
+          {format(p.bikePrices, { half: hotel.prices.bikeHalfDay, day: hotel.prices.bikeDay })}
+        </p>
+        <p class="mt-4 text-taupe">{p.bikeText}</p>
+      </article>
+      <article
+        id="day-use"
+        aria-labelledby="day-use-titre"
+        class="scroll-mt-24 bg-creme p-8 sm:p-10"
+        data-reveal
+      >
+        <h2 id="day-use-titre" class="text-4xl">
+          {p.dayUseTitle}
+        </h2>
+        <span class="rule mt-6" aria-hidden="true"></span>
+        <p class="mt-6 text-taupe">{p.dayUseText}</p>
+        <CheckList items={p.dayUseList} class="mt-6 text-sm" />
+        <p class="mt-6 text-sm">
+          {p.dayUseBooking}{' '}
+          <a
+            href={hotel.phones[0].href}
+            class="inline-flex min-h-11 items-center gap-2 font-medium underline underline-offset-4"
+          >
+            <Icon name="phone" class="size-4" />
+            {hotel.phones[0].display}
+          </a>
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Autres services -->
+  <section aria-labelledby="autres-titre" class="py-20 md:py-28">
+    <div class="mx-auto grid max-w-7xl grid-cols-1 gap-16 px-4 sm:px-6 lg:grid-cols-12 lg:px-8">
+      <div class="lg:col-span-7">
+        <SectionHeading title={p.otherTitle} id="autres-titre" />
+        <CheckList items={p.otherList} columns={2} class="mt-10 text-sm" />
+      </div>
+      <div class="lg:col-span-5">
+        <SectionHeading title={p.paidTitle} />
+        <CheckList items={p.paidList} class="mt-10 text-sm" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Horaires et tarifs -->
+  <section aria-labelledby="horaires-titre" class="bg-nuit py-20 text-ivoire md:py-24">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <SectionHeading title={p.hoursTitle} tone="dark" id="horaires-titre" />
+      <dl class="mt-10 divide-y divide-ivoire/15 border-y border-ivoire/15">
+        {hours.map(([label, value]) => (
+          <div class="grid gap-1 py-4 sm:grid-cols-3 sm:gap-6">
+            <dt class="eyebrow text-or">{label}</dt>
+            <dd class="text-ivoire/90 sm:col-span-2">{value}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+</BaseLayout>

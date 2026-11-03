@@ -1,0 +1,31 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  items: string[];
+  columns?: 1 | 2 | 3;
+  tone?: 'light' | 'dark';
+  class?: string;
+}
+
+const { items, columns = 1, tone = 'light', class: className } = Astro.props;
+---
+
+<ul
+  class:list={[
+    'grid gap-x-8 gap-y-2.5',
+    columns === 2 && 'sm:grid-cols-2',
+    columns === 3 && 'sm:grid-cols-2 lg:grid-cols-3',
+    className,
+  ]}
+>
+  {items.map((item) => (
+    <li class="flex gap-3">
+      <Icon
+        name="check"
+        class:list={['mt-1 size-4 shrink-0', tone === 'dark' ? 'text-or' : 'text-or-fonce']}
+      />
+      <span>{item}</span>
+    </li>
+  ))}
+</ul>

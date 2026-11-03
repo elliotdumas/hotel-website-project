@@ -1,0 +1,124 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import ContactForm from '@/components/ContactForm.astro';
+import MapFacade from '@/components/MapFacade.astro';
+import Icon from '@/components/Icon.astro';
+import { pick, useTranslations, type Locale } from '@/i18n/config';
+import { hotel } from '@/data/hotel';
+import { photos } from '@/data/photos';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const p = t.pages.contact;
+---
+
+<BaseLayout
+  locale={locale}
+  page="contact"
+  title={p.title}
+  description={p.description}
+  image={photos.facadeNuit.src}
+>
+  <PageHero
+    locale={locale}
+    image={photos.pavillon2.src}
+    alt={pick(photos.pavillon2.alt, locale)}
+    title={p.heroTitle}
+    text={p.heroText}
+  />
+
+  <section class="py-20 md:py-28">
+    <div class="mx-auto grid max-w-7xl grid-cols-1 gap-16 px-4 sm:px-6 lg:grid-cols-12 lg:px-8">
+      <!-- Coordonnées -->
+      <div class="lg:col-span-5">
+        <h2 class="text-4xl">{t.meta.siteName}</h2>
+        <span class="rule mt-6" aria-hidden="true"></span>
+        <address class="mt-8 space-y-3 not-italic">
+          <p class="flex gap-3">
+            <Icon name="pin" class="mt-1 size-5 shrink-0 text-or-fonce" />
+            <span>
+              {hotel.address.street}
+              <br />
+              {`${hotel.address.postalCode} ${hotel.address.city}`}
+              <br />
+              <span class="text-sm text-taupe">
+                GPS {hotel.geo.lat}, {hotel.geo.lng}
+              </span>
+            </span>
+          </p>
+          {hotel.phones.map((phone) => (
+            <p>
+              <a href={phone.href} class="inline-flex min-h-11 items-center gap-3 hover:underline">
+                <Icon name="phone" class="size-5 text-or-fonce" />
+                {phone.display}
+              </a>
+            </p>
+          ))}
+          <p>
+            <a
+              href={`mailto:${hotel.email}`}
+              class="inline-flex min-h-11 items-center gap-3 hover:underline"
+            >
+              <Icon name="mail" class="size-5 text-or-fonce" />
+              {hotel.email}
+            </a>
+          </p>
+        </address>
+
+        <h3 class="mt-12 text-3xl" id="comment-venir">
+          {p.arrivalTitle}
+        </h3>
+        <p class="mt-4 text-taupe">{p.arrival}</p>
+
+        <h3 class="mt-12 text-3xl">{p.accessTitle}</h3>
+        <dl class="mt-6 divide-y divide-lin border-y border-lin text-sm">
+          {p.access.map((item) => (
+            <div class="grid gap-1 py-3 sm:grid-cols-[9rem_1fr] sm:gap-4">
+              <dt class="font-medium">{item.label}</dt>
+              <dd class="text-taupe">{item.value}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+
+      <!-- Formulaire -->
+      <div id="reserver" class="scroll-mt-28 lg:col-span-7">
+        <div class="bg-sable p-6 sm:p-10">
+          <SectionHeading title={p.formTitle} />
+          <div class="mt-8">
+            <ContactForm locale={locale} />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-label={t.map.title} class="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
+    <MapFacade locale={locale} />
+  </section>
+
+  <section aria-labelledby="avis-titre" class="bg-sable py-16">
+    <div class="mx-auto max-w-3xl px-4 text-center sm:px-6">
+      <h2 id="avis-titre" class="text-3xl">
+        {p.feedbackTitle}
+      </h2>
+      <p class="mt-3 text-taupe">{p.feedbackText}</p>
+      <div class="mt-6 flex flex-wrap justify-center gap-3">
+        <a href="/docs/formulaire-satisfaction.pdf" class="btn btn-outline-dark">
+          <Icon name="file" class="size-4" />
+          {p.feedbackSatisfaction}
+        </a>
+        <a href="/docs/formulaire-reclamation.pdf" class="btn btn-outline-dark">
+          <Icon name="file" class="size-4" />
+          {p.feedbackClaim}
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

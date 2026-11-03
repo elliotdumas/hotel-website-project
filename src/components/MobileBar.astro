@@ -1,0 +1,43 @@
+---
+import Icon from './Icon.astro';
+import { useTranslations, type Locale } from '@/i18n/config';
+import { url } from '@/i18n/routes';
+import { hotel } from '@/data/hotel';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const bookHref = hotel.bookingUrl ?? url('contact', locale, 'reserver');
+---
+
+<!-- Barre d'action collante, visible uniquement sur mobile et tablette -->
+<div
+  class="fixed inset-x-0 bottom-0 z-30 grid grid-cols-[1fr_1fr_2fr] border-t border-ivoire/10 bg-nuit text-ivoire lg:hidden"
+  style="padding-bottom: env(safe-area-inset-bottom)"
+>
+  <a
+    href={hotel.phones[0].href}
+    class="flex min-h-14 flex-col items-center justify-center gap-0.5 text-[0.6875rem] tracking-wider uppercase"
+  >
+    <Icon name="phone" class="size-5 text-or" />
+    {t.cta.call}
+  </a>
+  <a
+    href={hotel.mapsUrl}
+    rel="noopener"
+    class="flex min-h-14 flex-col items-center justify-center gap-0.5 border-x border-ivoire/10 text-[0.6875rem] tracking-wider uppercase"
+  >
+    <Icon name="pin" class="size-5 text-or" />
+    {t.cta.directions}
+  </a>
+  <a
+    href={bookHref}
+    class="flex min-h-14 items-center justify-center gap-2 bg-velours text-sm font-medium tracking-[0.14em] uppercase"
+  >
+    <Icon name="calendar" class="size-5" />
+    {t.cta.book}
+  </a>
+</div>

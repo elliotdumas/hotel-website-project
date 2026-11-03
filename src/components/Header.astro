@@ -1,0 +1,139 @@
+---
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import { useTranslations, type Locale } from '@/i18n/config';
+import { mainNav, url, type PageKey } from '@/i18n/routes';
+import { hotel } from '@/data/hotel';
+
+interface Props {
+  locale: Locale;
+  page: PageKey;
+}
+
+const { locale, page } = Astro.props;
+const t = useTranslations(locale);
+const bookHref = hotel.bookingUrl ?? url('contact', locale, 'reserver');
+---
+
+<header
+  id="site-header"
+  class="absolute inset-x-0 top-0 z-40 text-ivoire transition-[background-color,box-shadow] duration-300"
+>
+  <div class="mx-auto flex h-20 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 xl:h-24 xl:px-8">
+    <!-- Menu mobile et tablette : <details> fonctionne sans JavaScript -->
+    <details class="group xl:hidden" id="mobile-menu">
+      <summary class="-ml-2 flex min-h-11 min-w-11 cursor-pointer list-none items-center gap-2 p-2 [&::-webkit-details-marker]:hidden">
+        <Icon name="menu" class="size-6 group-open:hidden" />
+        <Icon name="close" class="hidden size-6 group-open:block" />
+        <span class="eyebrow">{t.a11y.menu}</span>
+      </summary>
+      <div class="fixed inset-x-0 top-20 bottom-0 z-50 overflow-y-auto bg-nuit px-6 pt-6 pb-28 text-ivoire">
+        <nav aria-label={t.a11y.mainNav}>
+          <ul class="space-y-1">
+            <li>
+              <a
+                href={url('home', locale)}
+                class="block py-2 font-serif text-3xl"
+                aria-current={page === 'home' ? 'page' : undefined}
+              >
+                {t.nav.home}
+              </a>
+            </li>
+            {mainNav.map((key) => (
+              <li>
+                <a
+                  href={url(key, locale)}
+                  class="block py-2 font-serif text-3xl"
+                  aria-current={page === key ? 'page' : undefined}
+                >
+                  {t.nav[key]}
+                </a>
+              </li>
+            ))}
+            <li>
+              <a href={hotel.giftShopUrl} class="block py-2 font-serif text-3xl" rel="noopener">
+                {t.nav.giftShop}
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <div class="mt-8 border-t border-white/15 pt-6">
+          <LanguageSwitcher locale={locale} page={page} />
+          <ul class="mt-4 space-y-2 text-sm">
+            {hotel.phones.map((phone) => (
+              <li>
+                <a href={phone.href} class="inline-flex min-h-11 items-center gap-3">
+                  <Icon name="phone" class="size-4 text-or" />
+                  {phone.display}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <a
+      href={url('home', locale)}
+      class="absolute left-1/2 -translate-x-1/2 xl:static xl:translate-x-0"
+      aria-label={`${t.meta.siteName}, ${t.nav.home}`}
+    >
+      <Logo alt="" width={64} class="h-auto w-12 xl:w-16" />
+    </a>
+
+    <nav aria-label={t.a11y.mainNav} class="hidden xl:block">
+      <ul class="flex items-center gap-x-5 text-[0.8125rem] tracking-wide xl:gap-x-7">
+        {mainNav
+          .filter((key) => key !== 'gallery')
+          .map((key) => (
+            <li class:list={[(key === 'discover' || key === 'apartments') && 'hidden 2xl:block']}>
+              <a
+                href={url(key, locale)}
+                aria-current={page === key ? 'page' : undefined}
+                class="relative inline-flex min-h-11 items-center whitespace-nowrap after:absolute after:inset-x-0 after:bottom-2 after:h-px after:origin-left after:scale-x-0 after:bg-or after:transition-transform hover:after:scale-x-100 aria-[current=page]:after:scale-x-100"
+              >
+                {t.nav[key]}
+              </a>
+            </li>
+          ))}
+      </ul>
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <LanguageSwitcher locale={locale} page={page} class="hidden xl:block" />
+      <a href={bookHref} class="btn btn-primary px-4 sm:px-6">
+        {t.cta.book}
+      </a>
+    </div>
+  </div>
+</header>
+
+<script>
+  // En-tête collant avec fond plein après défilement (amélioration progressive).
+  const header = document.getElementById('site-header');
+  if (header) {
+    header.classList.remove('absolute');
+    header.classList.add('fixed');
+    const update = () => {
+      const scrolled = window.scrollY > 40;
+      header.classList.toggle('bg-nuit', scrolled);
+      header.classList.toggle('shadow-lg', scrolled);
+    };
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+
+    // Le menu mobile garde le fond plein et bloque le défilement de la page.
+    const menu = document.getElementById('mobile-menu') as HTMLDetailsElement | null;
+    menu?.addEventListener('toggle', () => {
+      document.documentElement.classList.toggle('overflow-hidden', menu.open);
+      header.classList.toggle('bg-nuit', menu.open || window.scrollY > 40);
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && menu?.open) {
+        menu.open = false;
+        menu.querySelector('summary')?.focus();
+      }
+    });
+  }
+</script>

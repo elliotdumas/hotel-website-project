@@ -1,0 +1,248 @@
+@import '@fontsource-variable/cormorant-garamond/wght.css';
+@import '@fontsource-variable/dm-sans/wght.css';
+@import 'tailwindcss';
+
+/*
+ * Tokens de design. Palette tirée du logo de l'hôtel (crème #FFF9E9, brun #473D35),
+ * complétée d'un bordeaux « velours » pour les boutons de réservation et d'un or patiné.
+ */
+@theme {
+  --color-creme: #fbf6ec;
+  --color-ivoire: #fff9e9;
+  --color-sable: #f0e7d6;
+  --color-lin: #e3d6bf;
+  --color-brun: #473d35;
+  --color-nuit: #241c17;
+  --color-encre: #2b231e;
+  --color-taupe: #6a5d51;
+  --color-or: #b8955c;
+  --color-or-fonce: #7a5c2e;
+  --color-velours: #6e1f2a;
+  --color-velours-fonce: #561721;
+
+  --font-serif: 'Cormorant Garamond Variable', 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'DM Sans Variable', 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --ease-scene: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-creme);
+    color: var(--color-encre);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.65;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-or);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background-color: var(--color-lin);
+    color: var(--color-nuit);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* Petit surtitre en capitales espacées */
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  /* Filet doré décoratif */
+  .rule {
+    display: block;
+    width: 3rem;
+    height: 1px;
+    background-color: var(--color-or);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    padding: 0.7rem 1.5rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    border: 1px solid transparent;
+    transition:
+      background-color 0.25s var(--ease-scene),
+      color 0.25s var(--ease-scene),
+      border-color 0.25s var(--ease-scene);
+  }
+
+  .btn-primary {
+    background-color: var(--color-velours);
+    color: var(--color-ivoire);
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-velours-fonce);
+  }
+
+  .btn-outline {
+    border-color: currentColor;
+  }
+
+  .btn-outline:hover {
+    background-color: var(--color-ivoire);
+    color: var(--color-nuit);
+    border-color: var(--color-ivoire);
+  }
+
+  .btn-outline-dark {
+    border-color: var(--color-brun);
+    color: var(--color-brun);
+  }
+
+  .btn-outline-dark:hover {
+    background-color: var(--color-brun);
+    color: var(--color-ivoire);
+  }
+
+  /* Lien texte avec flèche, façon « Découvrir → » */
+  .link-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .link-arrow::before {
+    content: '';
+    display: block;
+    width: 2rem;
+    height: 1px;
+    background-color: currentColor;
+    transition: width 0.3s var(--ease-scene);
+  }
+
+  .link-arrow:hover::before {
+    width: 3rem;
+  }
+
+  /* Texte éditorial (pages légales) */
+  .prose-legal h2 {
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    font-size: 1.875rem;
+  }
+
+  .prose-legal h3 {
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+
+  .prose-legal p,
+  .prose-legal ul {
+    margin-bottom: 1rem;
+  }
+
+  .prose-legal ul {
+    padding-left: 1.25rem;
+    list-style: disc;
+  }
+
+  .prose-legal blockquote {
+    margin: 1.5rem 0;
+    padding: 1rem 1.25rem;
+    border-left: 3px solid var(--color-or);
+    background-color: var(--color-sable);
+  }
+
+  .prose-legal a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    overflow-wrap: anywhere;
+  }
+
+  .prose-legal p {
+    overflow-wrap: anywhere;
+  }
+
+  /* Défilement horizontal avec aimantation (carrousels sans JavaScript) */
+  .scroller {
+    display: grid;
+    grid-auto-flow: column;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-lin) transparent;
+  }
+
+  .scroller > * {
+    scroll-snap-align: start;
+  }
+}
+
+/* Apparition douce au défilement, activée seulement si JavaScript est disponible */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] {
+    opacity: 0;
+    transform: translateY(1.5rem);
+    transition:
+      opacity 0.9s var(--ease-scene),
+      transform 0.9s var(--ease-scene);
+  }
+
+  .js [data-reveal].is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}

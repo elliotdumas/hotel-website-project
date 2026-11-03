@@ -1,0 +1,19 @@
+---
+import { Image } from 'astro:assets';
+import logoCreme from '@/assets/logo/logo-creme.png';
+import logoBrun from '@/assets/logo/logo-brun.png';
+
+interface Props {
+  variant?: 'creme' | 'brun';
+  class?: string;
+  width?: number;
+  alt: string;
+  loading?: 'eager' | 'lazy';
+}
+
+// TODO: remplacer par le logo vectoriel (SVG) dès que l'hôtel le fournit.
+const { variant = 'creme', class: className, width = 120, alt, loading = 'eager' } = Astro.props;
+const src = variant === 'creme' ? logoCreme : logoBrun;
+---
+
+<Image src={src} alt={alt} width={width} densities={[1, 2]} class={className} loading={loading} />

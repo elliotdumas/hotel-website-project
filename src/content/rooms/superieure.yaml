@@ -1,0 +1,53 @@
+# Chambre Supérieure — source : https://www.hotel-coulisses-du-theatre.com/nos-chambres/
+order: 3
+name:
+  fr: Chambre Supérieure
+  en: Superior Room
+  de: Superior-Zimmer
+tagline:
+  fr: Plus d’espace, idéale pour les séjours en famille
+  en: More space, ideal for family stays
+  de: Mehr Platz, ideal für Familienaufenthalte
+size: '16 à 20'
+guests:
+  fr: 2 à 3 personnes
+  en: 2 to 3 guests
+  de: 2 bis 3 Personen
+bed:
+  fr: Lit double (160 cm) et canapé-lit selon les chambres
+  en: Double bed (160 cm), sofa bed in some rooms
+  de: Doppelbett (160 cm), Schlafsofa in einigen Zimmern
+priceFrom: 99
+priceNote:
+  fr: À partir de 99 € l’hiver et 109 € l’été
+  en: From €99 in winter and €109 in summer
+  de: Ab 99 € im Winter und 109 € im Sommer
+description:
+  - fr: D’une superficie de 16 à 20 m², la Chambre Supérieure vous offre un espace plus généreux pour vos séjours à Saint-Quentin, avec un lit de 160 cm, un agencement soigné et des équipements supplémentaires.
+    en: At 16 to 20 m², the Superior Room offers more generous space for your stay in Saint-Quentin, with a 160 cm bed, a thoughtful layout and extra amenities.
+    de: Mit 16 bis 20 m² bietet das Superior-Zimmer mehr Platz für Ihren Aufenthalt in Saint-Quentin, mit 160-cm-Bett, durchdachter Einrichtung und zusätzlicher Ausstattung.
+  - fr: Selon les chambres, un canapé-lit peut accueillir un enfant, idéal pour les séjours en famille. Certaines chambres peuvent être communicantes pour vos séjours en groupe.
+    en: Some rooms have a sofa bed for one child, ideal for families. Some rooms can also be connected for group stays.
+    de: Einige Zimmer haben ein Schlafsofa für ein Kind, ideal für Familien. Manche Zimmer lassen sich für Gruppen miteinander verbinden.
+amenities: [tv, intlChannels, accessible, kettle, coffee, ac, showerOrBath, sofaBed, hairdryer]
+photos:
+  - src: ../../assets/photos/chambres/superieure-2.jpg
+    alt:
+      fr: Chambre Supérieure avec grand lit, serviettes pliées et tapisserie murale
+      en: Superior Room with large bed, folded towels and wall tapestry
+      de: Superior-Zimmer mit großem Bett, gefalteten Handtüchern und Wandteppich
+  - src: ../../assets/photos/chambres/superieure-1.jpg
+    alt:
+      fr: Chambre Supérieure lumineuse avec lit double et décoration murale
+      en: Bright Superior Room with double bed and wall art
+      de: Helles Superior-Zimmer mit Doppelbett und Wandschmuck
+  - src: ../../assets/photos/chambres/superieure-3.jpg
+    alt:
+      fr: Chambre Supérieure avec miroir sur pied et lit double
+      en: Superior Room with floor mirror and double bed
+      de: Superior-Zimmer mit Standspiegel und Doppelbett
+  - src: ../../assets/photos/chambres/superieure-4.jpg
+    alt:
+      fr: Salle de bain de la Chambre Supérieure avec douche à l’italienne
+      en: Superior Room bathroom with walk-in shower
+      de: Bad des Superior-Zimmers mit begehbarer Dusche

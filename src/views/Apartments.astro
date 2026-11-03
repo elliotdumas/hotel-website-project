@@ -1,0 +1,60 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import AccommodationDetail from '@/components/AccommodationDetail.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import CheckList from '@/components/CheckList.astro';
+import { pick, useTranslations, type Locale } from '@/i18n/config';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const p = t.pages.apartments;
+const apartments = (await getCollection('apartments')).sort((a, b) => a.data.order - b.data.order);
+const hero = apartments[0].data.photos[0];
+---
+
+<BaseLayout
+  locale={locale}
+  page="apartments"
+  title={p.title}
+  description={p.description}
+  image={hero.src}
+>
+  <PageHero
+    locale={locale}
+    image={hero.src}
+    alt={pick(hero.alt, locale)}
+    title={p.heroTitle}
+    text={p.heroText}
+  />
+
+  <section class="bg-sable py-16 md:py-20">
+    <div class="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-4 sm:px-6 lg:grid-cols-12 lg:px-8">
+      <p class="text-lg text-taupe lg:col-span-7">{p.intro}</p>
+      <div class="lg:col-span-5">
+        <SectionHeading title={p.extrasTitle} as="h2" />
+        <CheckList items={p.extras} class="mt-6" />
+      </div>
+    </div>
+  </section>
+
+  {apartments.map((apartment, index) => (
+    <AccommodationDetail
+      locale={locale}
+      id={apartment.id}
+      index={index}
+      name={apartment.data.name}
+      size={apartment.data.size}
+      guests={apartment.data.guests}
+      description={apartment.data.description}
+      amenities={apartment.data.amenities}
+      photos={apartment.data.photos}
+      availability={p.availability}
+    />
+  ))}
+</BaseLayout>

@@ -1,0 +1,129 @@
+---
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import { useTranslations, type Locale } from '@/i18n/config';
+import { mainNav, url } from '@/i18n/routes';
+import { hotel } from '@/data/hotel';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const year = new Date().getFullYear();
+const socials = [
+  { name: 'Instagram', href: hotel.social.instagram, icon: 'instagram' },
+  { name: 'Facebook', href: hotel.social.facebook, icon: 'facebook' },
+  { name: 'LinkedIn', href: hotel.social.linkedin, icon: 'linkedin' },
+] as const;
+---
+
+<footer class="bg-nuit pb-24 text-ivoire/90 lg:pb-0">
+  <div class="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-4 py-16 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
+    <div>
+      <Logo alt={t.meta.siteName} width={120} class="h-auto w-28" loading="lazy" />
+      <p class="mt-6 max-w-xs font-serif text-xl text-ivoire">{t.footer.tagline}</p>
+    </div>
+
+    <div>
+      <h2 class="eyebrow text-or">{t.footer.address}</h2>
+      <address class="mt-4 not-italic">
+        {hotel.address.street}
+        <br />
+        {`${hotel.address.postalCode} ${hotel.address.city}`}
+      </address>
+      <p class="mt-2 text-sm text-ivoire/70">
+        GPS : {hotel.geo.lat}, {hotel.geo.lng}
+      </p>
+      <a
+        href={hotel.mapsUrl}
+        rel="noopener"
+        class="mt-3 inline-flex min-h-11 items-center gap-2 underline-offset-4 hover:underline"
+      >
+        <Icon name="pin" class="size-4 text-or" />
+        {t.cta.directions}
+      </a>
+    </div>
+
+    <div>
+      <h2 class="eyebrow text-or">{t.footer.contact}</h2>
+      <ul class="mt-4 space-y-1">
+        {hotel.phones.map((phone) => (
+          <li>
+            <a href={phone.href} class="inline-flex min-h-11 items-center gap-3 hover:underline">
+              <Icon name="phone" class="size-4 text-or" />
+              {phone.display}
+            </a>
+          </li>
+        ))}
+        <li>
+          <a
+            href={`mailto:${hotel.email}`}
+            class="inline-flex min-h-11 items-center gap-3 break-all hover:underline"
+          >
+            <Icon name="mail" class="size-4 shrink-0 text-or" />
+            {hotel.email}
+          </a>
+        </li>
+        <li>
+          <a
+            href={hotel.giftShopUrl}
+            rel="noopener"
+            class="inline-flex min-h-11 items-center gap-3 hover:underline"
+          >
+            <Icon name="gift" class="size-4 text-or" />
+            {t.nav.giftShop}
+          </a>
+        </li>
+      </ul>
+      <h2 class="eyebrow mt-8 text-or">{t.footer.follow}</h2>
+      <ul class="mt-3 flex gap-2">
+        {socials.map((social) => (
+          <li>
+            <a
+              href={social.href}
+              rel="noopener"
+              class="inline-flex size-11 items-center justify-center border border-ivoire/25 transition-colors hover:border-or hover:text-or"
+            >
+              <Icon name={social.icon} label={social.name} />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <nav aria-label={t.a11y.footerNav}>
+      <h2 class="eyebrow text-or">{t.footer.explore}</h2>
+      <ul class="mt-4 grid grid-cols-2 gap-x-4 text-sm lg:grid-cols-1">
+        {mainNav.map((key) => (
+          <li>
+            <a href={url(key, locale)} class="inline-flex min-h-10 items-center hover:underline">
+              {t.nav[key]}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+
+  <div class="border-t border-ivoire/10">
+    <div class="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-6 text-xs text-ivoire/70 sm:px-6 md:flex-row md:items-center md:justify-between lg:px-8">
+      <p>
+        © {year} {t.meta.siteName}. {t.footer.rights}
+      </p>
+      <ul class="flex flex-wrap gap-x-6 gap-y-2">
+        <li>
+          <a href={url('terms', locale)} class="hover:underline">
+            {t.nav.terms}
+          </a>
+        </li>
+        <li>
+          <a href={url('privacy', locale)} class="hover:underline">
+            {t.nav.privacy}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</footer>

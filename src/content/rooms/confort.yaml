@@ -1,0 +1,60 @@
+# Chambre Confort — source : https://www.hotel-coulisses-du-theatre.com/nos-chambres/
+order: 1
+name:
+  fr: Chambre Confort
+  en: Comfort Room
+  de: Komfort-Zimmer
+tagline:
+  fr: Le pied-à-terre idéal de vos escapades saint-quentinoises
+  en: The ideal base for your getaways in Saint-Quentin
+  de: Der ideale Ausgangspunkt für Ihre Ausflüge in Saint-Quentin
+size: '12 à 15'
+guests:
+  fr: 1 à 2 personnes
+  en: 1 to 2 guests
+  de: 1 bis 2 Personen
+bed:
+  fr: Lit double (160 cm) ou lits jumeaux
+  en: Double bed (160 cm) or twin beds
+  de: Doppelbett (160 cm) oder zwei Einzelbetten
+priceFrom: 89
+description:
+  - fr: D’une superficie de 12 à 15 m², la Chambre Confort dispose d’un lit de 160 cm de large et d’une salle de bain avec douche.
+    en: Measuring 12 to 15 m², the Comfort Room features a 160 cm wide bed and a bathroom with shower.
+    de: Das 12 bis 15 m² große Komfort-Zimmer verfügt über ein 160 cm breites Bett und ein Bad mit Dusche.
+  - fr: Meubles créés sur mesure, décoration au style franco-marocain, coussins colorés et accessoires soigneusement sélectionnés pour une harmonie parfaite et une atmosphère chaleureuse.
+    en: Bespoke furniture, Franco-Moroccan décor, colourful cushions and carefully chosen accessories create a harmonious, warm atmosphere.
+    de: Maßgefertigte Möbel, französisch-marokkanisches Dekor, bunte Kissen und sorgfältig ausgewählte Accessoires sorgen für eine harmonische, warme Atmosphäre.
+amenities: [tv, intlChannels, kettle, ac, shower, hairdryer]
+noPets: true
+photos:
+  - src: ../../assets/photos/chambres/confort-1.jpg
+    alt:
+      fr: Chambre Confort mansardée avec poutres apparentes, lit double et lumière tamisée
+      en: Attic Comfort Room with exposed beams, double bed and soft lighting
+      de: Komfort-Zimmer im Dachgeschoss mit Holzbalken, Doppelbett und gedämpftem Licht
+  - src: ../../assets/photos/chambres/confort-2.jpg
+    alt:
+      fr: Chambre Confort avec lit double, linge blanc et tableau au-dessus de la tête de lit
+      en: Comfort Room with double bed, white linen and artwork above the headboard
+      de: Komfort-Zimmer mit Doppelbett, weißer Bettwäsche und Bild über dem Kopfteil
+  - src: ../../assets/photos/chambres/confort-3.jpg
+    alt:
+      fr: Chambre Confort sous les toits avec plaid marron et décoration chaleureuse
+      en: Comfort Room under the eaves with brown throw and warm décor
+      de: Komfort-Zimmer unter dem Dach mit brauner Decke und warmem Dekor
+  - src: ../../assets/photos/chambres/confort-4.jpg
+    alt:
+      fr: Bureau, télévision et bouilloire dans une Chambre Confort
+      en: Desk, television and kettle in a Comfort Room
+      de: Schreibtisch, Fernseher und Wasserkocher in einem Komfort-Zimmer
+  - src: ../../assets/photos/chambres/confort-sdb-1.jpg
+    alt:
+      fr: Salle de bain avec douche et murs vert sauge
+      en: Bathroom with shower and sage-green walls
+      de: Bad mit Dusche und salbeigrünen Wänden
+  - src: ../../assets/photos/chambres/confort-sdb-2.jpg
+    alt:
+      fr: Lavabo et miroir rond devant un carrelage graphique terracotta
+      en: Washbasin and round mirror against graphic terracotta tiles
+      de: Waschbecken und runder Spiegel vor grafischen Terrakotta-Fliesen

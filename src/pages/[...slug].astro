@@ -1,0 +1,47 @@
+---
+/**
+ * Route unique : génère chaque page dans chaque langue à partir du plan du site
+ * (src/i18n/routes.ts). Le contenu de chaque page est dans src/views/.
+ */
+import type { GetStaticPaths } from 'astro';
+import { locales, type Locale } from '@/i18n/config';
+import { routes, type PageKey } from '@/i18n/routes';
+import Home from '@/views/Home.astro';
+import Hotel from '@/views/Hotel.astro';
+import Rooms from '@/views/Rooms.astro';
+import Apartments from '@/views/Apartments.astro';
+import Bar from '@/views/Bar.astro';
+import Services from '@/views/Services.astro';
+import Gallery from '@/views/Gallery.astro';
+import Discover from '@/views/Discover.astro';
+import Seminars from '@/views/Seminars.astro';
+import Contact from '@/views/Contact.astro';
+import Legal from '@/views/Legal.astro';
+
+export const getStaticPaths = (() =>
+  (Object.keys(routes) as PageKey[]).flatMap((page) =>
+    locales.map((locale) => {
+      const slug = routes[page][locale].replace(/^\/|\/$/g, '');
+      return { params: { slug: slug || undefined }, props: { page, locale } };
+    }),
+  )) satisfies GetStaticPaths;
+
+interface Props {
+  page: PageKey;
+  locale: Locale;
+}
+
+const { page, locale } = Astro.props;
+---
+
+{page === 'home' && <Home locale={locale} />}
+{page === 'hotel' && <Hotel locale={locale} />}
+{page === 'rooms' && <Rooms locale={locale} />}
+{page === 'apartments' && <Apartments locale={locale} />}
+{page === 'bar' && <Bar locale={locale} />}
+{page === 'services' && <Services locale={locale} />}
+{page === 'gallery' && <Gallery locale={locale} />}
+{page === 'discover' && <Discover locale={locale} />}
+{page === 'seminars' && <Seminars locale={locale} />}
+{page === 'contact' && <Contact locale={locale} />}
+{(page === 'terms' || page === 'privacy') && <Legal locale={locale} page={page} />}

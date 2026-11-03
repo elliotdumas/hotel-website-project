@@ -1,0 +1,467 @@
+{
+  "meta": {
+    "siteName": "Hôtel Les Coulisses du Théâtre",
+    "titleSuffix": "3-star hotel in Saint-Quentin",
+    "defaultDescription": "Charming 3-star hotel in the heart of Saint-Quentin, next to the Théâtre Jean-Vilar: 32 rooms, heated indoor pool, L'Entracte bar and meeting rooms."
+  },
+  "a11y": {
+    "skip": "Skip to content",
+    "menu": "Menu",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "language": "Language",
+    "mainNav": "Main navigation",
+    "footerNav": "Footer links",
+    "breadcrumb": "Breadcrumb",
+    "previous": "Previous photo",
+    "next": "Next photo",
+    "close": "Close",
+    "photoOf": "Photo {current} of {total}",
+    "newTab": "(new tab)",
+    "stars": "3 stars"
+  },
+  "nav": {
+    "home": "Home",
+    "hotel": "The hotel",
+    "rooms": "Rooms",
+    "apartments": "Apartments",
+    "bar": "The bar",
+    "services": "Services",
+    "gallery": "Gallery",
+    "discover": "Events & discoveries",
+    "seminars": "Meetings",
+    "contact": "Contact",
+    "terms": "Terms & conditions",
+    "privacy": "Legal notice & privacy",
+    "giftShop": "Gift vouchers"
+  },
+  "cta": {
+    "book": "Book",
+    "call": "Call",
+    "directions": "Directions",
+    "discover": "Discover",
+    "seeRooms": "See the rooms",
+    "seeAllRooms": "All our rooms",
+    "seeApartments": "See the apartments",
+    "contactUs": "Contact us",
+    "requestQuote": "Request a quote",
+    "downloadMenu": "See the bar menu (PDF, French)",
+    "seeGallery": "See the gallery",
+    "website": "Official website",
+    "bookThisRoom": "Book this room",
+    "askAvailability": "Ask for availability"
+  },
+  "booking": {
+    "title": "Book your stay",
+    "checkIn": "Check-in",
+    "checkOut": "Check-out",
+    "rooms": "Rooms",
+    "adults": "Adults",
+    "children": "Children (0–11)",
+    "submit": "Check availability",
+    "bestRate": "Best rate guaranteed when you book directly on our official website.",
+    "byPhone": "Or by phone:"
+  },
+  "amenities": {
+    "tv": "Television",
+    "intlChannels": "International channels",
+    "kettle": "Kettle",
+    "coffee": "Coffee maker",
+    "courtesyTray": "Hospitality tray",
+    "ac": "Air conditioning",
+    "shower": "Shower",
+    "showerOrBath": "Shower or bathtub",
+    "showerAndBath": "Shower and bathtub",
+    "hairdryer": "Hairdryer",
+    "safe": "Safe",
+    "minibar": "Minibar",
+    "sofaBed": "Sofa bed (some rooms)",
+    "accessible": "Accessible (some rooms)",
+    "outdoorLounge": "Outdoor lounge",
+    "sunLoungers": "Sun loungers",
+    "seating": "Seating area",
+    "kitchen": "Kitchen utensils",
+    "fridge": "Fridge",
+    "microwave": "Microwave",
+    "wardrobe": "Wardrobe",
+    "desk": "Desk",
+    "mirror": "Mirror",
+    "housekeeping": "Hotel service (linen and cleaning)"
+  },
+  "room": {
+    "from": "From",
+    "perNight": "/ night",
+    "size": "Size",
+    "sizeValue": "{size} m²",
+    "guests": "Capacity",
+    "bed": "Bedding",
+    "amenities": "Amenities",
+    "noPets": "Pets are not allowed in this room category.",
+    "photos": "Photos: {name}"
+  },
+  "footer": {
+    "tagline": "A cosy, refined world in the heart of Saint-Quentin.",
+    "address": "Address",
+    "contact": "Contact",
+    "explore": "Explore",
+    "follow": "Follow us",
+    "rights": "All rights reserved."
+  },
+  "form": {
+    "name": "Full name",
+    "email": "Email",
+    "phone": "Phone",
+    "company": "Company",
+    "subject": "Subject",
+    "subjects": {
+      "booking": "Booking request",
+      "info": "Information request",
+      "seminar": "Meeting or business event",
+      "other": "Other"
+    },
+    "dates": "Preferred dates",
+    "participants": "Number of participants",
+    "message": "Your message",
+    "required": "Required field",
+    "consent": "The information entered in this form is used only to reply to your request.",
+    "honeypot": "Leave this field empty",
+    "submit": "Send",
+    "sent": "Thank you! Your message has been sent. We will get back to you shortly."
+  },
+  "map": {
+    "title": "Map",
+    "load": "Show the map",
+    "notice": "The map is provided by OpenStreetMap. It only loads if you click the button."
+  },
+  "legal": {
+    "frenchOnly": "This document is only available in French."
+  },
+  "pages": {
+    "home": {
+      "title": "Charming 3-star hotel in central Saint-Quentin",
+      "description": "Hôtel Les Coulisses du Théâtre, a charming 3-star hotel in the heart of Saint-Quentin, near the Théâtre Jean-Vilar and the Basilica. Heated pool, L'Entracte bar, organic local breakfast.",
+      "heroEyebrow": "Hotel ★★★ · Saint-Quentin",
+      "heroTitle": "Welcome to a cosy, refined world",
+      "heroText": "In the historic centre, a short walk from the Théâtre Jean-Vilar and the Basilica.",
+      "heroAlt": "The illuminated façade of Hôtel Les Coulisses du Théâtre at nightfall",
+      "introEyebrow": "Behind the scenes",
+      "introTitle": "Warm elegance",
+      "introText": [
+        "Welcome to Hôtel Les Coulisses du Théâtre. We are delighted to welcome you to our 3-star hotel, designed to offer you a quality stay.",
+        "A comfortable, stylish living room, breakfast on the terrace in fine weather, a bar for a coffee, a cocktail or a glass of wine, a pool and a wellness area: everything is here for a charming stay."
+      ],
+      "introLink": "Discover the hotel",
+      "figures": {
+        "rooms": "air-conditioned rooms",
+        "categories": "room categories",
+        "apartments": "apartments",
+        "reception": "reception"
+      },
+      "roomsEyebrow": "Our rooms",
+      "roomsTitle": "Six ways to stay",
+      "roomsText": "From the Comfort Room to the Suite, every room is carefully decorated: premium bedding, soundproofing and bespoke furniture.",
+      "barEyebrow": "L'Entracte bar",
+      "barTitle": "An elegant interlude",
+      "barText": "Hot drinks, cocktails, selected wines and sharing boards, in a cosy setting blending Moroccan influences and Art Deco charm, or out on the terrace in fine weather.",
+      "barMeta": "Daily · 6:30 am – 11 pm",
+      "poolEyebrow": "Wellness",
+      "poolTitle": "Tropical-style waters",
+      "poolText": "A heated indoor pool with a counter-current swimming lane, unique in the Saint-Quentin area. Loungers by the water to recharge after a day of sightseeing or work.",
+      "poolMeta": "Daily · 9 am – 9 pm · Hotel guests only",
+      "breakfastEyebrow": "Breakfast",
+      "breakfastTitle": "Start the day well",
+      "breakfastText": "A generous buffet of organic, local, quality produce: pastries, assorted breads, fresh fruit, regional specialities and homemade treats. In the breakfast room, on the terrace, to take away or in your room.",
+      "breakfastMeta": "Daily · 6:30 – 10:30 am",
+      "seminarsEyebrow": "Meetings",
+      "seminarsTitle": "Meetings behind the scenes",
+      "seminarsText": "Two bright, flexible rooms opening onto a garden, for meetings, training and residential seminars in the heart of Saint-Quentin.",
+      "seminarsMeta": "Up to 40 people theatre-style",
+      "cityEyebrow": "Saint-Quentin",
+      "cityTitle": "Around town",
+      "cityText": "Easy to reach from Paris, Lille or Amiens, Saint-Quentin will charm you with its architectural heritage, lively shopping streets and green spaces. Our team will gladly recommend the best local activities.",
+      "directTitle": "Book direct",
+      "directPerks": [
+        "Best rate guaranteed on our official website",
+        "Reception open 24/7",
+        "Private secure car park and EV charging",
+        "Free high-speed Wi-Fi throughout the hotel"
+      ],
+      "instagramTitle": "Follow us on Instagram",
+      "instagramText": "Daily life behind the scenes: #LesCoulissesDuThéâtre"
+    },
+    "hotel": {
+      "title": "The hotel",
+      "description": "Discover Hôtel Les Coulisses du Théâtre, your 3-star address in the heart of Saint-Quentin: 32 rooms in 6 categories, amenities and services for a cosy, refined stay.",
+      "heroTitle": "The hotel",
+      "heroText": "Your 3-star address in the heart of Saint-Quentin.",
+      "introTitle": "A refined, cosy setting",
+      "introText": [
+        "Hôtel Les Coulisses du Théâtre welcomes you to a refined, cosy setting, a stone's throw from the Théâtre Jean-Vilar.",
+        "Our wish: to offer our guests a unique experience and a warm welcome."
+      ],
+      "categoriesTitle": "Six room categories",
+      "equipmentEyebrow": "Comfort guaranteed",
+      "equipmentTitle": "Amenities",
+      "equipmentRoom": "In the room",
+      "equipmentRoomList": [
+        "Double bed, at least 160 × 200 cm",
+        "Flat-screen TV",
+        "Wardrobe",
+        "Desk",
+        "Kettle and hospitality tray",
+        "Luggage rack",
+        "Mirror",
+        "Laundry bag",
+        "Wi-Fi",
+        "Heating and air conditioning"
+      ],
+      "equipmentBath": "In the bathroom",
+      "equipmentBathList": [
+        "Washbasin with mirror",
+        "Shower or bathtub",
+        "Separate or en-suite toilet",
+        "Coat hook",
+        "Heated towel rail",
+        "Hairdryer",
+        "Toiletries"
+      ],
+      "equipmentRequest": "On request",
+      "equipmentRequestList": [
+        "Baby equipment",
+        "Extra bed linen",
+        "Alarm clock",
+        "International plug adapters",
+        "Iron and ironing board",
+        "Hygiene kit",
+        "Shoe-shine, manicure, sewing and first-aid kits"
+      ],
+      "relaxTitle": "Pure relaxation",
+      "relaxText": "Some rooms have a rooftop or a terrace, giving you a private place to unwind. The heated pool and L'Entracte bar complete the experience.",
+      "servicesTitle": "Attentive services",
+      "servicesText": "24-hour reception, concierge service, secure luggage storage, hotel shuttle on request and e-bike rental.",
+      "comfortTitle": "Extra comfort",
+      "comfortText": "Soundproofed rooms, premium bedding, French cotton linen and duck down in the Privilege Rooms, well-appointed bathrooms and toiletries."
+    },
+    "rooms": {
+      "title": "Our rooms",
+      "description": "32 air-conditioned rooms in 6 categories, from the Comfort Room to the Suite, at Hôtel Les Coulisses du Théâtre in Saint-Quentin. Rates from €89 per night.",
+      "heroTitle": "Our rooms",
+      "heroText": "32 air-conditioned rooms with elegant comfort in a refined setting.",
+      "intro": [
+        "All our rooms have high-speed Wi-Fi. Most overlook the hotel's private courtyard; the others face one of Saint-Quentin's typical streets.",
+        "Two rooms for guests with reduced mobility are also available."
+      ],
+      "jumpTo": "Go to category",
+      "infoTitle": "Important information",
+      "infoList": [
+        "Check-in from 3 pm, check-out by 11 am.",
+        "Late check-out or early check-in: €10 per hour.",
+        "A valid credit card in the name of the booking is required at check-in.",
+        "Official ID is required (ID card, passport or driving licence).",
+        "Accepted payment methods: debit card, Visa, Mastercard. Cheques are not accepted.",
+        "Pets welcome in some categories (€20 supplement)."
+      ]
+    },
+    "apartments": {
+      "title": "Our apartments",
+      "description": "A 55 m² apartment and a 35 m² studio with fitted kitchen and hotel service, at Hôtel Les Coulisses du Théâtre in Saint-Quentin. Short and long stays.",
+      "heroTitle": "Our apartments",
+      "heroText": "The freedom of an apartment, the services of a hotel.",
+      "intro": "For a family stay, a business trip or a long stay, our apartments with fitted kitchens include hotel service: bed linen, towels and cleaning.",
+      "availability": "Available for short or long stays: please contact us.",
+      "extrasTitle": "Good to know",
+      "extras": [
+        "Breakfast available at extra cost",
+        "Parking available on reservation",
+        "Pool access",
+        "Bar and snack service available"
+      ]
+    },
+    "bar": {
+      "title": "L'Entracte bar",
+      "description": "L'Entracte, the bar at Hôtel Les Coulisses du Théâtre in Saint-Quentin: cocktails, wines, hot drinks and sharing boards, with a terrace. Open 6:30 am to 11 pm.",
+      "heroTitle": "L'Entracte",
+      "heroText": "An elegant interlude in the heart of your stay.",
+      "text": [
+        "Settle in at L'Entracte, a friendly haven at the heart of the hotel. Whether you are passing through or staying with us, it is the perfect place to relax at any time of day.",
+        "A hot drink, a refined cocktail or a carefully selected glass of wine: let our menu guide you. Pair your drink with a tasty snack or share a board of charcuterie and cheese in a warm, intimate atmosphere.",
+        "A solo break, drinks with friends or a moment for two: L'Entracte invites you to an interlude of pleasure."
+      ],
+      "hoursTitle": "Opening hours",
+      "hours": "Open daily from 6:30 am to 11 pm",
+      "terraceTitle": "L'Entracte terrace",
+      "terraceSubtitle": "A peaceful bubble in the heart of Saint-Quentin",
+      "terraceText": "Sheltered from the bustle, our terrace welcomes you in a green, soothing setting where time seems to stand still. In the sun or in the shade, enjoy the gentle, elegant atmosphere."
+    },
+    "services": {
+      "title": "Our services",
+      "description": "Heated pool, bar, organic local breakfast, e-bike rental, day use and services at Hôtel Les Coulisses du Théâtre in Saint-Quentin.",
+      "heroTitle": "Our services",
+      "heroText": "Everything for a relaxing stay, from breakfast to the pool.",
+      "poolTitle": "The heated pool",
+      "poolText": [
+        "A beautiful tropical-style indoor pool for young and old, with a counter-current swimming lane several metres long, unique in the Saint-Quentin area.",
+        "A few lengths on holiday or a swim after work: this pool is a true oasis, with loungers by the water."
+      ],
+      "poolList": [
+        "Open from 9 am to 9 pm",
+        "Hotel guests only",
+        "Quiet area, out of respect for everyone",
+        "Bathrobe and slippers on request (extra charge)"
+      ],
+      "barTitle": "The bar",
+      "barText": "In a cosy setting blending Moroccan influences and Art Deco charm, the bar welcomes you every day from 6:30 am to 11 pm, inside or on the terrace. Coffee, tea, a cold drink or a local aperitif, with sharing boards and homemade sweets.",
+      "breakfastTitle": "Breakfast",
+      "breakfastText": [
+        "Served from 6:30 to 10:30 am in our bright breakfast room, breakfast features organic, local, quality produce.",
+        "The buffet offers hot drinks, assorted breads, pastries, fresh fruit, sweet, savoury and dairy products, plant-based alternatives, regional specialities and homemade treats. Enjoy the terrace in fine weather. In a hurry? Take it away. Want privacy? Choose room service (extra charge)."
+      ],
+      "bikeTitle": "E-bike rental",
+      "bikeText": "Explore Saint-Quentin freely. Book in advance at reception; ID and a deposit are required when you collect the bike.",
+      "bikePrices": "€{half} half day · €{day} full day · helmet included",
+      "dayUseTitle": "Day use",
+      "dayUseText": "Need a break between meetings, a quiet place to work or simply some time for yourself? Our rooms are available during the day at a preferential rate.",
+      "dayUseList": [
+        "Access from 10 am to 4 pm",
+        "High-speed Wi-Fi, desk and room service",
+        "Pool access",
+        "Lunch or snack served in your room"
+      ],
+      "dayUseBooking": "Book by phone:",
+      "otherTitle": "Other services",
+      "otherList": [
+        "Staffed reception 24/7",
+        "Answering service and bookings 24/7",
+        "Free Wi-Fi throughout the hotel",
+        "Flowered, lit and secure outdoor areas",
+        "EV charging points open to all",
+        "Paid hotel shuttle around town",
+        "Private entrance",
+        "Secure luggage storage",
+        "Heating and air conditioning",
+        "Drinks menu on site and online",
+        "Outdoor terrace",
+        "Breakfast room",
+        "Microwave and wake-up call on request",
+        "TV room (daytime)",
+        "Newspapers and board games for all ages"
+      ],
+      "paidTitle": "Paid services",
+      "paidList": [
+        "Pets welcome (€20 supplement)",
+        "Snacks via room service, in the breakfast room or on the terrace",
+        "Car and motorbike parking",
+        "Bike rental and helmet loan",
+        "Laundry service (rates available at the hotel)"
+      ],
+      "hoursTitle": "Hours and rates",
+      "hoursRows": {
+        "checkin": "Check-in / check-out",
+        "checkinValue": "From 3 pm / by 11 am",
+        "reception": "Reception",
+        "receptionValue": "Open 24/7",
+        "breakfast": "Breakfast",
+        "breakfastValue": "6:30 – 10:30 am: breakfast room, terrace, takeaway or room service",
+        "breakfastPrice": "Breakfast rates",
+        "breakfastPriceValue": "€{adult} adult · €{child} child · €{room} room service",
+        "pool": "Heated indoor pool",
+        "poolValue": "9 am – 9 pm",
+        "housekeeping": "Housekeeping",
+        "housekeepingValue": "Daily, unless otherwise requested"
+      }
+    },
+    "gallery": {
+      "title": "Photo gallery",
+      "description": "Photos of Hôtel Les Coulisses du Théâtre in Saint-Quentin: rooms, suites, L'Entracte bar, heated pool, breakfast and meeting rooms.",
+      "heroTitle": "Photo gallery",
+      "heroText": "Let us surprise you.",
+      "categories": {
+        "hotel": "The hotel",
+        "rooms": "The rooms",
+        "apartments": "The apartments",
+        "bar": "L'Entracte bar",
+        "wellness": "Pool and breakfast",
+        "seminars": "Meetings"
+      }
+    },
+    "discover": {
+      "title": "Events & discoveries",
+      "description": "Things to do in Saint-Quentin: the Basilica, Théâtre Jean-Vilar, Parc d'Isle, Familistère de Guise… Tips from Hôtel Les Coulisses du Théâtre for exploring the Aisne.",
+      "heroTitle": "Events & discoveries",
+      "heroText": "Saint-Quentin and the Aisne, behind the scenes.",
+      "intro": [
+        "Located in the heart of Saint-Quentin, in the Aisne, the hotel is the gateway to a wide range of sights and festive events.",
+        "Looking for a restaurant, a visit or an outing? We keep a list of activities and places to discover around Saint-Quentin, in the Aisne and across Hauts-de-France. Tell us about your plans for advice, activity bookings or possible preferential rates with our local partners."
+      ],
+      "placesTitle": "Must-sees nearby",
+      "eventsTitle": "Events at the hotel",
+      "eventsText": "Follow our news and upcoming events on Instagram and Facebook."
+    },
+    "seminars": {
+      "title": "Meetings & seminars",
+      "description": "Flexible meeting rooms for up to 40 people in the heart of Saint-Quentin: interactive screen, breaks, catering and on-site accommodation at Hôtel Les Coulisses du Théâtre.",
+      "heroTitle": "Your residential seminar",
+      "heroText": "A dedicated space for your business events, in the heart of Saint-Quentin.",
+      "intro": [
+        "At Les Coulisses du Théâtre, we offer a space designed to combine comfort, functionality and elegance.",
+        "Our meeting space consists of two flexible rooms that can be used separately or together: small meetings, conferences or larger training sessions. Bathed in light, it is a setting that encourages work, discussion and focus.",
+        "To round off your event, the hotel offers catering, relaxing moments at the bar and on-site accommodation."
+      ],
+      "includedTitle": "Included equipment and services",
+      "includedList": [
+        "Projector",
+        "75-inch interactive screen",
+        "Flipchart",
+        "Bottled water and glasses",
+        "Break: tea, coffee, fruit juice, pastries and fruit (one per half day)",
+        "Step-free access, on the ground floor with French window onto the garden"
+      ],
+      "extraTitle": "Additional service (on quotation)",
+      "extraText": "Lunch: buffet, hot meal or meal tray on reservation.",
+      "roomsTitle": "Our rooms",
+      "table": {
+        "room": "Room",
+        "size": "Size",
+        "classroom": "Classroom",
+        "theatre": "Theatre",
+        "people": "{n} people"
+      },
+      "formTitle": "Request a quote"
+    },
+    "contact": {
+      "title": "Contact us",
+      "description": "Contact Hôtel Les Coulisses du Théâtre, 8 rue de la Comédie, Saint-Quentin: phone, email, form, map, train station, buses and nearby car parks.",
+      "heroTitle": "Contact us",
+      "heroText": "Information, a quote or a booking? Write to us and we will reply as soon as possible.",
+      "formTitle": "Write to us",
+      "arrivalTitle": "Getting here",
+      "arrival": "The hotel entrance is on the right-hand side of the street. Drive in under the archway to park by reception, then access the secure car park.",
+      "accessTitle": "Access and transport",
+      "access": [
+        { "label": "Train station", "value": "2 km: 5 min by car, 13 min by bus, 18 min on foot" },
+        { "label": "Bus", "value": "Lines 1, 2, 3, 4, 5 and 6, Basilique stop (3 min walk)" },
+        { "label": "Shuttle", "value": "Hotel shuttle on request" },
+        { "label": "Taxi / ride-hailing", "value": "Taxi Vasseurs: +33 3 23 62 22 23" },
+        { "label": "Public car parks", "value": "Souterrain Indigo, Place du Marché" },
+        { "label": "Roads", "value": "A26, A29, A1, N2044, N2029, D1, D8, D930, D1029 and D1044" }
+      ],
+      "feedbackTitle": "Your opinion matters",
+      "feedbackText": "Would you like to give us feedback on your stay? Download our forms (in French):",
+      "feedbackSatisfaction": "Satisfaction form (PDF)",
+      "feedbackClaim": "Complaint form (PDF)"
+    },
+    "terms": {
+      "title": "Terms and conditions of sale",
+      "description": "Terms and conditions of sale of Hôtel Les Coulisses du Théâtre in Saint-Quentin, for private and business customers."
+    },
+    "privacy": {
+      "title": "Legal notice and privacy policy",
+      "description": "Legal notice and privacy policy of the Hôtel Les Coulisses du Théâtre website in Saint-Quentin."
+    },
+    "notFound": {
+      "title": "Page not found",
+      "text": "This page has stayed behind the scenes. Head back to the home page to continue your visit.",
+      "back": "Back to home"
+    }
+  }
+}

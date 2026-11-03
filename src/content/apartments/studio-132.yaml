@@ -1,0 +1,59 @@
+# Studio 132 — source : https://www.hotel-coulisses-du-theatre.com/nos-appartements/
+order: 2
+name:
+  fr: Studio 132
+  en: Studio 132
+  de: Studio 132
+size: '35'
+guests:
+  fr: 2 personnes
+  en: 2 guests
+  de: 2 Personen
+description:
+  - fr: Séjour dans un studio de 35 m² avec cuisine équipée et coin salle à manger. Grand espace de repos avec salon (canapé) et lit double en 160/180, linge fourni.
+    en: A 35 m² studio with a fitted kitchen and dining corner. Large living area with a sofa and a 160/180 double bed, linen provided.
+    de: Ein 35-m²-Studio mit Einbauküche und Essecke. Großer Wohnbereich mit Sofa und Doppelbett 160/180, Bettwäsche inklusive.
+  - fr: Salle de bain avec baignoire-douche, linge de bain et produits de toilette offerts.
+    en: Bathroom with shower-bath, towels and complimentary toiletries.
+    de: Bad mit Duschbadewanne, Handtüchern und kostenlosen Pflegeprodukten.
+amenities:
+  [
+    tv,
+    intlChannels,
+    kettle,
+    coffee,
+    courtesyTray,
+    kitchen,
+    fridge,
+    microwave,
+    wardrobe,
+    desk,
+    mirror,
+    housekeeping,
+  ]
+photos:
+  - src: ../../assets/photos/appartements/studio-132-1.jpg
+    alt:
+      fr: Studio 132 mansardé avec coin salon, bureau et lit
+      en: Attic Studio 132 with seating area, desk and bed
+      de: Studio 132 im Dachgeschoss mit Sitzecke, Schreibtisch und Bett
+  - src: ../../assets/photos/appartements/studio-132-2.jpg
+    alt:
+      fr: Salon du Studio 132 avec canapé clair et table en bois
+      en: Studio 132 lounge with light sofa and wooden table
+      de: Wohnbereich von Studio 132 mit hellem Sofa und Holztisch
+  - src: ../../assets/photos/appartements/studio-132-3.jpg
+    alt:
+      fr: Lit double sous une fenêtre de toit
+      en: Double bed under a skylight
+      de: Doppelbett unter einem Dachfenster
+  - src: ../../assets/photos/appartements/studio-132-4.jpg
+    alt:
+      fr: Cuisine équipée du Studio 132 avec machine à café
+      en: Studio 132 fitted kitchen with coffee machine
+      de: Einbauküche von Studio 132 mit Kaffeemaschine
+  - src: ../../assets/photos/appartements/studio-132-6.jpg
+    alt:
+      fr: Salle de bain du Studio 132 avec baignoire-douche
+      en: Studio 132 bathroom with shower-bath
+      de: Bad von Studio 132 mit Duschbadewanne

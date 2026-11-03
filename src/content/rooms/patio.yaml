@@ -1,0 +1,68 @@
+# Chambre Patio — source : https://www.hotel-coulisses-du-theatre.com/nos-chambres/
+order: 4
+name:
+  fr: Chambre Patio
+  en: Patio Room
+  de: Patio-Zimmer
+tagline:
+  fr: Une terrasse privée de plain-pied
+  en: A private ground-floor terrace
+  de: Eine private ebenerdige Terrasse
+size: '17,5 à 20,5'
+guests:
+  fr: 2 personnes
+  en: 2 guests
+  de: 2 Personen
+bed:
+  fr: Lit double
+  en: Double bed
+  de: Doppelbett
+priceFrom: 99
+description:
+  - fr: Offrez-vous un séjour tout en confort et en quiétude dans notre Chambre Patio, élégante et dotée d’une terrasse privée de plain-pied. Sa surface intérieure de 17,5 à 20,5 m² allie bien-être et praticité.
+    en: Enjoy a comfortable, peaceful stay in our elegant Patio Room with its private ground-floor terrace. Its 17.5 to 20.5 m² interior combines well-being and practicality.
+    de: Genießen Sie einen komfortablen, ruhigen Aufenthalt in unserem eleganten Patio-Zimmer mit privater ebenerdiger Terrasse. Die 17,5 bis 20,5 m² Innenfläche verbinden Wohlbefinden und Praktikabilität.
+  - fr: Son espace extérieur aménagé est idéal pour savourer un café matinal ou un moment de détente en fin de journée, une parenthèse paisible dans un cadre élégant et chaleureux.
+    en: Its furnished outdoor area is perfect for a morning coffee or unwinding at the end of the day, a peaceful break in an elegant, warm setting.
+    de: Der möblierte Außenbereich ist ideal für einen Morgenkaffee oder zum Entspannen am Abend, eine ruhige Auszeit in elegantem, warmem Ambiente.
+amenities: [tv, intlChannels, safe, kettle, coffee, ac, showerOrBath, hairdryer]
+highlight:
+  fr: Terrasse privée de plain-pied
+  en: Private ground-floor terrace
+  de: Private ebenerdige Terrasse
+photos:
+  - src: ../../assets/photos/chambres/patio-2.jpg
+    alt:
+      fr: Chambre Patio en rez-de-chaussée avec lit double, bureau en bois et parquet
+      en: Ground-floor Patio Room with double bed, wooden desk and parquet floor
+      de: Patio-Zimmer im Erdgeschoss mit Doppelbett, Holzschreibtisch und Parkett
+  - src: ../../assets/photos/chambres/patio-1.jpg
+    alt:
+      fr: Terrasse privée de la Chambre Patio avec deux fauteuils et une bouteille de champagne
+      en: Patio Room private terrace with two chairs and a bottle of champagne
+      de: Private Terrasse des Patio-Zimmers mit zwei Stühlen und einer Flasche Champagner
+  - src: ../../assets/photos/chambres/patio-3.jpg
+    alt:
+      fr: Chambre Patio avec lit double et lumière naturelle
+      en: Patio Room with double bed and natural light
+      de: Patio-Zimmer mit Doppelbett und Tageslicht
+  - src: ../../assets/photos/chambres/patio-4.jpg
+    alt:
+      fr: Table et fauteuils en rotin sur la terrasse de la Chambre Patio
+      en: Table and rattan chairs on the Patio Room terrace
+      de: Tisch und Rattanstühle auf der Terrasse des Patio-Zimmers
+  - src: ../../assets/photos/chambres/patio-5.jpg
+    alt:
+      fr: Bureau, télévision et peignoirs dans la Chambre Patio
+      en: Desk, television and bathrobes in the Patio Room
+      de: Schreibtisch, Fernseher und Bademäntel im Patio-Zimmer
+  - src: ../../assets/photos/chambres/patio-sdb-1.jpg
+    alt:
+      fr: Douche vitrée et miroir rond dans la salle de bain de la Chambre Patio
+      en: Glass shower and round mirror in the Patio Room bathroom
+      de: Glasdusche und runder Spiegel im Bad des Patio-Zimmers
+  - src: ../../assets/photos/chambres/patio-sdb-2.jpg
+    alt:
+      fr: Vasque blanche et miroir rond dans une salle de bain claire
+      en: White washbasin and round mirror in a light bathroom
+      de: Weißes Waschbecken und runder Spiegel in einem hellen Bad

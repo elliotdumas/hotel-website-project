@@ -20,10 +20,10 @@ Ce qui compte :
 | Adresse | 8 rue de la Comédie, 02100 Saint-Quentin, France |
 | GPS | 49.846108, 3.286268 |
 | Téléphones | +33 (0)3 23 67 90 09 / +33 (0)6 98 33 38 10 |
-| E-mail | **À compléter** (absent du site actuel) |
+| E-mail | contact@hotel-coulisses.com (relevé dans les CGV du site actuel) |
 | Accroche | « Bienvenue dans un univers cosy et raffiné » |
-| Chambres | 32 chambres climatisées et insonorisées (Supérieure, Privilège en rez-de-chaussée, etc.) **— inventaire complet à fournir** |
-| Autres hébergements | Appartements (page dédiée) |
+| Chambres | 32 chambres climatisées et insonorisées, 6 catégories : Confort, Rooftop, Supérieure, Patio, Privilège, Suite (fiches dans `src/content/rooms/`) |
+| Autres hébergements | Appartement 131 (55 m²) et Studio 132 (35 m²) |
 | Bar | Bar l'Entracte : terrasse ensoleillée, boissons chaudes, cocktails, vins, snacks |
 | Services | Wi-Fi haut débit gratuit, petit-déjeuner généreux (terrasse aux beaux jours), piscine chauffée et espace bien-être, conciergerie, parking privé sécurisé, bornes de recharge pour véhicules électriques, salles de séminaire |
 | Boutique | Bons cadeaux sur https://lescoulissessaintquentin.shop.bonkdo.com/fr/bons-cadeaux (externe, à conserver) |
@@ -40,12 +40,12 @@ Ce qui compte :
 
 - **Framework :** [Astro](https://astro.build) (pages statiques, très peu de JavaScript, SEO excellent, i18n natif)
 - **Langage :** TypeScript en mode strict
-- **Styles :** Tailwind CSS, avec les tokens de design dans `tailwind.config` et des variables CSS
-- **Contenu :** Astro Content Collections, en Markdown/MDX avec un schéma Zod (`src/content/`)
+- **Styles :** Tailwind CSS v4, avec les tokens de design (couleurs, polices) dans le bloc `@theme` de `src/styles/global.css`
+- **Contenu :** Astro Content Collections avec schéma Zod (`src/content.config.ts`) : fiches YAML multilingues pour les chambres, appartements et lieux, Markdown pour les textes légaux
 - **Images :** `astro:assets`, avec AVIF/WebP, `srcset` responsive, lazy-loading et des dimensions explicites
 - **Interactivité :** îlots seulement si nécessaire (galerie lightbox, sélecteur de dates), en vanilla TS ou Preact
 - **Formulaires :** contact et demande de séminaire via un service serverless (à définir : Netlify Forms, Formspree, etc.), avec une protection anti-spam (honeypot et Turnstile)
-- **Hébergement :** à définir (Netlify, Vercel ou OVH), avec un déploiement statique
+- **Hébergement :** à définir. Le projet est prêt pour Netlify (formulaires `data-netlify`, `public/_redirects`) ; tout hébergeur statique convient
 - **Gestionnaire de paquets :** `pnpm`
 
 Si la stack change, mettre ce fichier à jour.
@@ -63,25 +63,40 @@ pnpm check          # astro check (types)
 
 Avant de considérer une tâche terminée : `pnpm check && pnpm lint && pnpm build` doivent passer.
 
-## Arborescence prévue
+## Arborescence
 
 ```
 src/
-  components/      # composants .astro réutilisables (Header, Footer, RoomCard, BookingBar…)
-  layouts/         # BaseLayout (SEO, meta, JSON-LD), PageLayout
-  pages/
-    index.astro            # FR par défaut
-    en/…                   # anglais
-    de/…                   # allemand
+  assets/photos/     # photos de l'hôtel (reprises du site actuel), optimisées au build
+  assets/logo/       # logo PNG (TODO : version SVG)
+  components/        # composants .astro réutilisables (Header, Footer, BookingForm, Gallery…)
   content/
-    rooms/         # une fiche par catégorie de chambre
-    apartments/
-    events/        # événements & découvertes (ex. vente d'artisanat marocain)
-    pages/         # textes éditoriaux
-  i18n/            # dictionnaires d'interface fr.json, en.json, de.json
-  styles/          # global.css, tokens
-public/            # favicon, robots.txt, images non optimisées
+    rooms/           # une fiche YAML par catégorie de chambre (textes FR/EN/DE, prix, photos)
+    apartments/      # une fiche YAML par appartement
+    places/          # lieux à découvrir autour de l'hôtel
+    legal/           # CGV et mentions légales (Markdown, en français)
+  data/
+    hotel.ts         # faits de l'hôtel : adresse, téléphones, horaires, tarifs, lien de réservation
+    photos.ts        # photos hors chambres, avec texte alternatif FR/EN/DE
+  i18n/
+    fr.json, en.json, de.json   # tous les textes d'interface ET des pages
+    routes.ts        # plan du site : URL de chaque page dans chaque langue
+    config.ts        # langues, helpers useTranslations(), pick(), format()
+  layouts/BaseLayout.astro      # <head> SEO, hreflang, Open Graph, JSON-LD Hotel
+  pages/[...slug].astro         # route unique qui génère toutes les pages × langues
+  pages/404.astro
+  views/             # contenu de chaque page (Home, Rooms, Bar, Contact…)
+  styles/global.css  # Tailwind + tokens de design
+public/              # favicon, robots.txt, manifest, _redirects, docs/ (PDF)
+assets-source/       # fichiers sources fournis (maquette de référence…), non publiés
 ```
+
+### Modifier le contenu
+
+- **Un prix, une description de chambre, une photo de chambre :** `src/content/rooms/<chambre>.yaml`.
+- **Un horaire, un tarif de service, le téléphone :** `src/data/hotel.ts`, et le texte correspondant dans `src/i18n/*.json` si la valeur y est écrite en toutes lettres.
+- **Un texte de page :** `src/i18n/fr.json` (`pages.<page>`), puis la même clé dans `en.json` et `de.json`. Les trois fichiers doivent toujours avoir exactement les mêmes clés.
+- **Ajouter une page :** ajouter l'entrée dans `src/i18n/routes.ts`, créer la vue dans `src/views/`, la brancher dans `src/pages/[...slug].astro`, ajouter `nav.<clé>` et `pages.<clé>` dans les trois JSON.
 
 ## Plan du site et redirections
 
@@ -110,12 +125,8 @@ Tenir la liste complète des redirections dans le fichier de configuration de l'
 
 - **Référence visuelle :** `assets-source/inspiration/maquette-mobile-reference.webp` est une maquette mobile d'un autre hôtel, fournie comme **inspiration de mise en page uniquement**. À reprendre : le hero plein écran avec le titre en serif, l'alternance de fonds crème et brun foncé, les grandes photos pleine largeur, les chiffres clés, le carrousel des chambres et les sections empilées (restaurant, spa, piscine, lounge, activités) avec leur petit lien. Ne copier ni ses textes, ni ses photos, ni sa marque.
 - **Ambiance :** l'élégance chaleureuse d'un théâtre à l'italienne. On peut s'inspirer d'un rideau de velours, de dorures discrètes et de lumières tamisées, sans tomber dans le kitsch.
-- **Palette proposée** (à valider avec le client, le site actuel n'en définit pas) :
-  - `--color-velours` : rouge bordeaux profond (accent principal, CTA)
-  - `--color-or` : or patiné (détails, filets, icônes)
-  - `--color-nuit` : bleu nuit ou anthracite (textes, fonds sombres)
-  - `--color-creme` : crème ou ivoire (fond principal)
-- **Typographie :** un serif élégant pour les titres (par ex. *Cormorant Garamond* ou *Playfair Display*) et un sans-serif lisible pour le texte (*Inter* ou *DM Sans*). Les polices sont auto-hébergées (`@fontsource`), sans appel à Google Fonts, pour le RGPD.
+- **Palette** (tirée du logo, à valider avec le client) : crème `#fbf6ec` / ivoire `#fff9e9` (fonds), brun `#473d35` et nuit `#241c17` (sections sombres, texte), or patiné `#b8955c` (filets, détails ; `#7a5c2e` pour du texte sur fond clair), velours `#6e1f2a` (boutons « Réserver »).
+- **Typographie :** *Cormorant Garamond* pour les titres, *DM Sans* pour le texte, auto-hébergées via `@fontsource-variable` (aucun appel à Google Fonts, pour le RGPD).
 - **Vocabulaire théâtral** possible dans les intitulés, à petite dose : « Entracte », « En coulisses », « Votre scène », etc.
 - **Photos :** elles doivent être grandes, immersives et en plein écran sur l'accueil. Ne jamais utiliser de photos de banque d'images à la place de vraies photos de l'hôtel sans accord.
 - **Animations :** sobres (fondu, léger parallaxe) et respectueuses de `prefers-reduced-motion`.
@@ -124,7 +135,7 @@ Tenir la liste complète des redirections dans le fichier de configuration de l'
 ## Réservation
 
 - Le site actuel a un widget avec les champs dates, chambres, adultes et enfants, mais ses boutons pointent vers `#`.
-- **Moteur de réservation : à identifier avec le client** (D-Edge, Reservit, Amenitiz, Thais, etc.). Intégrer son lien profond (deep link) en passant les dates et le nombre de personnes en paramètres.
+- **Moteur de réservation : à identifier avec le client** (D-Edge, Reservit, Amenitiz, Thais, etc.). Renseigner son lien dans `hotel.bookingUrl` (`src/data/hotel.ts`) et adapter les noms de paramètres dans `BookingForm.astro`. Tant qu'il vaut `null`, les boutons « Réserver » mènent au formulaire de contact, pré-rempli avec les dates.
 - Chaque page doit avoir un CTA « Réserver » visible. Ajouter aussi des boutons « Appeler » (`tel:`) et « Itinéraire » (lien Google Maps ou OpenStreetMap).
 - Mettre en avant les arguments de la réservation directe : meilleur tarif garanti, parking, etc.
 
@@ -171,12 +182,12 @@ Tenir la liste complète des redirections dans le fichier de configuration de l'
 ## Informations à demander au client
 
 - [ ] Logo en version vectorielle et charte graphique, s'il en existe une
-- [ ] Photos haute définition (chambres, bar, piscine, façade, petit-déjeuner)
-- [ ] Liste exacte des catégories de chambres et appartements : surface, lits, équipements, capacité
+- [ ] Photos haute définition : celles du site actuel (1440 px) sont utilisées en attendant, et l'accord pour les réutiliser est à confirmer
+- [ ] Validation des fiches chambres et appartements (reprises du site actuel)
+- [ ] Choix de l'hébergeur et du service de formulaires
+- [ ] Traductions anglaise et allemande à faire relire
 - [ ] Moteur de réservation utilisé et lien profond
-- [ ] Adresse e-mail de contact
-- [ ] Horaires : check-in/check-out, bar, petit-déjeuner, piscine
-- [ ] Prix du petit-déjeuner, du parking et des animaux
+- [ ] Tarif du parking (les autres horaires et tarifs sont repris du site actuel)
 - [ ] Capacités et équipements des salles de séminaire
-- [ ] Mentions légales complètes et hébergeur choisi
+- [ ] Mentions légales : mettre à jour l'hébergeur, le concepteur et les outils de mesure d'audience (texte repris du site actuel)
 - [ ] Avis clients autorisés (widget TripAdvisor ou Google, ou citations sélectionnées)

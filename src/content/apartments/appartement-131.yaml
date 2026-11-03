@@ -1,0 +1,64 @@
+# Appartement 131 — source : https://www.hotel-coulisses-du-theatre.com/nos-appartements/
+order: 1
+name:
+  fr: Appartement 131
+  en: Apartment 131
+  de: Apartment 131
+size: '55'
+guests:
+  fr: 3 à 4 personnes
+  en: 3 to 4 guests
+  de: 3 bis 4 Personen
+description:
+  - fr: Séjour spacieux dans un appartement de 55 m² avec cuisine équipée, espace salon (canapé réversible pour 2 enfants) et coin salle à manger.
+    en: A spacious 55 m² apartment with a fitted kitchen, a lounge area (sofa bed for 2 children) and a dining corner.
+    de: Ein großzügiges 55-m²-Apartment mit Einbauküche, Wohnbereich (Schlafsofa für 2 Kinder) und Essecke.
+  - fr: Chambre séparée avec lit double en 160/180 et linge fourni. Salle de bain avec douche, linge de bain et produits de toilette offerts.
+    en: Separate bedroom with a 160/180 double bed and linen provided. Bathroom with shower, towels and complimentary toiletries.
+    de: Separates Schlafzimmer mit Doppelbett 160/180 und Bettwäsche. Bad mit Dusche, Handtüchern und kostenlosen Pflegeprodukten.
+amenities:
+  [
+    tv,
+    intlChannels,
+    kettle,
+    coffee,
+    courtesyTray,
+    kitchen,
+    fridge,
+    microwave,
+    wardrobe,
+    desk,
+    mirror,
+    housekeeping,
+  ]
+photos:
+  - src: ../../assets/photos/appartements/appartement-131-1.jpg
+    alt:
+      fr: Salon de l’Appartement 131 sous les toits, avec fauteuils clairs et table basse
+      en: Apartment 131 living room under the eaves, with light armchairs and coffee table
+      de: Wohnzimmer von Apartment 131 unter dem Dach mit hellen Sesseln und Couchtisch
+  - src: ../../assets/photos/appartements/appartement-131-2.jpg
+    alt:
+      fr: Espace salon et salle à manger lumineux de l’Appartement 131
+      en: Bright living and dining area in Apartment 131
+      de: Heller Wohn- und Essbereich in Apartment 131
+  - src: ../../assets/photos/appartements/appartement-131-3.jpg
+    alt:
+      fr: Chambre de l’Appartement 131 avec lit double et poutre apparente
+      en: Apartment 131 bedroom with double bed and exposed beam
+      de: Schlafzimmer von Apartment 131 mit Doppelbett und Holzbalken
+  - src: ../../assets/photos/appartements/appartement-131-4.jpg
+    alt:
+      fr: Coin repas avec table ronde en marbre et fauteuils
+      en: Dining corner with round marble table and armchairs
+      de: Essecke mit rundem Marmortisch und Sesseln
+  - src: ../../assets/photos/appartements/appartement-131-5.jpg
+    alt:
+      fr: Cuisine équipée sous fenêtre de toit
+      en: Fitted kitchen under a skylight
+      de: Einbauküche unter einem Dachfenster
+  - src: ../../assets/photos/appartements/appartement-131-6.jpg
+    alt:
+      fr: Salle de bain en terrazzo avec douche
+      en: Terrazzo bathroom with shower
+      de: Terrazzo-Bad mit Dusche

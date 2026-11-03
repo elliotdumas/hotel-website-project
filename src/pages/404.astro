@@ -1,0 +1,27 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { useTranslations, locales } from '@/i18n/config';
+import { url } from '@/i18n/routes';
+
+const t = useTranslations('fr');
+const p = t.pages.notFound;
+---
+
+<BaseLayout locale="fr" page="home" title={p.title} description={p.text} noindex>
+  <section class="flex min-h-[80svh] items-center bg-nuit pt-24 text-ivoire">
+    <div class="mx-auto max-w-2xl px-4 text-center sm:px-6">
+      <p class="eyebrow text-or">404</p>
+      <h1 class="mt-4 text-5xl sm:text-6xl">{p.title}</h1>
+      <p class="mt-6 text-lg text-ivoire/85">{p.text}</p>
+      <ul class="mt-10 flex flex-wrap justify-center gap-3">
+        {locales.map((locale) => (
+          <li>
+            <a href={url('home', locale)} lang={locale} class="btn btn-outline">
+              {useTranslations(locale).pages.notFound.back}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</BaseLayout>

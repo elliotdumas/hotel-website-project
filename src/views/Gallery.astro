@@ -1,0 +1,151 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import Gallery from '@/components/Gallery.astro';
+import { pick, useTranslations, type Locale } from '@/i18n/config';
+import { photos, type Photo } from '@/data/photos';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const p = t.pages.gallery;
+const rooms = (await getCollection('rooms')).sort((a, b) => a.data.order - b.data.order);
+const apartments = (await getCollection('apartments')).sort((a, b) => a.data.order - b.data.order);
+
+const categories: { id: string; title: string; photos: Photo[] }[] = [
+  {
+    id: 'hotel',
+    title: p.categories.hotel,
+    photos: [
+      photos.facadeNuit,
+      photos.courNuit,
+      photos.courVueAerienne,
+      photos.espaceDeVie1,
+      photos.espaceDeVie2,
+      photos.espaceDeVie4,
+      photos.espaceDeVie5,
+      photos.escalierColimacon,
+      photos.escalierBois,
+      photos.sculptureSinge,
+      photos.vaseApplique,
+      photos.pavillon1,
+      photos.pavillon2,
+      photos.signaletiqueScene,
+      photos.numeroChambre,
+    ],
+  },
+  {
+    id: 'chambres',
+    title: p.categories.rooms,
+    photos: rooms.flatMap((room) => room.data.photos.slice(0, 3)),
+  },
+  {
+    id: 'appartements',
+    title: p.categories.apartments,
+    photos: apartments.flatMap((apartment) => apartment.data.photos.slice(0, 4)),
+  },
+  {
+    id: 'bar',
+    title: p.categories.bar,
+    photos: [
+      photos.barComptoir,
+      photos.terrasseSoir,
+      photos.barSuspensions,
+      photos.tireuses,
+      photos.barSalle,
+      photos.barLumieres,
+      photos.salonCheminee,
+    ],
+  },
+  {
+    id: 'bien-etre',
+    title: p.categories.wellness,
+    photos: [
+      photos.piscine1,
+      photos.piscine2,
+      photos.piscine3,
+      photos.spheresLumineuses,
+      photos.petitDej1,
+      photos.petitDej2,
+      photos.petitDej3,
+      photos.espaceDeVie3,
+    ],
+  },
+  {
+    id: 'seminaires',
+    title: p.categories.seminars,
+    photos: [
+      photos.salle1,
+      photos.salle2,
+      photos.salle3,
+      photos.salle4,
+      photos.salle5,
+      photos.buffet,
+      photos.jardin,
+      photos.facadeJardin,
+    ],
+  },
+];
+---
+
+<BaseLayout
+  locale={locale}
+  page="gallery"
+  title={p.title}
+  description={p.description}
+  image={photos.courVueAerienne.src}
+>
+  <PageHero
+    locale={locale}
+    image={photos.courNuit.src}
+    alt={pick(photos.courNuit.alt, locale)}
+    title={p.heroTitle}
+    text={p.heroText}
+  />
+
+  <nav
+    aria-label={p.title}
+    class="sticky top-20 z-20 border-b border-lin bg-creme/95 backdrop-blur xl:top-24"
+  >
+    <ul class="mx-auto flex max-w-7xl gap-2 overflow-x-auto px-4 py-3 sm:px-6 lg:px-8">
+      {categories.map((category) => (
+        <li class="shrink-0">
+          <a
+            href={`#${category.id}`}
+            class="inline-flex min-h-11 items-center px-3 text-sm whitespace-nowrap hover:text-velours"
+          >
+            {category.title}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+
+  {categories.map((category, index) => (
+    <section
+      id={category.id}
+      aria-labelledby={`${category.id}-titre`}
+      class:list={['scroll-mt-40 py-14 md:py-20', index % 2 === 1 && 'bg-sable']}
+    >
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <h2 id={`${category.id}-titre`} class="text-4xl">
+          {category.title}
+        </h2>
+        <span class="rule mt-5 mb-10" aria-hidden="true" />
+        <Gallery
+          locale={locale}
+          layout="grid"
+          label={category.title}
+          photos={category.photos.map((photo) => ({
+            src: photo.src,
+            alt: pick(photo.alt, locale),
+          }))}
+        />
+      </div>
+    </section>
+  ))}
+</BaseLayout>

@@ -1,0 +1,184 @@
+---
+import { useTranslations, type Locale } from '@/i18n/config';
+import { url } from '@/i18n/routes';
+
+interface Props {
+  locale: Locale;
+  variant?: 'contact' | 'seminar';
+}
+
+const { locale, variant = 'contact' } = Astro.props;
+const t = useTranslations(locale);
+const formName = variant === 'seminar' ? 'seminaire' : 'contact';
+const page = variant === 'seminar' ? 'seminars' : 'contact';
+const id = `form-${formName}`;
+
+/*
+ * Formulaire prévu pour Netlify Forms (attribut data-netlify + champ « pot de miel »).
+ * TODO: si l'hébergeur retenu n'est pas Netlify, remplacer `action` par l'URL du service choisi
+ * (Formspree, Web3Forms…) et ajouter Cloudflare Turnstile.
+ */
+const input =
+  'mt-1 w-full border border-lin bg-ivoire px-3 py-2.5 text-base text-encre focus:border-or focus:ring-1 focus:ring-or focus:outline-none';
+const labelClass = 'block text-sm font-medium text-encre';
+---
+
+<form
+  name={formName}
+  method="post"
+  action={`${url(page, locale)}?envoye=1#${id}`}
+  data-netlify="true"
+  netlify-honeypot="site-web"
+  id={id}
+  class="contact-form grid grid-cols-1 gap-5 sm:grid-cols-2"
+  data-label-rooms={t.booking.rooms}
+  data-label-adults={t.booking.adults}
+  data-label-children={t.booking.children}
+>
+  <input type="hidden" name="form-name" value={formName} />
+  <input type="hidden" name="langue" value={locale} />
+  <p class="hidden">
+    <label>
+      {t.form.honeypot} <input name="site-web" tabindex="-1" autocomplete="off" />
+    </label>
+  </p>
+
+  <p
+    role="status"
+    class="col-span-full hidden border-l-2 border-or bg-sable p-4 text-sm"
+    data-form-sent
+  >
+    {t.form.sent}
+  </p>
+
+  <div>
+    <label for={`${id}-nom`} class={labelClass}>
+      {t.form.name} <span aria-hidden="true">*</span>
+    </label>
+    <input id={`${id}-nom`} name="nom" required autocomplete="name" class={input} />
+  </div>
+  <div>
+    <label for={`${id}-email`} class={labelClass}>
+      {t.form.email} <span aria-hidden="true">*</span>
+    </label>
+    <input
+      id={`${id}-email`}
+      name="email"
+      type="email"
+      required
+      autocomplete="email"
+      class={input}
+    />
+  </div>
+  <div>
+    <label for={`${id}-tel`} class={labelClass}>
+      {t.form.phone}
+    </label>
+    <input id={`${id}-tel`} name="telephone" type="tel" autocomplete="tel" class={input} />
+  </div>
+
+  {variant === 'seminar' ? (
+    <>
+      <div>
+        <label for={`${id}-societe`} class={labelClass}>
+          {t.form.company}
+        </label>
+        <input id={`${id}-societe`} name="societe" autocomplete="organization" class={input} />
+      </div>
+      <div>
+        <label for={`${id}-participants`} class={labelClass}>
+          {t.form.participants}
+        </label>
+        <input
+          id={`${id}-participants`}
+          name="participants"
+          type="number"
+          min="1"
+          max="200"
+          class={input}
+        />
+      </div>
+    </>
+  ) : (
+    <div>
+      <label for={`${id}-objet`} class={labelClass}>
+        {t.form.subject}
+      </label>
+      <select id={`${id}-objet`} name="objet" class={input} data-subject>
+        <option value="reservation">{t.form.subjects.booking}</option>
+        <option value="information" selected>
+          {t.form.subjects.info}
+        </option>
+        <option value="seminaire">{t.form.subjects.seminar}</option>
+        <option value="autre">{t.form.subjects.other}</option>
+      </select>
+    </div>
+  )}
+
+  <div class:list={[variant === 'seminar' ? '' : 'col-span-full']}>
+    <label for={`${id}-dates`} class={labelClass}>
+      {t.form.dates}
+    </label>
+    <input id={`${id}-dates`} name="dates" class={input} data-dates />
+  </div>
+
+  <div class="col-span-full">
+    <label for={`${id}-message`} class={labelClass}>
+      {t.form.message} <span aria-hidden="true">*</span>
+    </label>
+    <textarea
+      id={`${id}-message`}
+      name="message"
+      rows="6"
+      required
+      class={input}
+      data-message
+    ></textarea>
+  </div>
+
+  <p class="col-span-full text-xs text-taupe">
+    <span aria-hidden="true">*</span>
+    {t.form.required}. {t.form.consent}
+  </p>
+
+  <div class="col-span-full">
+    <button type="submit" class="btn btn-primary">
+      {t.form.submit}
+    </button>
+  </div>
+</form>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>('.contact-form').forEach((form) => {
+    const params = new URLSearchParams(window.location.search);
+
+    // Message de confirmation après envoi.
+    if (params.has('envoye')) {
+      form.querySelector<HTMLElement>('[data-form-sent]')?.classList.remove('hidden');
+    }
+
+    // Pré-remplissage depuis le formulaire « Réserver » (?arrivee=…&depart=…).
+    const arrival = params.get('arrivee');
+    const departure = params.get('depart');
+    if (!arrival || !departure) return;
+    const subject = form.querySelector<HTMLSelectElement>('[data-subject]');
+    const dates = form.querySelector<HTMLInputElement>('[data-dates]');
+    const message = form.querySelector<HTMLTextAreaElement>('[data-message]');
+    const lang = document.documentElement.lang;
+    const fmt = (value: string) =>
+      new Date(`${value}T12:00:00`).toLocaleDateString(lang, { dateStyle: 'long' });
+    if (subject) subject.value = 'reservation';
+    if (dates) dates.value = `${fmt(arrival)} → ${fmt(departure)}`;
+    if (message && !message.value) {
+      const details = [
+        [form.dataset.labelRooms, params.get('chambres')],
+        [form.dataset.labelAdults, params.get('adultes')],
+        [form.dataset.labelChildren, params.get('enfants')],
+      ]
+        .filter(([, value]) => value !== null)
+        .map(([label, value]) => `${label} : ${value}`)
+        .join(' · ');
+      message.value = `${details}\n\n`;
+    }
+  });
+</script>
