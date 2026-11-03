@@ -1,0 +1,819 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Plaquette séminaires — Hôtel Les Coulisses du Théâtre</title>
+    <!--
+      Plaquette séminaires, A4, 4 pages (1 : couverture · 2-3 : intérieur · 4 : dos).
+      Photos : brochure/photos/ (Drive « HOTEL COULISSES », 2026) + src/assets/photos/seminaires/.
+      Faits : src/data/hotel.ts, src/i18n/fr.json (pages.seminars, pages.apartments, pages.services).
+      Générer le PDF : pnpm brochure
+    -->
+    <style>
+      @font-face {
+        font-family: 'Cormorant';
+        src: url('../node_modules/@fontsource-variable/cormorant-garamond/files/cormorant-garamond-latin-wght-normal.woff2')
+          format('woff2');
+        font-weight: 300 700;
+      }
+      @font-face {
+        font-family: 'Cormorant';
+        src: url('../node_modules/@fontsource-variable/cormorant-garamond/files/cormorant-garamond-latin-wght-italic.woff2')
+          format('woff2');
+        font-weight: 300 700;
+        font-style: italic;
+      }
+      @font-face {
+        font-family: 'DM Sans';
+        src: url('../node_modules/@fontsource-variable/dm-sans/files/dm-sans-latin-wght-normal.woff2')
+          format('woff2');
+        font-weight: 100 1000;
+      }
+
+      :root {
+        --creme: #fbf6ec;
+        --ivoire: #fff9e9;
+        --sable: #f0e7d6;
+        --lin: #e3d6bf;
+        --brun: #473d35;
+        --nuit: #241c17;
+        --encre: #2b231e;
+        --taupe: #6a5d51;
+        --or: #b8955c;
+        --or-fonce: #7a5c2e;
+        --velours: #6e1f2a;
+        --serif: 'Cormorant', Georgia, serif;
+        --sans: 'DM Sans', system-ui, sans-serif;
+        --m: 15mm; /* marge extérieure */
+      }
+      @page {
+        size: A4;
+        margin: 0;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      body {
+        background: #8a8178;
+        font-family: var(--sans);
+        font-size: 8.6pt;
+        line-height: 1.6;
+        color: var(--encre);
+        font-weight: 380;
+      }
+      img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .page {
+        position: relative;
+        width: 210mm;
+        height: 297mm;
+        overflow: hidden;
+        background: var(--creme);
+        break-after: page;
+      }
+      @media screen {
+        .page {
+          margin: 10mm auto;
+          box-shadow: 0 4px 24px rgb(0 0 0 / 0.35);
+        }
+      }
+
+      /* ---------- Typographie ---------- */
+      .eyebrow {
+        font-size: 6.6pt;
+        font-weight: 600;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--or-fonce);
+      }
+      .act {
+        display: flex;
+        align-items: center;
+        gap: 4mm;
+      }
+      .act::after {
+        content: '';
+        flex: 1;
+        height: 0.4pt;
+        background: var(--or);
+        opacity: 0.6;
+      }
+      h1,
+      h2,
+      h3,
+      .serif {
+        font-family: var(--serif);
+        font-weight: 400;
+        line-height: 1.02;
+        letter-spacing: -0.005em;
+      }
+      h2 {
+        font-size: 31pt;
+        margin: 4mm 0 4mm;
+      }
+      h1 em,
+      h2 em,
+      h3 em {
+        font-style: italic;
+        color: var(--or-fonce);
+      }
+      h3 {
+        font-size: 15pt;
+        font-weight: 500;
+      }
+      .lead {
+        font-family: var(--serif);
+        font-size: 12.5pt;
+        line-height: 1.42;
+        color: var(--brun);
+      }
+      p + p {
+        margin-top: 2mm;
+      }
+      .muted {
+        color: var(--taupe);
+      }
+      .caption {
+        font-family: var(--serif);
+        font-style: italic;
+        font-size: 9pt;
+        color: var(--taupe);
+        margin-top: 1.6mm;
+      }
+      .rule {
+        height: 0.4pt;
+        background: var(--or);
+        opacity: 0.6;
+      }
+      ul.list {
+        list-style: none;
+      }
+      ul.list li {
+        padding: 1.5mm 0;
+        border-bottom: 0.4pt solid var(--lin);
+        display: flex;
+        gap: 3mm;
+        align-items: baseline;
+      }
+      ul.list li:last-child {
+        border-bottom: 0;
+      }
+      ul.list li::before {
+        content: '◆';
+        font-size: 4.5pt;
+        color: var(--or);
+        transform: translateY(-1pt);
+      }
+      .folio {
+        position: absolute;
+        bottom: 8mm;
+        left: var(--m);
+        right: var(--m);
+        display: flex;
+        justify-content: space-between;
+        font-size: 6pt;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: var(--taupe);
+      }
+      .folio b {
+        font-weight: 500;
+        color: var(--or-fonce);
+      }
+
+      /* ---------- 1. Couverture ---------- */
+      .cover .photo {
+        position: absolute;
+        inset: 0;
+      }
+      .cover .photo img {
+        object-position: 50% 62%;
+      }
+      .cover .photo::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, transparent 50%, rgb(36 28 23 / 0.25) 100%);
+      }
+      .cover .card {
+        position: absolute;
+        left: var(--m);
+        right: var(--m);
+        bottom: var(--m);
+        background: var(--creme);
+        padding: 11mm 13mm 10mm;
+        display: grid;
+        grid-template-columns: 30mm 1fr;
+        gap: 10mm;
+        align-items: center;
+      }
+      .cover .card::before {
+        content: '';
+        position: absolute;
+        inset: 2.2mm;
+        border: 0.4pt solid var(--or);
+        opacity: 0.7;
+        pointer-events: none;
+      }
+      .cover .logo {
+        width: 30mm;
+        height: auto;
+      }
+      .cover h1 {
+        font-size: 40pt;
+        margin: 2.5mm 0 3.5mm;
+      }
+      .cover .lead {
+        font-size: 11.5pt;
+      }
+      .cover .keys {
+        display: flex;
+        gap: 5mm;
+        margin-top: 4mm;
+        font-size: 6.6pt;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--or-fonce);
+        font-weight: 600;
+      }
+      .cover .keys span + span::before {
+        content: '·';
+        margin-right: 5mm;
+        color: var(--or);
+      }
+      .cover .tag {
+        position: absolute;
+        top: var(--m);
+        left: var(--m);
+        background: rgb(36 28 23 / 0.55);
+        color: var(--creme);
+        padding: 2.2mm 4mm;
+        font-size: 6.4pt;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+      }
+
+      /* ---------- 2. Les salles ---------- */
+      .inner {
+        padding: var(--m) var(--m) 0;
+      }
+      .p2 .hero {
+        height: 92mm;
+        margin: 5mm 0 0;
+      }
+      .p2 .intro {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 9mm;
+        margin-top: 6mm;
+      }
+      .rooms {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6mm;
+        margin-top: 7mm;
+      }
+      .room {
+        border-top: 0.8pt solid var(--or);
+        padding-top: 3mm;
+      }
+      .room header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+      }
+      .room h3 {
+        font-size: 20pt;
+      }
+      .room .size {
+        font-family: var(--serif);
+        font-size: 20pt;
+        color: var(--or-fonce);
+      }
+      .room .size small {
+        font-size: 10pt;
+      }
+      .cap {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-top: 2.5mm;
+        background: var(--sable);
+      }
+      .cap div {
+        padding: 2.6mm 3mm;
+      }
+      .cap div + div {
+        border-left: 0.4pt solid var(--lin);
+      }
+      .cap b {
+        display: block;
+        font-family: var(--serif);
+        font-size: 15pt;
+        font-weight: 500;
+        line-height: 1.1;
+      }
+      .cap span {
+        font-size: 6.2pt;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--taupe);
+      }
+      .modular {
+        margin-top: 5mm;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6mm;
+        align-items: stretch;
+      }
+      .modular .ph {
+        height: 46mm;
+      }
+      .note {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 2mm;
+      }
+      .note .serif {
+        font-size: 15pt;
+        margin-bottom: 2mm;
+      }
+
+      /* ---------- 3. À disposition ---------- */
+      .p3 .mosaic {
+        display: grid;
+        grid-template-columns: 1.55fr 1fr;
+        grid-template-rows: 41mm 41mm;
+        gap: 2mm;
+        margin-top: 5mm;
+      }
+      .p3 .mosaic .big {
+        grid-row: span 2;
+      }
+      .p3 .cols {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 9mm;
+        margin-top: 6mm;
+      }
+      .p3 h3 {
+        margin-bottom: 1.5mm;
+      }
+      .devis {
+        margin-top: 4mm;
+        padding: 3.5mm 4mm;
+        background: var(--sable);
+      }
+      .devis b {
+        font-weight: 600;
+        color: var(--brun);
+      }
+      .services {
+        margin-top: 5mm;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 5mm;
+      }
+      .services .ph {
+        height: 30mm;
+        margin-bottom: 2.5mm;
+      }
+      .services h4 {
+        font-family: var(--serif);
+        font-size: 13pt;
+        font-weight: 500;
+        line-height: 1.1;
+      }
+      .services p {
+        font-size: 7.8pt;
+        color: var(--taupe);
+        margin-top: 1mm;
+      }
+      .also {
+        margin-top: 4mm;
+        padding-top: 3mm;
+        border-top: 0.4pt solid var(--lin);
+        font-size: 7.6pt;
+        color: var(--taupe);
+        text-align: center;
+        letter-spacing: 0.02em;
+      }
+      .also span + span::before {
+        content: '◆';
+        font-size: 4pt;
+        color: var(--or);
+        margin: 0 2.4mm;
+        vertical-align: 1.5pt;
+      }
+
+      /* ---------- 4. Dos : appartements & hôtel ---------- */
+      .p4 {
+        background: var(--nuit);
+        color: var(--creme);
+      }
+      .p4 .eyebrow,
+      .p4 h2 em,
+      .p4 h3 em {
+        color: var(--or);
+      }
+      .p4 .act::after {
+        background: var(--or);
+      }
+      .p4 .muted,
+      .p4 .caption {
+        color: var(--lin);
+      }
+      .p4 .lead {
+        color: var(--lin);
+      }
+      .apt {
+        display: grid;
+        grid-template-columns: 1.25fr 1fr;
+        gap: 6mm;
+        margin-top: 5mm;
+      }
+      .apt.rev {
+        grid-template-columns: 1fr 1.25fr;
+      }
+      .apt .pics {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 40mm 24mm;
+        gap: 1.6mm;
+      }
+      .apt .pics .wide {
+        grid-column: span 2;
+      }
+      .apt header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        border-bottom: 0.4pt solid rgb(184 149 92 / 0.6);
+        padding-bottom: 1.5mm;
+        margin-bottom: 2mm;
+      }
+      .apt h3 {
+        font-size: 19pt;
+      }
+      .apt .size {
+        font-family: var(--serif);
+        font-size: 19pt;
+        color: var(--or);
+      }
+      .apt ul.list li {
+        border-color: rgb(227 214 191 / 0.18);
+        padding: 1.1mm 0;
+        font-size: 7.9pt;
+      }
+      .apt-perks {
+        margin-top: 4mm;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        border-top: 0.4pt solid rgb(184 149 92 / 0.6);
+        border-bottom: 0.4pt solid rgb(184 149 92 / 0.6);
+      }
+      .apt-perks div {
+        padding: 2.6mm 2mm;
+        text-align: center;
+        font-size: 7pt;
+        color: var(--lin);
+      }
+      .apt-perks div + div {
+        border-left: 0.4pt solid rgb(184 149 92 / 0.3);
+      }
+      .hotel {
+        margin-top: 5mm;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        gap: 4mm;
+      }
+      .hotel .ph {
+        height: 22mm;
+        margin-bottom: 1.8mm;
+      }
+      .hotel b {
+        font-family: var(--serif);
+        font-size: 12pt;
+        font-weight: 500;
+        display: block;
+        line-height: 1.1;
+      }
+      .hotel span {
+        font-size: 7pt;
+        color: var(--lin);
+      }
+      .contact {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: var(--brun);
+        padding: 6mm var(--m) 7mm;
+        display: grid;
+        grid-template-columns: 22mm 1.2fr 1fr 1fr;
+        gap: 6mm;
+        align-items: center;
+      }
+      .contact .logo {
+        width: 22mm;
+        height: auto;
+      }
+      .contact .label {
+        display: block;
+        font-size: 6pt;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: var(--or);
+        margin-bottom: 0.6mm;
+      }
+      .contact .serif {
+        font-size: 11.5pt;
+        line-height: 1.25;
+      }
+      .contact .cta {
+        display: inline-block;
+        margin-top: 1.6mm;
+        background: var(--velours);
+        color: var(--creme);
+        padding: 1.8mm 3.5mm;
+        font-size: 6.4pt;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ================= 1. COUVERTURE ================= -->
+    <section class="page cover">
+      <div class="photo">
+        <img src="photos/seminaire-exterieur-jardin.jpg" alt="" />
+      </div>
+      <p class="tag">Hôtel ★★★ · Saint-Quentin</p>
+      <div class="card">
+        <img class="logo" src="../src/assets/logo/logo-brun.png" alt="Les Coulisses du Théâtre" />
+        <div>
+          <p class="eyebrow">Séminaires · Réunions · Formations</p>
+          <h1>Vos réunions<br /><em>en coulisses</em></h1>
+          <p class="lead">
+            Un espace de travail lumineux, ouvert sur un jardin, au cœur de Saint-Quentin. Deux
+            salles modulables, des pauses gourmandes et l'hébergement sur place : tout est réuni
+            pour des journées efficaces et des soirées sereines.
+          </p>
+          <p class="keys">
+            <span>Jusqu'à 40 personnes</span><span>Accès PMR</span><span>Parking privé</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 2. LES SALLES ================= -->
+    <section class="page p2">
+      <div class="inner">
+        <p class="eyebrow act">Acte I · L'espace séminaire</p>
+        <h2>Un cadre propice <em>aux échanges</em></h2>
+        <div class="hero">
+          <img src="../src/assets/photos/seminaires/salle-1.jpg" alt="" />
+        </div>
+        <div class="intro">
+          <p class="lead">
+            Aux Coulisses du Théâtre, nous mettons à votre disposition un espace pensé pour allier
+            confort, fonctionnalité et élégance.
+          </p>
+          <div>
+            <p>
+              La salle de séminaire se compose de deux espaces modulables, utilisables séparément ou
+              réunis selon vos besoins : réunions en petit comité, conférences ou formations de plus
+              grande envergure.
+            </p>
+            <p class="muted">
+              Baigné de lumière, l'espace offre un cadre propice au travail, aux échanges et à la
+              concentration.
+            </p>
+          </div>
+        </div>
+
+        <div class="rooms">
+          <article class="room">
+            <header>
+              <h3>Salle 1</h3>
+              <span class="size">36 <small>m²</small></span>
+            </header>
+            <div class="cap">
+              <div><b>12 – 15</b><span>Disposition écolier</span></div>
+              <div><b>40</b><span>Disposition théâtre</span></div>
+            </div>
+          </article>
+          <article class="room">
+            <header>
+              <h3>Salle 2</h3>
+              <span class="size">30 <small>m²</small></span>
+            </header>
+            <div class="cap">
+              <div><b>10 – 15</b><span>Disposition écolier</span></div>
+              <div><b>30</b><span>Disposition théâtre</span></div>
+            </div>
+          </article>
+        </div>
+
+        <div class="modular">
+          <div>
+            <div class="ph"><img src="photos/seminaire-terrasse-jardin.jpg" alt="" /></div>
+            <p class="caption">
+              De plain-pied, la salle s'ouvre par une porte-fenêtre sur le jardin.
+            </p>
+          </div>
+          <div class="note">
+            <p class="serif">Séparées ou réunies</p>
+            <p>
+              Les deux salles se combinent pour s'adapter à votre format, du comité de direction à
+              la formation.
+            </p>
+            <ul class="list" style="margin-top: 3mm">
+              <li>Rez-de-chaussée, accès PMR</li>
+              <li>Porte-fenêtre sur espace vert</li>
+              <li>Au cœur du centre-ville</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="folio"><span>Les Coulisses du Théâtre · Séminaires</span><b>02</b></div>
+    </section>
+
+    <!-- ================= 3. À DISPOSITION & SERVICES ================= -->
+    <section class="page p3">
+      <div class="inner">
+        <p class="eyebrow act">Acte II · À votre disposition</p>
+        <h2>Tout est prêt, <em>place au travail</em></h2>
+        <div class="mosaic">
+          <div class="big"><img src="photos/pause-buffet.jpg" alt="" /></div>
+          <div><img src="../src/assets/photos/seminaires/salle-2.jpg" alt="" /></div>
+          <div><img src="photos/pause-cafe.jpg" alt="" /></div>
+        </div>
+        <p class="caption">Pauses gourmandes, face au jardin.</p>
+
+        <div class="cols">
+          <div>
+            <h3>Inclus dans votre journée</h3>
+            <ul class="list">
+              <li>Écran interactif 75 pouces</li>
+              <li>Rétroprojecteur</li>
+              <li>Paperboard</li>
+              <li>Bouteille d'eau et verre pour chaque participant</li>
+              <li>
+                Une pause par demi-journée : thé, café, jus de fruits, viennoiseries et fruits
+              </li>
+              <li>Wi-Fi haut débit gratuit</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Restauration <em>sur devis</em></h3>
+            <p>
+              Déjeuner en buffet, repas chaud ou plateau-repas, sur réservation. Pour prolonger la
+              journée, le bar l'Entracte vous accueille jusqu'à 23h.
+            </p>
+            <div class="devis">
+              <b>Séminaire résidentiel ?</b> Hébergez vos participants sur place : 32 chambres, deux
+              appartements, petit-déjeuner dès 6h30.
+            </div>
+            <div style="height: 30mm; margin-top: 4mm">
+              <img src="../src/assets/photos/seminaires/salle-3.jpg" alt="" />
+            </div>
+          </div>
+        </div>
+
+        <div class="services">
+          <div>
+            <div class="ph"><img src="photos/parking.jpg" alt="" /></div>
+            <h4>Parking privé sécurisé</h4>
+            <p>Voitures et motos, avec bornes de recharge pour véhicules électriques.</p>
+          </div>
+          <div>
+            <div class="ph"><img src="photos/bar.jpg" alt="" /></div>
+            <h4>Le bar l'Entracte</h4>
+            <p>Café, cocktails et planches à partager, tous les jours de 6h30 à 23h.</p>
+          </div>
+          <div>
+            <div class="ph"><img src="photos/piscine.jpg" alt="" /></div>
+            <h4>Piscine chauffée</h4>
+            <p>Couloir de nage à contre-courant, de 9h à 21h, réservée aux clients de l'hôtel.</p>
+          </div>
+        </div>
+        <p class="also">
+          <span>Réception 24 h/24</span><span>Conciergerie</span><span>Bagagerie sécurisée</span
+          ><span>Navette sur demande</span><span>Day-use 10h – 16h</span>
+        </p>
+      </div>
+      <div class="folio"><span>Les Coulisses du Théâtre · Séminaires</span><b>03</b></div>
+    </section>
+
+    <!-- ================= 4. DOS : APPARTEMENTS & HÔTEL ================= -->
+    <section class="page p4">
+      <div class="inner">
+        <p class="eyebrow act">Acte III · Prolongez le séjour</p>
+        <h2>Nos appartements, <em>l'hôtel en plus</em></h2>
+        <p class="lead" style="max-width: 160mm">
+          Pour une mission professionnelle, un séjour d'équipe ou un long séjour : l'indépendance
+          d'un appartement avec cuisine équipée, et le service hôtelier (linge, serviettes, ménage).
+        </p>
+
+        <div class="apt">
+          <div class="pics">
+            <div class="wide"><img src="photos/app131-salon.jpg" alt="" /></div>
+            <div><img src="photos/app131-chambre.jpg" alt="" /></div>
+            <div><img src="photos/app131-cuisine.jpg" alt="" /></div>
+          </div>
+          <div>
+            <header>
+              <h3>Appartement <em>131</em></h3>
+              <span class="size">55 m²</span>
+            </header>
+            <ul class="list">
+              <li>3 à 4 personnes</li>
+              <li>Chambre séparée, lit double 160/180</li>
+              <li>Salon avec canapé réversible pour 2 enfants</li>
+              <li>Cuisine équipée et coin salle à manger</li>
+              <li>Salle de bain avec douche</li>
+              <li>Bureau, TV, plateau de courtoisie</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="apt rev">
+          <div>
+            <header>
+              <h3>Studio <em>132</em></h3>
+              <span class="size">35 m²</span>
+            </header>
+            <ul class="list">
+              <li>2 personnes</li>
+              <li>Grand espace de repos, lit double 160/180</li>
+              <li>Salon avec canapé</li>
+              <li>Cuisine équipée et coin salle à manger</li>
+              <li>Salle de bain avec baignoire-douche</li>
+              <li>Bureau, TV, plateau de courtoisie</li>
+            </ul>
+          </div>
+          <div class="pics">
+            <div class="wide"><img src="photos/studio132-salon.jpg" alt="" /></div>
+            <div><img src="photos/studio132-lit.jpg" alt="" /></div>
+            <div><img src="photos/studio132-cuisine.jpg" alt="" /></div>
+          </div>
+        </div>
+
+        <div class="apt-perks">
+          <div>Court ou long séjour</div>
+          <div>Accès à la piscine</div>
+          <div>Parking sur réservation</div>
+          <div>Petit-déjeuner en option</div>
+        </div>
+
+        <div class="hotel">
+          <div>
+            <div class="ph"><img src="photos/chambre-suite.jpg" alt="" /></div>
+            <b>32 chambres</b><span>6 catégories, dès 89 € la nuit</span>
+          </div>
+          <div>
+            <div class="ph"><img src="photos/terrasse-soleil.jpg" alt="" /></div>
+            <b>Petit-déjeuner</b><span>Bio et local, 6h30 – 10h30</span>
+          </div>
+          <div>
+            <div class="ph"><img src="photos/vue-drone.jpg" alt="" /></div>
+            <b>Centre-ville</b><span>À deux pas du Théâtre Jean-Vilar</span>
+          </div>
+          <div>
+            <div class="ph"><img src="photos/facade.jpg" alt="" /></div>
+            <b>Accès facile</b><span>Depuis Paris, Lille et Amiens</span>
+          </div>
+        </div>
+      </div>
+
+      <footer class="contact">
+        <img class="logo" src="../src/assets/logo/logo-creme.png" alt="Les Coulisses du Théâtre" />
+        <div>
+          <span class="label">Demande de devis</span>
+          <span class="serif">contact@hotel-coulisses.com</span><br />
+          <span class="muted">hotel-coulisses-du-theatre.com</span>
+        </div>
+        <div>
+          <span class="label">Téléphone</span>
+          <span class="serif">+33 (0)3 23 67 90 09<br />+33 (0)6 98 33 38 10</span>
+        </div>
+        <div>
+          <span class="label">Adresse</span>
+          <span class="serif">8 rue de la Comédie<br />02100 Saint-Quentin</span>
+        </div>
+      </footer>
+    </section>
+  </body>
+</html>
