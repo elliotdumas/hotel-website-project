@@ -59,7 +59,7 @@ pnpm build          # build de production dans dist/
 pnpm preview        # prévisualiser le build
 pnpm lint           # ESLint + Prettier
 pnpm check          # astro check (types)
-pnpm brochure       # plaquette PDF A4 (brochure/plaquette.html → brochure/*.pdf, via Playwright)
+pnpm brochure       # plaquettes PDF A4 (brochure/*.html → brochure/*.pdf, via Playwright) ; `pnpm brochure seminaires` pour une seule
 ```
 
 Avant de considérer une tâche terminée : `pnpm check && pnpm lint && pnpm build` doivent passer.
