@@ -1,0 +1,2721 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Plaquette séminaires — Hôtel Les Coulisses du Théâtre</title>
+    <!--
+      Offre professionnelle : plaquette A4, 4 pages (1 couverture · 2-3 intérieur · 4 dos).
+      Photos : brochure/photos/ (Drive « HOTEL COULISSES », 2026) + src/assets/photos/.
+      Faits : src/data/hotel.ts, src/content/rooms|apartments, src/i18n/fr.json.
+      Carte : générée par scripts/build-brochure-map.py (ne pas modifier à la main).
+      Générer le PDF : pnpm brochure seminaires
+    -->
+    <style>
+      @font-face {
+        font-family: 'Cormorant';
+        src: url('../node_modules/@fontsource-variable/cormorant-garamond/files/cormorant-garamond-latin-wght-normal.woff2')
+          format('woff2');
+        font-weight: 300 700;
+      }
+      @font-face {
+        font-family: 'Cormorant';
+        src: url('../node_modules/@fontsource-variable/cormorant-garamond/files/cormorant-garamond-latin-wght-italic.woff2')
+          format('woff2');
+        font-weight: 300 700;
+        font-style: italic;
+      }
+      @font-face {
+        font-family: 'DM Sans';
+        src: url('../node_modules/@fontsource-variable/dm-sans/files/dm-sans-latin-wght-normal.woff2')
+          format('woff2');
+        font-weight: 100 1000;
+      }
+
+      :root {
+        --creme: #fbf6ec;
+        --sable: #f3ead9;
+        --lin: #e3d6bf;
+        --brun: #473d35;
+        --nuit: #241c17;
+        --encre: #2b231e;
+        --taupe: #6a5d51;
+        --or: #b8955c;
+        --or-fonce: #7a5c2e;
+        --velours: #6e1f2a;
+        --serif: 'Cormorant', Georgia, serif;
+        --sans: 'DM Sans', system-ui, sans-serif;
+        --m: 14mm;
+      }
+      @page {
+        size: A4;
+        margin: 0;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      body {
+        background: #8a8178;
+        font-family: var(--sans);
+        font-size: 8.4pt;
+        line-height: 1.55;
+        color: var(--encre);
+        font-weight: 380;
+      }
+      img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .page {
+        position: relative;
+        width: 210mm;
+        height: 297mm;
+        overflow: hidden;
+        background: var(--creme);
+        break-after: page;
+      }
+      @media screen {
+        .page {
+          margin: 10mm auto;
+          box-shadow: 0 4px 24px rgb(0 0 0 / 0.35);
+        }
+      }
+      .inner {
+        padding: 13mm var(--m) 0;
+      }
+
+      /* ---------- Icônes ---------- */
+      .i {
+        width: 4.6mm;
+        height: 4.6mm;
+        flex: none;
+        fill: none;
+        stroke: var(--or-fonce);
+        stroke-width: 1.4;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .ring {
+        display: inline-grid;
+        place-items: center;
+        width: 9mm;
+        height: 9mm;
+        border: 0.5pt solid var(--or);
+        border-radius: 50%;
+        flex: none;
+      }
+      .ring .i {
+        width: 4.4mm;
+        height: 4.4mm;
+      }
+
+      /* ---------- Typographie ---------- */
+      .eyebrow {
+        font-size: 6.4pt;
+        font-weight: 600;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--or-fonce);
+      }
+      .head {
+        display: flex;
+        align-items: center;
+        gap: 4mm;
+      }
+      .head::after {
+        content: '';
+        flex: 1;
+        height: 0.4pt;
+        background: var(--or);
+        opacity: 0.55;
+      }
+      .head .num {
+        font-family: var(--serif);
+        font-style: italic;
+        font-size: 11pt;
+        letter-spacing: 0;
+        text-transform: none;
+        color: var(--or);
+        font-weight: 500;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      .serif {
+        font-family: var(--serif);
+        font-weight: 400;
+        line-height: 1.04;
+      }
+      h2 {
+        font-size: 30pt;
+        margin: 3.5mm 0 2.5mm;
+      }
+      h1 em,
+      h2 em,
+      h3 em {
+        font-style: italic;
+        color: var(--or-fonce);
+      }
+      h3 {
+        font-size: 17pt;
+        font-weight: 500;
+      }
+      h4 {
+        font-size: 12.5pt;
+        font-weight: 600;
+      }
+      .lead {
+        font-family: var(--serif);
+        font-size: 12pt;
+        line-height: 1.4;
+        color: var(--brun);
+      }
+      .muted {
+        color: var(--taupe);
+      }
+      .caption {
+        font-family: var(--serif);
+        font-style: italic;
+        font-size: 9pt;
+        color: var(--taupe);
+      }
+      .sub {
+        font-size: 6.4pt;
+        font-weight: 600;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--or-fonce);
+        margin-bottom: 2mm;
+        display: flex;
+        align-items: center;
+        gap: 2.5mm;
+      }
+      .sub::after {
+        content: '';
+        flex: 1;
+        height: 0.4pt;
+        background: var(--lin);
+      }
+      ul.ic {
+        list-style: none;
+      }
+      ul.ic li {
+        display: flex;
+        gap: 2.6mm;
+        align-items: center;
+        padding: 1.25mm 0;
+        border-bottom: 0.4pt solid var(--lin);
+      }
+      ul.ic li:last-child {
+        border-bottom: 0;
+      }
+      ul.ic .i {
+        width: 4mm;
+        height: 4mm;
+      }
+      .folio {
+        position: absolute;
+        bottom: 7.5mm;
+        left: var(--m);
+        right: var(--m);
+        display: flex;
+        justify-content: space-between;
+        font-size: 5.8pt;
+        letter-spacing: 0.26em;
+        text-transform: uppercase;
+        color: var(--taupe);
+      }
+      .folio b {
+        font-weight: 600;
+        color: var(--or-fonce);
+      }
+
+      /* ================= 1. COUVERTURE ================= */
+      .cover {
+        background: var(--nuit);
+        color: var(--creme);
+      }
+      .cover .photo {
+        position: absolute;
+        inset: 0;
+      }
+      .cover .photo img {
+        object-position: 50% 30%;
+      }
+      .cover .photo::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(180deg, rgb(36 28 23 / 0.55) 0%, rgb(36 28 23 / 0) 20%),
+          linear-gradient(
+            0deg,
+            rgb(36 28 23 / 0.96) 0%,
+            rgb(36 28 23 / 0.86) 27%,
+            rgb(36 28 23 / 0.35) 37%,
+            rgb(36 28 23 / 0) 45%
+          );
+      }
+      .cover .frame {
+        position: absolute;
+        inset: 7mm;
+        border: 0.4pt solid rgb(184 149 92 / 0.7);
+        z-index: 2;
+      }
+      .cover .top {
+        position: absolute;
+        top: 15mm;
+        left: 0;
+        right: 0;
+        z-index: 3;
+        text-align: center;
+      }
+      .cover .top img {
+        width: 25mm;
+        height: auto;
+        margin: 0 auto;
+      }
+      .cover .bottom {
+        position: absolute;
+        left: 18mm;
+        right: 18mm;
+        bottom: 17mm;
+        z-index: 3;
+      }
+      .cover .pro {
+        display: inline-flex;
+        align-items: center;
+        gap: 2.5mm;
+        border: 0.5pt solid var(--or);
+        padding: 1.6mm 3.5mm;
+        font-size: 6.6pt;
+        font-weight: 600;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--or);
+      }
+      .cover .pro .i {
+        stroke: var(--or);
+        width: 3.6mm;
+        height: 3.6mm;
+      }
+      .cover h1 {
+        font-size: 50pt;
+        line-height: 0.98;
+        margin: 6mm 0 3mm;
+        font-weight: 400;
+      }
+      .cover h1 em {
+        color: var(--or);
+      }
+      .cover .formats {
+        font-size: 6.6pt;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: var(--lin);
+      }
+      .cover .formats span + span::before {
+        content: '·';
+        margin: 0 2.5mm;
+        color: var(--or);
+      }
+      .cover .lead {
+        color: var(--lin);
+        font-size: 12pt;
+        max-width: 140mm;
+        margin-top: 5mm;
+      }
+      /* ================= Éléments communs ================= */
+      .price {
+        display: inline-flex;
+        align-items: baseline;
+        gap: 1.6mm;
+        font-family: var(--serif);
+        color: var(--velours);
+        white-space: nowrap;
+      }
+      .price small {
+        font-family: var(--sans);
+        font-size: 6pt;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--taupe);
+      }
+      .price b {
+        font-size: 21pt;
+        font-weight: 600;
+        line-height: 1;
+      }
+      .price i {
+        font-style: normal;
+        font-family: var(--sans);
+        font-size: 7pt;
+        color: var(--taupe);
+      }
+      .badge {
+        display: inline-block;
+        font-size: 6pt;
+        font-weight: 600;
+        letter-spacing: 0.26em;
+        text-transform: uppercase;
+        color: var(--creme);
+        background: var(--velours);
+        padding: 1mm 2.6mm;
+      }
+
+      /* ================= 2. LES SALLES ================= */
+      .room {
+        display: grid;
+        grid-template-columns: 112mm 1fr;
+        gap: 7mm;
+        margin-top: 5mm;
+        align-items: start;
+      }
+      .room.rev {
+        grid-template-columns: 1fr 112mm;
+      }
+      .room .pics {
+        display: grid;
+        grid-template-columns: 1.6fr 1fr;
+        gap: 1.6mm;
+        height: 56mm;
+      }
+      .room h3 {
+        font-size: 19pt;
+        margin: 2.4mm 0 0.6mm;
+      }
+      .room .area {
+        font-family: var(--serif);
+        font-style: italic;
+        font-size: 11pt;
+        color: var(--or-fonce);
+      }
+      .cap {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        border-top: 0.4pt solid var(--or);
+        border-bottom: 0.4pt solid var(--or);
+        margin: 2.6mm 0 2.2mm;
+      }
+      .cap div {
+        display: flex;
+        align-items: center;
+        gap: 2.2mm;
+        padding: 1.8mm 0;
+      }
+      .cap div + div {
+        border-left: 0.4pt solid var(--lin);
+        padding-left: 3mm;
+      }
+      .cap b {
+        display: block;
+        font-family: var(--serif);
+        font-size: 13pt;
+        font-weight: 600;
+        line-height: 1;
+      }
+      .cap span {
+        font-size: 5.8pt;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--taupe);
+      }
+      .uses {
+        font-size: 7.6pt;
+        color: var(--taupe);
+        line-height: 1.5;
+        margin-bottom: 2.6mm;
+      }
+      .uses b {
+        color: var(--brun);
+        font-weight: 600;
+      }
+      .todo {
+        height: 56mm;
+        border: 0.6pt dashed var(--or);
+        background: repeating-linear-gradient(135deg, var(--sable) 0 3mm, var(--creme) 3mm 6mm);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2mm;
+        text-align: center;
+        color: var(--or-fonce);
+      }
+      .todo .i {
+        width: 9mm;
+        height: 9mm;
+        stroke-width: 1;
+      }
+      .todo b {
+        font-family: var(--serif);
+        font-size: 13pt;
+        font-weight: 500;
+      }
+      .todo span {
+        font-size: 6.4pt;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
+      .merge {
+        position: relative;
+        margin-top: 6mm;
+        height: 56mm;
+      }
+      .merge::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          90deg,
+          rgb(36 28 23 / 0.92) 0%,
+          rgb(36 28 23 / 0.8) 46%,
+          rgb(36 28 23 / 0) 78%
+        );
+      }
+      .merge .txt {
+        position: absolute;
+        z-index: 2;
+        left: 9mm;
+        top: 0;
+        bottom: 0;
+        width: 86mm;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        color: var(--creme);
+      }
+      .merge .eq {
+        display: flex;
+        align-items: center;
+        gap: 2.5mm;
+        font-family: var(--serif);
+        font-size: 12pt;
+        color: var(--lin);
+      }
+      .merge .eq .plus {
+        display: grid;
+        place-items: center;
+        width: 6mm;
+        height: 6mm;
+        border-radius: 50%;
+        background: var(--or);
+        color: var(--nuit);
+        font-family: var(--sans);
+        font-size: 9pt;
+        font-weight: 600;
+      }
+      .merge h3 {
+        font-size: 23pt;
+        margin: 2.4mm 0 1.6mm;
+        color: var(--creme);
+      }
+      .merge h3 em {
+        color: var(--or);
+      }
+      .merge p {
+        font-size: 7.6pt;
+        color: var(--lin);
+      }
+      .merge .price {
+        margin-top: 3mm;
+        color: var(--creme);
+      }
+      .merge .price small,
+      .merge .price i {
+        color: var(--or);
+      }
+      .garden {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 7mm;
+        margin-top: 6mm;
+        align-items: center;
+      }
+      .garden .ph {
+        height: 40mm;
+      }
+
+      /* ================= 3. VOTRE JOURNÉE ================= */
+      .mosaic {
+        display: grid;
+        grid-template-columns: 1.6fr 1fr;
+        grid-template-rows: 31mm 31mm;
+        gap: 1.6mm;
+        margin-top: 4mm;
+      }
+      .mosaic .big {
+        grid-row: span 2;
+      }
+      .included {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        border-top: 0.4pt solid var(--or);
+      }
+      .included div {
+        display: flex;
+        gap: 2.4mm;
+        align-items: center;
+        padding: 2mm 2mm 2mm 0;
+        border-bottom: 0.4pt solid var(--lin);
+        line-height: 1.3;
+      }
+      .included b {
+        display: block;
+        font-weight: 600;
+        font-size: 7.6pt;
+      }
+      .included span {
+        font-size: 6.8pt;
+        color: var(--taupe);
+      }
+      .food {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3.5mm;
+      }
+      .food article {
+        background: var(--sable);
+        padding: 2.8mm 3.6mm 3mm;
+      }
+      .food h4 {
+        display: flex;
+        align-items: center;
+        gap: 2mm;
+        margin-bottom: 0.8mm;
+      }
+      .food p {
+        font-size: 7.1pt;
+        color: var(--taupe);
+        line-height: 1.4;
+      }
+      .note {
+        margin-top: 2mm;
+        font-size: 7.1pt;
+        color: var(--taupe);
+        display: flex;
+        gap: 2mm;
+        align-items: center;
+      }
+      .note .i {
+        width: 3.6mm;
+        height: 3.6mm;
+      }
+      .parking {
+        display: grid;
+        grid-template-columns: 78mm 1fr;
+        background: var(--nuit);
+        color: var(--creme);
+      }
+      .parking .ph {
+        height: 40mm;
+      }
+      .parking .txt {
+        padding: 4mm 6mm;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .parking h4 {
+        font-size: 15pt;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 2.4mm;
+        margin-bottom: 1.4mm;
+      }
+      .parking .i {
+        stroke: var(--or);
+      }
+      .parking ul {
+        list-style: none;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.4mm 4mm;
+        font-size: 7.4pt;
+        color: var(--lin);
+      }
+      .parking li {
+        display: flex;
+        align-items: center;
+        gap: 1.8mm;
+      }
+      .parking li .i {
+        width: 3.6mm;
+        height: 3.6mm;
+      }
+      .cosy {
+        display: grid;
+        grid-template-columns: 0.75fr 1fr 1fr;
+        gap: 3.5mm;
+      }
+      .cosy .ph {
+        height: 40mm;
+        margin-bottom: 1.6mm;
+      }
+      .cosy .caption {
+        font-size: 8.4pt;
+      }
+      .strip {
+        margin-top: 3.5mm;
+        display: flex;
+        justify-content: space-between;
+        border-top: 0.4pt solid var(--lin);
+        padding-top: 2.4mm;
+        font-size: 6.9pt;
+        color: var(--taupe);
+      }
+      .strip span {
+        display: flex;
+        align-items: center;
+        gap: 1.4mm;
+      }
+      .strip .i {
+        width: 3.6mm;
+        height: 3.6mm;
+      }
+
+      /* ================= 4. HÉBERGEMENT & CONTACT ================= */
+      .apts {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6mm;
+      }
+      .apt .pics {
+        display: grid;
+        grid-template-columns: 1.6fr 1fr;
+        grid-template-rows: 16.5mm 16.5mm;
+        gap: 1.2mm;
+      }
+      .apt .pics .main {
+        grid-row: span 2;
+      }
+      .apt header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin: 2mm 0 0.6mm;
+      }
+      .apt h3 {
+        font-size: 15pt;
+      }
+      .apt .area {
+        font-family: var(--serif);
+        font-size: 13pt;
+        color: var(--or-fonce);
+      }
+      .apt ul.ic li {
+        padding: 0.7mm 0;
+        font-size: 7.3pt;
+      }
+      .perks {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 2.4mm;
+        padding: 1.8mm 4mm;
+        background: var(--sable);
+        font-size: 7pt;
+      }
+      .perks span {
+        display: flex;
+        align-items: center;
+        gap: 1.4mm;
+      }
+      .perks .i {
+        width: 3.4mm;
+        height: 3.4mm;
+      }
+      .chambres {
+        display: grid;
+        grid-template-columns: 48mm 1fr;
+        gap: 6mm;
+        align-items: center;
+      }
+      .chambres .ph {
+        height: 30mm;
+      }
+      .cats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 6mm;
+      }
+      .cats div {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        padding: 0.8mm 0;
+        border-bottom: 0.4pt solid var(--lin);
+      }
+      .cats .n {
+        font-family: var(--serif);
+        font-size: 10.5pt;
+        font-weight: 500;
+      }
+      .cats .s {
+        font-size: 6.4pt;
+        color: var(--taupe);
+        margin-left: 1.4mm;
+      }
+      .cats .p {
+        font-family: var(--serif);
+        font-size: 8.5pt;
+        color: var(--velours);
+        white-space: nowrap;
+      }
+      .cats .p b {
+        font-size: 11pt;
+        font-weight: 600;
+      }
+      .svc {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1.35fr;
+        gap: 4mm;
+      }
+      .svc .ph {
+        height: 30mm;
+        margin-bottom: 1.6mm;
+        overflow: hidden;
+      }
+      .svc .map svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+      .svc h4 {
+        display: flex;
+        align-items: center;
+        gap: 2mm;
+        font-size: 11.5pt;
+      }
+      .svc p {
+        font-size: 6.9pt;
+        color: var(--taupe);
+        margin-top: 0.4mm;
+        line-height: 1.4;
+      }
+      .contact {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 54mm;
+        background: var(--nuit);
+        color: var(--creme);
+        padding: 7mm var(--m) 0;
+      }
+      .contact .row {
+        display: grid;
+        grid-template-columns: 1.15fr 1fr;
+        gap: 8mm;
+        align-items: start;
+      }
+      .contact h3 {
+        font-size: 19pt;
+        color: var(--creme);
+        margin-bottom: 3mm;
+      }
+      .contact h3 em {
+        color: var(--or);
+      }
+      .contact .lines {
+        display: grid;
+        gap: 1.8mm;
+      }
+      .contact .lines div {
+        display: flex;
+        align-items: center;
+        gap: 2.6mm;
+        font-family: var(--serif);
+        font-size: 11.5pt;
+        line-height: 1.2;
+      }
+      .contact .lines .i {
+        stroke: var(--or);
+      }
+      .qrs {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 4mm;
+        text-align: center;
+      }
+      .qrs .code {
+        background: var(--creme);
+        padding: 2mm;
+        width: 25mm;
+        height: 25mm;
+        margin: 0 auto 1.6mm;
+      }
+      .qrs b {
+        display: block;
+        font-size: 6pt;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--or);
+        font-weight: 600;
+      }
+      .qrs span {
+        font-size: 6.4pt;
+        color: var(--lin);
+      }
+      .contact .base {
+        position: absolute;
+        left: var(--m);
+        right: var(--m);
+        bottom: 5mm;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 0.4pt solid rgb(184 149 92 / 0.5);
+        padding-top: 2.4mm;
+        font-size: 5.8pt;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: var(--or);
+      }
+      .contact .base img {
+        width: 13mm;
+        height: auto;
+      }
+      .p4 .folio {
+        display: none;
+      }
+      /* ================= v4 ================= */
+      .rates {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        border: 0.5pt solid var(--or);
+        margin-top: 1mm;
+      }
+      .rates .lbl {
+        grid-column: span 2;
+        font-size: 5.8pt;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--or-fonce);
+        background: var(--sable);
+        padding: 1mm 3mm;
+        font-weight: 600;
+      }
+      .rates div {
+        padding: 2mm 3mm 2.2mm;
+        display: flex;
+        flex-direction: column;
+      }
+      .rates div + div {
+        border-left: 0.4pt solid var(--lin);
+      }
+      .rates div span {
+        font-size: 6pt;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--taupe);
+      }
+      .rates b {
+        font-family: var(--serif);
+        font-size: 19pt;
+        font-weight: 600;
+        line-height: 1.05;
+        color: var(--velours);
+      }
+      .rates i {
+        font-style: normal;
+        font-size: 6.4pt;
+        color: var(--taupe);
+      }
+      .room .pics,
+      .todo {
+        height: 54mm;
+      }
+      .merge2 {
+        display: grid;
+        grid-template-columns: 1.3fr 1fr;
+        margin-top: 5mm;
+        align-items: center;
+      }
+      .merge2 .ph {
+        height: 54mm;
+      }
+      .merge2 .card {
+        position: relative;
+        margin-left: -14mm;
+        background: var(--creme);
+        padding: 5mm 6mm 4.5mm;
+        box-shadow: 0 1mm 4mm rgb(36 28 23 / 0.12);
+      }
+      .merge2 .card::before {
+        content: '';
+        position: absolute;
+        inset: 1.6mm;
+        border: 0.4pt solid var(--or);
+        opacity: 0.7;
+        pointer-events: none;
+      }
+      .merge2 .eq {
+        display: flex;
+        align-items: center;
+        gap: 2.2mm;
+        font-family: var(--serif);
+        font-size: 11pt;
+        color: var(--taupe);
+      }
+      .merge2 .plus {
+        display: grid;
+        place-items: center;
+        width: 5.5mm;
+        height: 5.5mm;
+        border-radius: 50%;
+        border: 0.5pt solid var(--or);
+        color: var(--or-fonce);
+        font-family: var(--sans);
+        font-size: 8.5pt;
+      }
+      .merge2 h3 {
+        font-size: 20pt;
+        margin: 1.6mm 0 1.4mm;
+      }
+      .merge2 p {
+        font-size: 7.6pt;
+        color: var(--taupe);
+        margin-bottom: 2.6mm;
+      }
+      .assets {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 5mm;
+        padding: 2.6mm 0;
+        border-top: 0.4pt solid var(--or);
+        border-bottom: 0.4pt solid var(--or);
+        font-size: 7.6pt;
+        color: var(--brun);
+      }
+      .assets span {
+        display: flex;
+        align-items: center;
+        gap: 2mm;
+      }
+      .parking {
+        display: grid;
+        grid-template-columns: 52mm 1fr;
+        gap: 6mm;
+        align-items: center;
+        background: var(--sable);
+        color: var(--encre);
+      }
+      .parking .ph {
+        height: 28mm;
+      }
+      .parking .txt {
+        padding: 0 6mm 0 0;
+      }
+      .parking h4 {
+        font-size: 13pt;
+        font-weight: 600;
+        margin-bottom: 1mm;
+      }
+      .parking .i {
+        stroke: var(--or-fonce);
+      }
+      .parking p {
+        font-size: 7.4pt;
+        color: var(--taupe);
+      }
+      .gallery {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr 1fr;
+        grid-template-rows: 27mm 27mm;
+        gap: 1.4mm;
+      }
+      .gallery .big {
+        grid-row: span 2;
+      }
+      .cats-line {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 2mm;
+        font-family: var(--serif);
+        font-size: 11pt;
+        color: var(--brun);
+      }
+      .cats-line span + span::before {
+        content: '◆';
+        font-size: 4pt;
+        color: var(--or);
+        margin-right: 4mm;
+        vertical-align: 2pt;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Icônes (trait, 24 × 24) -->
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+      <defs>
+        <symbol id="i-screen" viewBox="0 0 24 24">
+          <rect x="3" y="4" width="18" height="12" rx="1" />
+          <path d="M8 20h8M12 16v4M7 12l3-3 2 2 4-4" />
+        </symbol>
+        <symbol id="i-projector" viewBox="0 0 24 24">
+          <rect x="2" y="8" width="20" height="9" rx="2" />
+          <circle cx="15.5" cy="12.5" r="2.5" />
+          <path d="M5.5 11h4M5.5 14h4M6 17v2M18 17v2" />
+        </symbol>
+        <symbol id="i-flip" viewBox="0 0 24 24">
+          <path d="M3 3h18M5 3v11h14V3M12 14v4M8 21l4-3 4 3M8 7h8M8 10h5" />
+        </symbol>
+        <symbol id="i-water" viewBox="0 0 24 24">
+          <path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z" />
+          <path d="M9.5 14.5a2.5 2.5 0 0 0 2.5 2.5" />
+        </symbol>
+        <symbol id="i-coffee" viewBox="0 0 24 24">
+          <path
+            d="M4 9h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5zM17 10h1.5a2.5 2.5 0 0 1 0 5H17M8 3v3M12 3v3"
+          />
+        </symbol>
+        <symbol id="i-wifi" viewBox="0 0 24 24">
+          <path d="M2 9a15 15 0 0 1 20 0M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0" />
+          <circle cx="12" cy="19.5" r="0.6" />
+        </symbol>
+        <symbol id="i-access" viewBox="0 0 24 24">
+          <circle cx="12" cy="4.5" r="1.8" />
+          <path d="M12 7.5v5.5h4.5l2 5.5M8 10h8M9.5 12.3a5 5 0 1 0 5.3 7" />
+        </symbol>
+        <symbol id="i-leaf" viewBox="0 0 24 24">
+          <path d="M5 19C5 10 11 5 20 5c0 9-5 14-14 14M5 19l8-8" />
+        </symbol>
+        <symbol id="i-sun" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="4" />
+          <path
+            d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"
+          />
+        </symbol>
+        <symbol id="i-users" viewBox="0 0 24 24">
+          <circle cx="9" cy="8" r="3.5" />
+          <path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6.5 6.5 0 0 1 3.5 6" />
+        </symbol>
+        <symbol id="i-class" viewBox="0 0 24 24">
+          <path d="M3 5h18M4 9h5v3H4zM10 9h5v3h-5zM4 15h5v3H4zM10 15h5v3h-5zM19 9v9" />
+        </symbol>
+        <symbol id="i-theatre" viewBox="0 0 24 24">
+          <path d="M4 4h16" />
+          <circle cx="6" cy="9" r="1" />
+          <circle cx="10" cy="9" r="1" />
+          <circle cx="14" cy="9" r="1" />
+          <circle cx="18" cy="9" r="1" />
+          <circle cx="6" cy="14" r="1" />
+          <circle cx="10" cy="14" r="1" />
+          <circle cx="14" cy="14" r="1" />
+          <circle cx="18" cy="14" r="1" />
+          <circle cx="6" cy="19" r="1" />
+          <circle cx="10" cy="19" r="1" />
+          <circle cx="14" cy="19" r="1" />
+          <circle cx="18" cy="19" r="1" />
+        </symbol>
+        <symbol id="i-brief" viewBox="0 0 24 24">
+          <rect x="3" y="7" width="18" height="13" rx="1" />
+          <path d="M9 7V4h6v3M3 12h18M11 12v2h2v-2" />
+        </symbol>
+        <symbol id="i-mic" viewBox="0 0 24 24">
+          <rect x="9" y="3" width="6" height="11" rx="3" />
+          <path d="M5 11a7 7 0 0 0 14 0M12 18v3M9 21h6" />
+        </symbol>
+        <symbol id="i-chat" viewBox="0 0 24 24">
+          <path d="M4 5h11v8H8l-4 3zM15 9h5v8l-3-2h-6v-2" />
+        </symbol>
+        <symbol id="i-book" viewBox="0 0 24 24">
+          <path d="M3 5c3-1 6-1 9 1 3-2 6-2 9-1v14c-3-1-6-1-9 1-3-2-6-2-9-1zM12 6v14" />
+        </symbol>
+        <symbol id="i-target" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="8.5" />
+          <circle cx="12" cy="12" r="4.5" />
+          <circle cx="12" cy="12" r="0.8" />
+        </symbol>
+        <symbol id="i-buffet" viewBox="0 0 24 24">
+          <path d="M3 17h18M5 17a7 7 0 0 1 14 0M12 8V6M10 6h4M2 20h20" />
+        </symbol>
+        <symbol id="i-plate" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="5.5" />
+          <path d="M3 4v6a2 2 0 0 0 2 2v8M5 4v4M21 4c-1.5 0-2.5 2-2.5 5h2.5v11" />
+        </symbol>
+        <symbol id="i-tray" viewBox="0 0 24 24">
+          <rect x="3" y="7" width="18" height="12" rx="1.5" />
+          <path d="M3 13h18M12 7v12M7 4h10" />
+        </symbol>
+        <symbol id="i-glass" viewBox="0 0 24 24">
+          <path d="M7 3h10l-1 7a4 4 0 0 1-8 0zM12 14v7M8 21h8M7.5 7h9" />
+        </symbol>
+        <symbol id="i-parking" viewBox="0 0 24 24">
+          <rect x="3" y="3" width="18" height="18" rx="2" />
+          <path d="M9.5 17V7h3.5a3 3 0 0 1 0 6H9.5" />
+        </symbol>
+        <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z" /></symbol>
+        <symbol id="i-pool" viewBox="0 0 24 24">
+          <path
+            d="M2 18c2 0 2-1.5 4-1.5S8 18 10 18s2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5M8 15V5a2 2 0 0 1 4 0M16 15V5a2 2 0 0 0-4 0M8 8h8M8 12h8"
+          />
+        </symbol>
+        <symbol id="i-bell" viewBox="0 0 24 24">
+          <path d="M4 17h16M6 17a6 6 0 0 1 12 0M12 8v3M10 6h4M2 20h20" />
+        </symbol>
+        <symbol id="i-clock" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M12 7v5l3 2" />
+        </symbol>
+        <symbol id="i-bed" viewBox="0 0 24 24">
+          <path d="M3 18V7M3 14h18v4M21 14v-3a3 3 0 0 0-3-3h-7v6" />
+          <circle cx="7" cy="11" r="2" />
+        </symbol>
+        <symbol id="i-sofa" viewBox="0 0 24 24">
+          <path
+            d="M5 11V8a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v3M3 12a2 2 0 0 1 4 0v2h10v-2a2 2 0 0 1 4 0v6H3zM5 18v2M19 18v2"
+          />
+        </symbol>
+        <symbol id="i-kitchen" viewBox="0 0 24 24">
+          <path
+            d="M4 10h16v6a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4zM2 10h20M9 7c0-1.2 1-1.2 1-2.5M14 7c0-1.2 1-1.2 1-2.5"
+          />
+        </symbol>
+        <symbol id="i-bath" viewBox="0 0 24 24">
+          <path
+            d="M3 12h18v2a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5zM6 12V5a2 2 0 0 1 4 0M7 19l-1 2M17 19l1 2"
+          />
+        </symbol>
+        <symbol id="i-desk" viewBox="0 0 24 24">
+          <path d="M3 9h18M5 9v11M19 9v11M13 9v6h6M8 5h3v4" />
+        </symbol>
+        <symbol id="i-spark" viewBox="0 0 24 24">
+          <path
+            d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8zM19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z"
+          />
+        </symbol>
+        <symbol id="i-key" viewBox="0 0 24 24">
+          <circle cx="8" cy="15" r="4" />
+          <path d="M11 12l9-9M17 6l3 3M14 9l2 2" />
+        </symbol>
+        <symbol id="i-pin" viewBox="0 0 24 24">
+          <path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z" />
+          <circle cx="12" cy="9.5" r="2.5" />
+        </symbol>
+        <symbol id="i-road" viewBox="0 0 24 24">
+          <path d="M7 21 10 3M17 21 14 3M12 6v2M12 11v2M12 16v2" />
+        </symbol>
+        <symbol id="i-phone" viewBox="0 0 24 24">
+          <path
+            d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"
+          />
+        </symbol>
+        <symbol id="i-mail" viewBox="0 0 24 24">
+          <rect x="3" y="5" width="18" height="14" rx="1" />
+          <path d="m3 7 9 6 9-6" />
+        </symbol>
+        <symbol id="i-camera" viewBox="0 0 24 24">
+          <path d="M3 8h4l2-3h6l2 3h4v11H3z" />
+          <circle cx="12" cy="13" r="3.5" />
+        </symbol>
+        <symbol id="i-bike" viewBox="0 0 24 24">
+          <circle cx="6" cy="16" r="3.5" />
+          <circle cx="18" cy="16" r="3.5" />
+          <path d="M6 16l4-8h5l3 8M10 8l3 8M9 5h3" />
+        </symbol>
+        <symbol id="i-car" viewBox="0 0 24 24">
+          <path d="M5 16v-5l2-5h10l2 5v5M3 16h18v3h-3v-1H6v1H3zM5 11h14" />
+        </symbol>
+        <symbol id="i-shield" viewBox="0 0 24 24">
+          <path d="M12 3 4 6v6c0 4.5 3.4 8 8 9 4.6-1 8-4.5 8-9V6z" />
+          <path d="m8.5 12 2.5 2.5 4.5-5" />
+        </symbol>
+        <symbol id="i-calendar" viewBox="0 0 24 24">
+          <rect x="3" y="5" width="18" height="16" rx="1" />
+          <path d="M3 10h18M8 3v4M16 3v4" />
+        </symbol>
+      </defs>
+    </svg>
+
+    <!-- ================= 1. COUVERTURE ================= -->
+    <section class="page cover">
+      <div class="photo"><img src="photos/seminaire-facade-jardin.jpg" alt="" /></div>
+      <div class="frame"></div>
+      <div class="top">
+        <img src="../src/assets/logo/logo-creme.png" alt="Les Coulisses du Théâtre" />
+      </div>
+      <div class="bottom">
+        <span class="pro"
+          ><svg class="i"><use href="#i-brief" /></svg>Offre professionnelle</span
+        >
+        <h1>Vos réunions<br /><em>en coulisses</em></h1>
+        <p class="formats"><span>Séminaires</span><span>Réunions</span><span>Formations</span></p>
+        <p class="lead">
+          Un espace séminaire de plain-pied, ouvert sur un jardin, au cœur de Saint-Quentin. Deux
+          salles modulables, des pauses gourmandes et l'hébergement sur place, pour des journées
+          efficaces et des soirées sereines.
+        </p>
+      </div>
+    </section>
+
+    <!-- ================= 2. LES SALLES ================= -->
+    <section class="page p2">
+      <div class="inner">
+        <p class="eyebrow head"><span class="num">I</span>L'espace séminaire</p>
+        <h2>Deux salles, <em>un même lieu</em></h2>
+        <p class="lead" style="max-width: 168mm">
+          Un espace pensé pour allier confort, fonctionnalité et élégance. Baignées de lumière, les
+          deux salles s'utilisent séparément ou réunies, selon votre format.
+        </p>
+
+        <article class="room">
+          <div class="pics">
+            <img src="../src/assets/photos/seminaires/salle-1.jpg" alt="" />
+            <img src="../src/assets/photos/seminaires/salle-3.jpg" alt="" />
+          </div>
+          <div>
+            <span class="badge">Salle 1</span>
+            <h3>La grande salle</h3>
+            <p class="area">36 m² · boiseries, cheminée et parquet</p>
+            <div class="cap">
+              <div>
+                <svg class="i"><use href="#i-class" /></svg>
+                <p><b>12 – 15</b><span>En écolier</span></p>
+              </div>
+              <div>
+                <svg class="i"><use href="#i-theatre" /></svg>
+                <p><b>40</b><span>En théâtre</span></p>
+              </div>
+            </div>
+            <p class="uses">
+              <b>Idéale pour</b> conférences, présentations, formations et réunions plénières.
+            </p>
+            <div class="rates">
+              <span class="lbl">À partir de</span>
+              <div><span>Journée</span><b>400 €</b><i>HT</i></div>
+              <div><span>Demi-journée</span><b>200 €</b><i>HT</i></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="room rev">
+          <div>
+            <span class="badge">Salle 2</span>
+            <h3>La petite salle</h3>
+            <p class="area">30 m² · un cadre plus intime</p>
+            <div class="cap">
+              <div>
+                <svg class="i"><use href="#i-class" /></svg>
+                <p><b>10 – 15</b><span>En écolier</span></p>
+              </div>
+              <div>
+                <svg class="i"><use href="#i-theatre" /></svg>
+                <p><b>30</b><span>En théâtre</span></p>
+              </div>
+            </div>
+            <p class="uses">
+              <b>Idéale pour</b> comités de direction, ateliers, sous-groupes et entretiens.
+            </p>
+            <div class="rates">
+              <span class="lbl">À partir de</span>
+              <div><span>Journée</span><b>300 €</b><i>HT</i></div>
+              <div><span>Demi-journée</span><b>150 €</b><i>HT</i></div>
+            </div>
+          </div>
+          <!-- TODO: remplacer par une photo de la Salle 2 (à fournir par l'hôtel). -->
+          <div class="todo">
+            <svg class="i"><use href="#i-camera" /></svg>
+            <b>TODO : photo de la Salle 2</b>
+            <span>À fournir par l'hôtel</span>
+          </div>
+        </article>
+
+        <div class="merge2">
+          <div class="ph"><img src="../src/assets/photos/seminaires/salle-2.jpg" alt="" /></div>
+          <div class="card">
+            <p class="eq">Salle 1 <span class="plus">+</span> Salle 2</p>
+            <h3>Une seule <em>salle commune</em></h3>
+            <p>
+              Réunies, les deux salles forment un espace d'un seul tenant de 66 m², pour vos
+              évènements de plus grande envergure.
+            </p>
+            <div class="rates">
+              <span class="lbl">Les deux salles, à partir de</span>
+              <div><span>Journée</span><b>600 €</b><i>HT</i></div>
+              <div><span>Demi-journée</span><b>300 €</b><i>HT</i></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="assets">
+          <span
+            ><svg class="i"><use href="#i-access" /></svg>Rez-de-chaussée, accès PMR</span
+          >
+          <span
+            ><svg class="i"><use href="#i-leaf" /></svg>Porte-fenêtre sur le jardin</span
+          >
+          <span
+            ><svg class="i"><use href="#i-sun" /></svg>Lumière naturelle</span
+          >
+          <span
+            ><svg class="i"><use href="#i-pin" /></svg>Au cœur du centre-ville</span
+          >
+        </div>
+      </div>
+      <div class="folio">
+        <span>Les Coulisses du Théâtre · Offre professionnelle</span><b>02</b>
+      </div>
+    </section>
+
+    <!-- ================= 3. VOTRE JOURNÉE ================= -->
+    <section class="page p3">
+      <div class="inner">
+        <p class="eyebrow head"><span class="num">II</span>Votre journée</p>
+        <h2>Tout est prêt, <em>place au travail</em></h2>
+        <div class="mosaic">
+          <div class="big"><img src="photos/pause-buffet.jpg" alt="" /></div>
+          <div><img src="photos/pause-cafe.jpg" alt="" /></div>
+          <div><img src="photos/seminaire-exterieur-allee.jpg" alt="" /></div>
+        </div>
+
+        <p class="sub" style="margin-top: 4mm">Inclus dans votre journée</p>
+        <div class="included">
+          <div>
+            <span class="ring"
+              ><svg class="i"><use href="#i-screen" /></svg
+            ></span>
+            <p><b>Écran interactif</b><span>75 pouces</span></p>
+          </div>
+          <div>
+            <span class="ring"
+              ><svg class="i"><use href="#i-projector" /></svg
+            ></span>
+            <p><b>Rétroprojecteur</b><span>Pour vos présentations</span></p>
+          </div>
+          <div>
+            <span class="ring"
+              ><svg class="i"><use href="#i-flip" /></svg
+            ></span>
+            <p><b>Paperboard</b><span>À disposition en salle</span></p>
+          </div>
+          <div>
+            <span class="ring"
+              ><svg class="i"><use href="#i-water" /></svg
+            ></span>
+            <p><b>Eau</b><span>Bouteille et verre par participant</span></p>
+          </div>
+          <div>
+            <span class="ring"
+              ><svg class="i"><use href="#i-coffee" /></svg
+            ></span>
+            <p>
+              <b>Une pause par demi-journée</b><span>Thé, café, jus, viennoiseries, fruits</span>
+            </p>
+          </div>
+          <div>
+            <span class="ring"
+              ><svg class="i"><use href="#i-wifi" /></svg
+            ></span>
+            <p><b>Wi-Fi haut débit</b><span>Gratuit dans tout l'hôtel</span></p>
+          </div>
+        </div>
+
+        <p class="sub" style="margin-top: 4.5mm">
+          Restauration sur devis · trois formules pour continuer les discussions
+        </p>
+        <div class="food">
+          <article>
+            <h4>
+              <svg class="i"><use href="#i-buffet" /></svg>Le buffet
+            </h4>
+            <p>
+              Chacun se sert à son rythme : les échanges se prolongent naturellement autour du
+              buffet.
+            </p>
+          </article>
+          <article>
+            <h4>
+              <svg class="i"><use href="#i-plate" /></svg>Le service à table
+            </h4>
+            <p>
+              Un plat choisi à l'avance, servi à table : une vraie pause pour poursuivre la
+              conversation.
+            </p>
+          </article>
+          <article>
+            <h4>
+              <svg class="i"><use href="#i-tray" /></svg>Le plateau-repas
+            </h4>
+            <p>
+              Servi en salle, pour continuer les discussions sans interrompre le fil de la journée.
+            </p>
+          </article>
+        </div>
+        <p class="note">
+          <svg class="i"><use href="#i-clock" /></svg>Sur réservation. Séminaire résidentiel :
+          petit-déjeuner servi dès 6h30.
+        </p>
+
+        <p class="sub" style="margin-top: 4.5mm">Sur place</p>
+        <div class="parking">
+          <div class="ph"><img src="photos/parking.jpg" alt="" /></div>
+          <div class="txt">
+            <h4>
+              <svg class="i"><use href="#i-parking" /></svg>Parking privé sécurisé
+            </h4>
+            <p>
+              Vos participants se garent sur place, en plein centre-ville. Voitures et motos, bornes
+              de recharge pour véhicules électriques.
+            </p>
+          </div>
+        </div>
+
+        <p class="sub" style="margin-top: 4.5mm">Entre deux sessions, l'esprit cosy et raffiné</p>
+        <div class="cosy">
+          <div>
+            <div class="ph"><img src="photos/terrasse-apero.jpg" alt="" /></div>
+            <p class="caption">Un verre en terrasse, à la fin de la journée.</p>
+          </div>
+          <div>
+            <div class="ph"><img src="../src/assets/photos/bar/bar-comptoir.jpg" alt="" /></div>
+            <p class="caption">Le bar l'Entracte, de 6h30 à 23h.</p>
+          </div>
+          <div>
+            <div class="ph"><img src="../src/assets/photos/hotel/salon-cheminee.jpg" alt="" /></div>
+            <p class="caption">Le salon et sa cheminée, pour échanger au calme.</p>
+          </div>
+        </div>
+        <div class="strip">
+          <span
+            ><svg class="i"><use href="#i-bell" /></svg>Réception 24 h/24</span
+          >
+          <span
+            ><svg class="i"><use href="#i-key" /></svg>Conciergerie</span
+          >
+          <span
+            ><svg class="i"><use href="#i-pool" /></svg>Piscine chauffée</span
+          >
+          <span
+            ><svg class="i"><use href="#i-bike" /></svg>Vélos électriques</span
+          >
+          <span
+            ><svg class="i"><use href="#i-clock" /></svg>Day-use 10h – 16h</span
+          >
+        </div>
+      </div>
+      <div class="folio">
+        <span>Les Coulisses du Théâtre · Offre professionnelle</span><b>03</b>
+      </div>
+    </section>
+
+    <!-- ================= 4. HÉBERGEMENT & CONTACT ================= -->
+    <section class="page p4">
+      <div class="inner">
+        <p class="eyebrow head"><span class="num">III</span>Hébergement &amp; services</p>
+        <h2>Prolongez <em>le séjour</em></h2>
+
+        <p class="sub" style="margin-top: 2mm">
+          Appartement &amp; studio · cuisine équipée et service hôtelier
+        </p>
+        <div class="apts">
+          <article class="apt">
+            <div class="pics">
+              <div class="main"><img src="photos/app131-salon.jpg" alt="" /></div>
+              <div><img src="photos/app131-chambre.jpg" alt="" /></div>
+              <div><img src="photos/app131-cuisine.jpg" alt="" /></div>
+            </div>
+            <header>
+              <h3>Appartement <em>131</em></h3>
+              <span class="area">55 m²</span>
+            </header>
+            <ul class="ic">
+              <li>
+                <svg class="i"><use href="#i-users" /></svg>3 à 4 personnes, chambre séparée
+              </li>
+              <li>
+                <svg class="i"><use href="#i-sofa" /></svg>Salon, canapé réversible (2 enfants)
+              </li>
+              <li>
+                <svg class="i"><use href="#i-kitchen" /></svg>Cuisine équipée, coin repas
+              </li>
+            </ul>
+          </article>
+          <article class="apt">
+            <div class="pics">
+              <div class="main"><img src="photos/studio132-salon.jpg" alt="" /></div>
+              <div><img src="photos/studio132-lit.jpg" alt="" /></div>
+              <div><img src="photos/studio132-cuisine.jpg" alt="" /></div>
+            </div>
+            <header>
+              <h3>Studio <em>132</em></h3>
+              <span class="area">35 m²</span>
+            </header>
+            <ul class="ic">
+              <li>
+                <svg class="i"><use href="#i-users" /></svg>2 personnes, lit double 160/180
+              </li>
+              <li>
+                <svg class="i"><use href="#i-sofa" /></svg>Salon avec canapé
+              </li>
+              <li>
+                <svg class="i"><use href="#i-kitchen" /></svg>Cuisine équipée, coin repas
+              </li>
+            </ul>
+          </article>
+        </div>
+        <div class="perks">
+          <span
+            ><svg class="i"><use href="#i-calendar" /></svg>Court ou long séjour</span
+          >
+          <span
+            ><svg class="i"><use href="#i-spark" /></svg>Linge et ménage</span
+          >
+          <span
+            ><svg class="i"><use href="#i-desk" /></svg>Bureau et TV</span
+          >
+          <span
+            ><svg class="i"><use href="#i-pool" /></svg>Accès piscine</span
+          >
+          <span
+            ><svg class="i"><use href="#i-parking" /></svg>Parking sur réservation</span
+          >
+        </div>
+
+        <p class="sub" style="margin-top: 4.5mm">
+          Les chambres · 32 chambres climatisées et insonorisées
+        </p>
+        <div class="gallery">
+          <div class="big"><img src="photos/chambre-suite-salon.jpg" alt="" /></div>
+          <div><img src="photos/chambre-rooftop.jpg" alt="" /></div>
+          <div><img src="photos/chambre-beige.jpg" alt="" /></div>
+          <div><img src="photos/chambre-mansardee.jpg" alt="" /></div>
+          <div><img src="photos/terrasse-rooftop.jpg" alt="" /></div>
+        </div>
+        <p class="cats-line">
+          <span>Confort</span><span>Rooftop</span><span>Supérieure</span><span>Patio</span
+          ><span>Privilège</span><span>Suite</span>
+        </p>
+
+        <p class="sub" style="margin-top: 4mm">Services &amp; accès</p>
+        <div class="svc">
+          <div>
+            <div class="ph">
+              <img src="../src/assets/photos/services/petit-dejeuner-3.jpg" alt="" />
+            </div>
+            <h4>
+              <svg class="i"><use href="#i-coffee" /></svg>Petit-déjeuner
+            </h4>
+            <p>Buffet bio et local, 6h30 – 10h30.</p>
+          </div>
+          <div>
+            <div class="ph"><img src="photos/vue-drone.jpg" alt="" /></div>
+            <h4>
+              <svg class="i"><use href="#i-pin" /></svg>Centre-ville
+            </h4>
+            <p>À deux pas du Théâtre Jean-Vilar.</p>
+          </div>
+          <div>
+            <div class="ph map">
+              <!-- carte:debut -->
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="222 222 570 296"
+                font-family="DM Sans, sans-serif"
+                class="map"
+              >
+                <rect x="222" y="222" width="570" height="296" fill="#dfe3df" />
+                <path
+                  d="M-104.7 83.7 L-112 90.3 L-135.1 97 L-145.1 103.8 L-162.6 119.1 L-166 120.3 L-192.4 116.7 L-212 96.8 L-224.6 88.7 L-229.8 87.7 L-235.1 90.2 L-246.6 92.6 L-258.3 92.2 L-252.3 83 L-244.2 77.9 L-262.4 74.3 L-267.4 71.5 L-273.2 65 L-287.4 63.9 L-294.2 65.6 L-305.6 74.1 L-323.8 83.2 L-345.6 70.6 L-349.8 65.1 L-349.7 54.4 L-353 46 L-359 43 L-351.3 31.9 L-342 24.6 L-321.4 17.3 L-290.3 -0.1 L-272.9 -7.6 L-256.6 -20.4 L-249.9 -28.2 L-240.2 -52.1 L-233.4 -62.9 L-240 -65.4 L-243 -73.5 L-242.2 -81.8 L-239.1 -89.1 L-241.9 -98.3 L-246.8 -107.9 L-245.2 -123.4 L-257.8 -122.9 L-270.2 -120.4 L-281.6 -114.8 L-292.5 -107 L-302.3 -105.6 L-302.1 -111.8 L-297.9 -119.4 L-286.8 -130.3 L-275 -139.4 L-270.8 -146.3 L-267.5 -154.3 L-261.6 -160.7 L-246.2 -172.9 L-216.6 -186.6 L-212.2 -187.4 L-200.6 -185.8 L-189.2 -187.9 L-179.2 -192.8 L-169.2 -193.9 L-146.8 -179.7 L-153.5 -201.7 L-143.6 -207 L-129.3 -187.1 L-123.9 -185 L-112.7 -187.8 L-117 -191.2 L-122.1 -191.4 L-128.7 -194.4 L-134.3 -200.8 L-143.6 -221.2 L-143.1 -233.3 L-129.9 -257.5 L-135.7 -259.8 L-140.4 -264.3 L-141.7 -276 L-139.9 -286.3 L-127.4 -295.4 L-123.8 -309.3 L-122.2 -324.6 L-124.3 -331.6 L-136.6 -330.5 L-142.6 -327.6 L-148 -323.1 L-153.5 -323.3 L-168.8 -340.3 L-177.5 -353.1 L-193.1 -380.4 L-195.3 -396.7 L-182.8 -432.1 L-163.5 -454.9 L-140.8 -462.8 L-145.2 -464.3 L-179.8 -464.6 L-191.2 -461.8 L-201.8 -452.5 L-207.8 -449.7 L-214 -448.6 L-219.8 -444 L-225.4 -437.6 L-231.2 -433.5 L-242.7 -434.5 L-248.3 -433.2 L-252.4 -436.9 L-255.7 -443 L-260.1 -444.7 L-265.1 -442.8 L-275.5 -434.5 L-286 -429.6 L-298.8 -434.8 L-315.5 -444.6 L-318.8 -441 L-322.5 -432 L-324.6 -417.9 L-336.5 -430.1 L-346.6 -446.5 L-350 -456.8 L-350.3 -468.4 L-344.8 -472.9 L-338.8 -468.8 L-329.9 -496.4 L-312.2 -532.5 L-306 -543.1 L-301.6 -557 L-302.4 -566.1 L-306.3 -573.8 L-322.7 -591.4 L-322.5 -605.6 L-320.8 -621.8 L-316.3 -631.6 L-314.4 -633.4 L-292.6 -633.2 L-301.1 -638.2 L-318 -652.9 L-317.7 -658.1 L-313.8 -671.7 L-315.6 -670.3 L-319.2 -664 L-326.2 -648.8 L-330.4 -645.3 L-342.4 -641.7 L-344.6 -634.2 L-346.5 -632.3 L-352.5 -631.4 L-354.4 -624.4 L-355.7 -624 L-357.4 -631.5 L-357.6 -644 L-355.2 -655.5 L-350.6 -664.4 L-333 -684.9 L-341.6 -678.6 L-361 -659.7 L-373.6 -643.1 L-374.3 -635.5 L-369.9 -613.8 L-371.2 -603.7 L-387.9 -537.7 L-391.1 -531.1 L-394 -527.7 L-396.7 -526.9 L-405 -528.2 L-408.6 -533.1 L-408.6 -538.6 L-400.1 -578.3 L-397.1 -587 L-392.6 -595.1 L-382.8 -609.3 L-383 -610.3 L-389.6 -607.5 L-392.4 -608.4 L-394.4 -611.2 L-393.1 -653.6 L-387.8 -667.6 L-385.8 -688 L-381.2 -705.6 L-375.8 -718.4 L-371.8 -734.8 L-365.6 -742.1 L-364 -753.3 L-357.1 -765.4 L-351.8 -778.1 L-354.7 -776.9 L-388.6 -743.8 L-397.3 -737.8 L-409.1 -739.4 L-418.1 -743.1 L-425.2 -750.9 L-428.3 -766 L-437 -766.4 L-444.5 -768.9 L-444.4 -771 L-434.8 -779.2 L-419.4 -782 L-405 -795.1 L-417.8 -804 L-416.7 -806.9 L-405.5 -814.5 L-391.3 -840 L-388.4 -863.6 L-395.2 -874.7 L-397.7 -882 L-411.3 -890.1 L-413.5 -900.5 L-412 -906.3 L-407.5 -912 L-400.8 -916.5 L-390.4 -920.7 L-399.9 -925.2 L-403.4 -930.6 L-406.1 -938.4 L-406.4 -942.9 L-398.6 -971.5 L-393 -982.1 L-367.6 -981.5 L-364.6 -986.2 L-361.7 -986.4 L-348.7 -982.1 L-350.7 -986.7 L-371.9 -1012.1 L-373.8 -1016.9 L-367.8 -1030.7 L-367.3 -1036.8 L-368.2 -1043.3 L-366.5 -1048.3 L-359.8 -1050.7 L-339.2 -1050.5 L-334.1 -1052.8 L-341.2 -1068.2 L-342.2 -1075.5 L-339.9 -1101 L-335 -1109.7 L-330.9 -1112.3 L-325.9 -1113.8 L-314.7 -1110.9 L-310.4 -1107.4 L-305.4 -1099.1 L-301.8 -1099.7 L-287.7 -1108.7 L-283.5 -1110 L-277.8 -1099.6 L-253.8 -1107.9 L-221.5 -1111.7 L-202.1 -1117.2 L-181.7 -1119.1 L-162.7 -1125.4 L-142.5 -1122.5 L-141.8 -1118.9 L-142.8 -1113.9 L-148 -1100.1 L-147.2 -1084.7 L-148.3 -1080.1 L-150.7 -1074.4 L-158.1 -1063.7 L-177.5 -1048.5 L-213.2 -1013.7 L-234.3 -996.4 L-237.2 -988.2 L-238.8 -976.7 L-226.2 -974.4 L-221.3 -970.5 L-224.3 -964.7 L-243 -944.5 L-248.5 -926.4 L-234.2 -927 L-222.4 -930.5 L-198.8 -941.8 L-176.7 -950.3 L-166.1 -950.6 L-145.5 -943.9 L-140.8 -943.7 L-132 -946.8 L-123.2 -947.3 L-63.2 -945.2 L-46.5 -949.2 L-35.4 -944.5 L-26.2 -932.7 L-17.4 -911 L-17.7 -907.4 L-23 -897.6 L-32.8 -885.2 L-41.2 -868.3 L-48 -840 L-64.7 -797 L-81 -773.2 L-88.3 -756.4 L-97.3 -743.1 L-106 -734.7 L-115.2 -729.1 L-141.9 -723.1 L-149.4 -718.9 L-158.3 -711.6 L-167.6 -707.9 L-156.7 -708.4 L-145.8 -712.5 L-126 -714 L-103.2 -699.9 L-105.3 -688.5 L-114.5 -679.4 L-135.3 -678 L-154.7 -658 L-163.5 -651.8 L-172.8 -648.7 L-184.4 -649.7 L-205.4 -655 L-214.6 -660.6 L-206.3 -651.5 L-196.8 -646.7 L-142 -635.5 L-138.7 -636.6 L-121.3 -648.5 L-98 -648.7 L-53.6 -626.9 L-22.6 -586.6 L-12.6 -577.4 L-5.4 -569 L-1 -556.5 L7.6 -515.3 L17.4 -475.3 L30.2 -432.3 L36 -420.3 L43.7 -412 L82.4 -392.9 L91 -386.5 L106.1 -368.2 L120.6 -348.7 L134 -333.7 L148.6 -321.7 L141.5 -315.4 L136.7 -305.6 L140.3 -292.2 L146.2 -279.5 L157.9 -259.2 L168.2 -237.1 L164.4 -240.4 L160.4 -242.3 L155 -241.7 L149.6 -242.8 L139.8 -249.7 L130.4 -258.2 L111.6 -254.8 L101.2 -256.3 L92.2 -256.1 L109.3 -251.2 L128.1 -250.8 L169.4 -213.8 L183.4 -192 L191.7 -163.2 L186.1 -150.4 L177.3 -142 L161.4 -121.8 L184.3 -106 L189.2 -106.5 L194.3 -108.7 L199.2 -114.1 L207.4 -127.1 L211.6 -131.7 L225.9 -133.4 L237.9 -132.4 L249.9 -129.5 L260.3 -130.5 L281.5 -124.9 L292.4 -119.8 L319.3 -97.1 L325.1 -84.7 L327.8 -68.8 L328.1 -51.2 L318.4 -20.6 L315.2 -1.9 L312.9 4.8 L309.7 10.1 L295.4 24.8 L286 30.8 L282 28.1 L277.7 28.5 L277.2 32 L281.7 39.5 L281.8 48.5 L273.4 55.2 L264.8 58 L250.5 54.5 L230.6 66.9 L244.9 73.2 L247.8 80 L244.2 91.8 L235.2 97.1 L225.3 99.5 L215 100 L206.6 102.9 L198.5 108.5 L208.7 105.6 L215.7 108.1 L220.1 118.1 L224.2 120.9 L244.1 125.2 L256.4 125.2 L280.1 122.8 L291.5 122.8 L295.6 124.6 L293.9 153 L290.7 157.2 L259.3 174.1 L252.8 185.8 L251 193 L232.6 191.7 L224 199.2 L209.1 204.2 L197.5 209.5 L186.2 216.2 L177 218.2 L136.9 210.3 L112.7 210.9 L79.9 217.9 L71.4 216.7 L58.8 210.1 L45.8 205.6 L30.9 203.6 L18 197.5 L26 209.3 L8.2 220.7 L-0.1 222.9 L-8.6 222.6 L-26.1 225.7 L-42.3 224.1 L-39.8 232.1 L-35.5 239.2 L-39 242.2 L-42.7 243 L-73.5 237.7 L-77.9 238.7 L-81.7 243.6 L-92.9 241 L-103.8 232.7 L-115.4 227.1 L-127.5 224.5 L-137.2 225.4 L-176.9 238.5 L-184.8 251.5 L-188.8 270 L-194.5 286.3 L-203.9 298.9 L-215 300.5 L-225.5 291.8 L-245.4 282.2 L-252.2 275.7 L-254.4 275.3 L-256.6 277.7 L-264.4 280.6 L-272.5 280.7 L-285 283.3 L-306.7 291.1 L-315.4 296.4 L-334.3 311 L-338.1 315 L-345 329.7 L-355.4 332.3 L-365 322.9 L-375.9 319.6 L-387.4 322.8 L-394.3 327.8 L-397.6 323.8 L-397.7 315.4 L-389.3 305.5 L-366.9 297.9 L-347.2 278.3 L-337.6 266.4 L-333.8 259.6 L-329.1 255.3 L-322.9 253.7 L-319.7 246.2 L-292.4 216.2 L-290.2 209.3 L-286.6 184.9 L-264.4 177.2 L-253.7 152 L-250.8 150 L-219.8 145.4 L-196.9 145.7 L-174 150.7 L-162.3 151.1 L-150.6 149.4 L-141.4 142.6 L-125.6 117.9 L-97.1 86 L-81.7 65.1 L-92.1 72.3 L-104.7 83.7Z M52.4 229.5 L44.2 234.9 L39.6 243.6 L34.2 245.2 L28.8 245.2 L8.3 232.7 L3.6 233.3 L8.3 227.5 L21 222.8 L28.2 216.6 L44.7 222.6 L52.4 229.5Z"
+                  fill="#ebe0cc"
+                  stroke="#c9b48e"
+                  stroke-width="0.8"
+                />
+                <path
+                  d="M744.5 220.2 L720.3 218.8 L715.1 216.4 L709.8 205.7 L710.5 202.2 L719.3 192 L720.6 189.2 L719.7 187.7 L720.6 183.2 L727.3 167.9 L728.2 161.8 L725.1 157.5 L720.8 155 L706.7 150.4 L700 144 L696.9 138.5 L693.8 136.9 L689.2 138.8 L677.5 140.8 L668.1 137.8 L656.9 127.2 L652.9 110.5 L650.1 108 L641.6 117.6 L632.2 118.3 L629.5 116.9 L628.5 110.5 L625.9 106.7 L623.1 104.5 L611.2 115.4 L606.7 115.4 L601.1 111.2 L598.4 107.1 L592.2 109.4 L586.7 114.5 L588.6 124 L585.7 125.7 L578.9 124.9 L571.2 121 L562.6 118.6 L549.7 112 L531.6 117.4 L519 111 L508.5 110.4 L502 105.3 L495 96.7 L500 91 L504.8 89.1 L523.9 88 L537.8 91.4 L562.9 110.1 L569.2 109.9 L575.9 107.6 L572.5 102.5 L556.9 95.1 L549.5 88 L566.9 85.7 L564.5 82.1 L562.2 75.8 L543.8 54 L547 48.1 L551.6 35.4 L557.3 24.9 L561.9 22 L569.5 14.5 L585.9 -7.5 L596.4 -25.5 L604.1 -46.9 L615.5 -106.2 L618.9 -116.3 L624.4 -127.6 L631.3 -125.5 L636.1 -122.2 L653.1 -130.7 L682.2 -152.9 L690.8 -172.1 L699.2 -181 L732.7 -198.5 L751.2 -203.8 L779.7 -205.1 L800.4 -208.2 L825.1 -209.4 L834.5 -198.6 L840 -190.7 L848.8 -186.3 L862.5 -183.3 L861.8 -137.1 L860.7 -131.6 L854.6 -118.7 L848.1 -95.7 L846.4 -80.6 L844.4 -77.7 L818.5 -77.8 L814.8 -75.2 L814.3 -71.9 L815.6 -68 L814.9 -64.1 L812.9 -61 L814 -56 L818.5 -50.4 L826.7 -46.9 L840 -47.1 L846.6 -36.9 L845.1 -18.6 L840.9 -8.9 L828.9 2.3 L823.6 6.2 L818.5 8.2 L816.1 11.1 L815 14.9 L815.3 18.2 L823.8 27.1 L823.6 29.1 L817.8 38.1 L795.8 47.1 L786.8 46.4 L780 51.8 L774.2 47.7 L761.4 42.9 L756.6 44.5 L753.9 47.1 L745.8 50.3 L740.1 55.3 L740.1 61.7 L750.3 78.1 L753.9 81.4 L754 87.5 L764 104.9 L764.6 111 L764 117.2 L761.4 125.9 L752.5 146.4 L753.2 153.3 L758.5 155.7 L757.8 158.4 L739.1 175.1 L732.2 174.4 L731.1 176.7 L732.1 180.5 L734.8 183.9 L740.7 185.6 L745.8 189.2 L749.8 196.2 L744.5 220.2Z M571.2 121 L569.7 126.9 L565.9 133.4 L552.9 142.8 L539.4 149 L532.4 148.2 L527.6 145 L525.1 141.6 L517.8 138.3 L507.9 136.7 L497.3 143.6 L493.4 143 L490.5 140.2 L488.2 135.9 L485.3 122.3 L492.7 119.9 L508.8 118.9 L521.2 123.7 L537.6 126 L550.1 119.5 L560 125 L571.2 121Z M635.9 -148.7 L626.2 -137.1 L620.3 -140.3 L618.5 -143 L621.6 -152 L635.9 -167.1 L635.9 -148.7Z M544 65.3 L553.6 73.9 L556.4 79.6 L544.2 83.1 L531.3 72.5 L522.7 75 L519.5 70 L519.5 66.8 L528.3 64.2 L544 65.3Z"
+                  fill="#ebe0cc"
+                  stroke="#c9b48e"
+                  stroke-width="0.8"
+                />
+                <path
+                  d="M756.5 317.1 L755.7 321.2 L755.9 330.3 L758.6 339.5 L770.2 355 L776.9 360.2 L788.3 365.2 L792.9 366.2 L793.5 372.9 L792.6 380 L788.7 383.9 L785 389.5 L782.2 396.4 L779.3 409.5 L778.9 418.6 L768.8 412.3 L762.8 411.6 L756.9 413.7 L752.4 418.3 L746.2 419.7 L741.1 418.3 L738.1 414.8 L735.4 413 L727.8 410.7 L724.5 405.6 L729.2 399.6 L733.4 389.5 L724.3 372.2 L718.1 364.7 L718.2 360.9 L719.7 357.3 L719.1 354.5 L720 347.8 L724.3 341.5 L732 322.9 L742.8 310 L750.5 312 L753.8 311.9 L756.5 317.1Z"
+                  fill="#ebe0cc"
+                  stroke="#c9b48e"
+                  stroke-width="0.8"
+                />
+                <path
+                  d="M1090.6 703.9 L1057.1 682.6 L1027.6 684.7 L1022.7 677.8 L1018.9 675.9 L1015.2 678.6 L1012.6 678.3 L1001.8 668.7 L997.3 667.3 L991.2 668.6 L983.9 673.8 L980.7 680.1 L981.7 683.8 L985.5 685.3 L995.3 684.3 L996.8 685.3 L997.1 687.4 L996 689.4 L988 691 L985.7 693.4 L981.8 694.4 L973.3 691.9 L960.6 691.9 L950.4 696.3 L934 698.1 L911.6 697.3 L898.6 691.9 L895 682.1 L895.9 667.6 L901.3 648.3 L902.8 634.1 L900.4 625.1 L903.6 611.5 L912.3 593.3 L918.2 574.2 L921.1 553.9 L925.3 540.7 L933.6 531.4 L954.9 503.5 L954.4 490.5 L941.3 484.9 L921.5 480.3 L903 477.3 L894.7 473.6 L887.3 463.7 L882.8 463.6 L873.9 467.1 L862.7 469.5 L854.6 467.4 L849.6 467.8 L846.7 469.7 L845.3 468.1 L843.3 459.6 L832.5 455.5 L828.4 456.3 L825.6 460.5 L821.2 463.5 L817.2 462.5 L801.4 438.6 L797.5 427.3 L790 420 L782.6 417.7 L778.9 418.6 L779.3 409.5 L782.2 396.4 L785 389.5 L788.7 383.9 L792.6 380 L793.5 372.9 L792.9 366.2 L788.3 365.2 L776.9 360.2 L770.2 355 L758.6 339.5 L755.9 330.3 L755.7 321.2 L757 314.3 L762.3 300 L780.8 287.2 L778.5 266.3 L774 261.1 L765 259 L762.6 255.4 L761.6 251.9 L768.2 244 L760.2 237.7 L756.8 231.2 L745.7 223 L744.5 220.2 L749.8 196.2 L745.8 189.2 L740.7 185.6 L734.8 183.9 L732.1 180.5 L731.1 176.7 L732.2 174.4 L739.1 175.1 L757.8 158.4 L758.5 155.7 L753.2 153.3 L752.5 146.4 L761.4 125.9 L764 117.2 L764.6 111 L764 104.9 L754 87.5 L753.9 81.4 L750.3 78.1 L740.1 61.7 L740.1 55.3 L745.8 50.3 L753.9 47.1 L756.6 44.5 L761.4 42.9 L774.2 47.7 L780 51.8 L786.8 46.4 L795.8 47.1 L817.8 38.1 L821.1 33.7 L823.8 27.1 L815.3 18.2 L815 14.9 L816.1 11.1 L818.5 8.2 L823.6 6.2 L828.9 2.3 L840.9 -8.9 L845.1 -18.6 L846.6 -36.9 L843.3 -43.1 L840 -47.1 L826.7 -46.9 L818.5 -50.4 L814 -56 L812.9 -61 L814.9 -64.1 L815.6 -68 L814.3 -71.9 L814.8 -75.2 L818.5 -77.8 L844.4 -77.7 L846.4 -80.6 L848.1 -95.7 L854.6 -118.7 L860.7 -131.6 L861.8 -137.1 L862.5 -183.3 L858 -190.6 L848.4 -198.6 L850.4 -215.4 L853.6 -228.5 L863.4 -244.6 L871.1 -249 L904.8 -251.6 L942.1 -250.6 L957.6 -226.2 L951.8 -213.7 L960.9 -207.9 L965.2 -210.1 L968.5 -220.9 L970.7 -232.9 L973.9 -236.6 L985.4 -227.6 L989.5 -221.4 L989.7 -201.6 L994 -228.4 L990.8 -247.3 L993 -265.5 L997.6 -275.1 L1001.9 -281.1 L1029.2 -274.6 L1059.4 -278 L1070.8 -270.9 L1096.6 -235.6 L1105.2 -229.9 L1116.1 -228.1 L1101.1 -235.6 L1069.8 -278.5 L1060.4 -283.8 L1046 -285.5 L1037.1 -289.7 L1031.4 -296.2 L1029.8 -302 L1030.1 -345.6 L1024.7 -352.1 L1017.7 -354.4 L1013.3 -351.4 L1004.4 -351.3 L1002.5 -361.3 L1004.7 -368.6 L1022.7 -373.6 L1034.5 -380.4 L1035 -392.3 L1027.5 -401.7 L1018.6 -419 L1008.1 -435.3 L1006.9 -454.3 L1029.7 -453.2 L1057.4 -444.3 L1064.2 -438.1 L1072.7 -437.8 L1088.1 -443.6 L1099.6 -446.1 L1104 -442.5 L1111.7 -441 L1112.3 -437.9 L1126.7 -433.4 L1132.7 -426.2 L1139.4 -415.3 L1140.1 -399.6 L1131.5 -388.3 L1124.4 -381.2 L1151.3 -383.9 L1158.1 -370.5 L1172.6 -375.5 L1209 -354.9 L1231 -364.9 L1236.6 -365.5 L1241.6 -348.9 L1236.1 -332.2 L1216.7 -314.5 L1221 -303.6 L1227.2 -301.2 L1245.5 -303.5 L1274.5 -292.7 L1280.5 -296.1 L1304 -320.9 L1313.4 -326.3 L1344.2 -330.1 L1349.9 -339.7 L1362.4 -349.5 L1370.4 -360.1 L1389.7 -380.4 L1409.7 -376.7 L1421.4 -372.8 L1434.2 -370.9 L1445.8 -349.3 L1475.3 -325.5 L1502.4 -327.6 L1512 -305.1 L1516.2 -277.5 L1524.5 -268.9 L1531.9 -263.3 L1554.8 -257 L1558.7 -228.4 L1570.1 -183.5 L1569.7 -169.6 L1565.5 -154.3 L1558.2 -141.5 L1548.4 -134.3 L1543 -126.2 L1542 -117.3 L1554.3 -101.8 L1579.8 -79.6 L1590.1 -60.7 L1585.3 -45.1 L1583.8 -33.6 L1585.7 -26.3 L1589.8 -20.4 L1596.1 -16 L1598.6 -9.2 L1597.3 -0 L1598.5 6.4 L1603.2 10.9 L1595.6 39.1 L1588.4 50.6 L1590.6 60.3 L1596.2 71.8 L1600.5 77.6 L1601.8 83.1 L1599.1 96 L1600.5 99.3 L1618.2 108.9 L1621.1 113.3 L1622.9 122.4 L1629.1 141.9 L1623.9 166.6 L1619.4 180.1 L1607.6 205.9 L1604.6 209.7 L1600.3 210.2 L1593.9 207.5 L1589.6 203.9 L1590.6 194.7 L1587.8 194.1 L1584.3 188.4 L1582.9 182.4 L1579.1 179.9 L1565.4 177.3 L1560.8 175.5 L1557.2 176.8 L1554.5 181.1 L1558.8 188.8 L1566.4 194.8 L1565.6 197.2 L1549.2 203 L1538.9 209 L1529.3 212.3 L1519.5 218.5 L1500.1 225.5 L1486 227.3 L1483 229.1 L1477.7 240.9 L1474.1 243.3 L1468.1 240.1 L1464.8 241.7 L1461.4 245.6 L1457.8 247.1 L1454.7 247.1 L1449.1 257.3 L1433 260.4 L1428.1 271.8 L1425.8 273.3 L1418.5 270.9 L1408.4 269.5 L1402.6 272.9 L1395.6 274.7 L1387.2 275.3 L1377.7 282 L1368.5 293.8 L1360.5 307.8 L1356 298.1 L1350.5 291.4 L1346.6 288 L1343.1 288 L1342.1 289.4 L1342.1 294.5 L1345.9 302.9 L1350.5 308.7 L1353.7 320.7 L1360.4 329.1 L1371 335.8 L1378.2 342.3 L1383.5 351.4 L1383.6 354.2 L1382.1 357.9 L1371.6 375.2 L1373.4 379.2 L1382.4 390.3 L1387.8 400.1 L1395.3 417.3 L1400.1 424.3 L1413.1 437.1 L1423.2 437 L1433.7 447.6 L1445.1 462.8 L1453.7 469.8 L1459.7 471.9 L1464.6 477.4 L1470.7 489.9 L1474.6 493.2 L1485.1 492.6 L1498.5 504.9 L1506.9 514 L1511.2 521.3 L1510.1 524.2 L1509.7 542.8 L1508.4 547.9 L1502.3 554.6 L1497.6 557.5 L1479.1 548.8 L1476.5 551.3 L1471.5 576.5 L1468.1 581.4 L1463 585.8 L1439.4 594.1 L1421.3 604.6 L1413.2 610.9 L1407.9 618.8 L1407.8 623.4 L1426.8 650.5 L1426.9 662.6 L1421.3 675.1 L1434.7 678.5 L1436.7 684.9 L1436.1 695.9 L1434.5 706.2 L1432.8 710.6 L1428.2 710.9 L1419.5 706.5 L1412.7 701.3 L1410.1 698.1 L1409.9 694.3 L1411.4 691.8 L1409 687.1 L1400.6 682.8 L1391.6 684.7 L1385 687.6 L1380.7 687.4 L1376.1 683.3 L1368.9 680 L1353.9 675.7 L1352.6 677 L1353.3 686.1 L1351.5 690 L1305.6 695.3 L1291.6 700.2 L1281.4 706.5 L1273.8 709.3 L1272 713.2 L1264.5 718.3 L1256.1 719.9 L1254 718.2 L1248.6 720.6 L1239.4 722.9 L1233.4 722.2 L1224.9 711.7 L1222.6 707.3 L1222.8 704.5 L1210 703.9 L1201.8 700.5 L1184.6 701.3 L1180.3 699.9 L1179.4 701.4 L1176.9 719.4 L1173.4 726.8 L1167.9 734.4 L1160.8 738.7 L1155.2 739.4 L1156.9 727.2 L1152.8 725.6 L1146.7 724.9 L1143.8 722.9 L1144.5 717.8 L1143.1 714.8 L1140.6 711.2 L1134.5 706.6 L1121.5 699.8 L1112.6 696.4 L1109.3 700 L1103 703.6 L1093 702.5 L1090.6 703.9Z"
+                  fill="#ebe0cc"
+                  stroke="#c9b48e"
+                  stroke-width="0.8"
+                />
+                <path
+                  d="M903.5 693.9 L891.7 700.5 L884.3 713.9 L876.8 717.1 L869.2 718.2 L863.1 717.2 L859.6 714.1 L859.7 711.3 L856.5 708.9 L848.4 708.9 L840 714.2 L833.4 722.7 L835.4 727.5 L841.6 728.8 L843.2 730.7 L843.2 733.1 L838.4 741.1 L812.6 771.2 L810.5 775.8 L806.4 779 L789.8 787 L788.1 790.3 L787.2 803.7 L785.3 814.7 L760.9 835.3 L751.8 857.1 L751 861.4 L757.2 868.4 L754.5 882.5 L748.6 888.4 L742.2 891.7 L742.3 900.7 L745.7 901.9 L753.6 901.3 L764.6 894.7 L771.9 886.4 L767.6 878.4 L767.1 876.8 L768.1 875 L776.7 866.3 L787.1 861 L801.8 860.1 L819.4 863.1 L821.2 864.4 L820.3 869.8 L822 877.6 L825.2 883.1 L820.8 898.7 L833.1 914.7 L838.6 919.6 L845.2 932.5 L837.3 940.6 L824 948.2 L822.5 953 L822.6 958.5 L824.1 962.9 L831.5 968.4 L839.5 981 L844.5 992.2 L858.2 1006.1 L854.6 1013.4 L850.8 1028.6 L846.3 1031 L841.3 1032 L827.7 1043.1 L821.6 1041.8 L813 1041.9 L806.6 1045.6 L807.3 1052.5 L812.9 1058.8 L816.1 1065.7 L817.5 1072.8 L823.6 1078.1 L832.3 1081.3 L837.2 1081.5 L840.5 1083.4 L842.4 1085.8 L846.1 1101.1 L843.9 1104.9 L839.3 1106.6 L827.7 1129.5 L832.7 1140.8 L830.9 1145.8 L833.4 1153.5 L839.9 1161.1 L857.8 1171.8 L874.4 1180.6 L879.5 1182 L901.9 1176.4 L905.6 1176.9 L909.5 1188 L907 1194.8 L890.4 1217.8 L891.5 1231.1 L886.1 1233.3 L886 1231.8 L883.8 1230.5 L881.9 1231.3 L880.4 1232.9 L880.2 1235.9 L868.8 1240.7 L860.9 1245.7 L829.9 1275.6 L815.4 1284.3 L812.5 1289.6 L809.5 1299.4 L801 1307.8 L793.5 1311.8 L775 1315.9 L756.5 1324.8 L748.1 1321 L726.4 1321.4 L712.9 1310.7 L686.9 1303.9 L678.5 1288.2 L666.6 1287.2 L658.9 1287.6 L654.2 1285.3 L652.9 1274.7 L644.7 1277.1 L638.4 1277.1 L631.7 1281.6 L628.2 1280 L626.2 1280.6 L626.4 1283.6 L618.8 1284.4 L610.7 1282.5 L585.9 1273.1 L571 1270 L565 1266.7 L560.1 1258.7 L554.2 1254.7 L540.3 1258.7 L535.5 1265 L527.9 1272.4 L476.4 1308.6 L467 1323.7 L456.1 1345.9 L455.2 1356.2 L459.9 1389.2 L470.4 1406.5 L471.7 1410.5 L465.9 1410.5 L448 1405.7 L440.3 1407.1 L432.9 1410.7 L421.8 1413.5 L418.6 1415.5 L416.8 1422.5 L408.6 1421.8 L372.6 1411.8 L362.6 1416.4 L356.1 1420.8 L351.6 1420.1 L345.9 1411.1 L339.2 1407 L324.1 1400.9 L327.5 1393.8 L327.4 1391.2 L324.5 1387.4 L310.6 1383.3 L304.1 1382.3 L299.9 1385.1 L296.9 1388.5 L289.2 1375.9 L283.7 1373.3 L275.3 1372.9 L255.9 1364.1 L231.8 1356.2 L225.2 1355.3 L222.5 1356.5 L220.8 1361.3 L219.8 1374.6 L218.8 1376.1 L207.6 1376.5 L193.8 1374.6 L181.9 1375.6 L176.6 1372.1 L152.8 1376.1 L148.9 1374.1 L143.1 1368.1 L136.7 1363.3 L127.5 1357.9 L123.7 1357.5 L117.8 1360.2 L109.7 1361.4 L99.4 1361.4 L84.3 1346.7 L82.1 1342.6 L65.3 1341.3 L41.6 1331.7 L30.8 1326.5 L29.3 1323.5 L29.4 1321 L27.6 1321.5 L22.5 1329.5 L20.2 1330.2 L16.8 1329.6 L13.6 1327.6 L11.7 1325 L17.4 1314.5 L18.9 1308.1 L18.6 1302.3 L12.6 1298.6 L-2.7 1296.6 L-11.1 1293.3 L-15 1290.9 L-18.9 1284.5 L-19 1279.8 L-3.1 1275.6 L11.3 1258.6 L24.9 1196.6 L34.8 1122.7 L42.1 1108.7 L51.3 1104.8 L43.8 1094.6 L39.2 1099.8 L37.2 1105.3 L34.8 1108 L40.3 1039.5 L44.2 1014.3 L50.9 987.8 L64.5 998.3 L75.9 1009 L81.7 1018.2 L89.1 1049 L94.7 1055.4 L103.1 1061.8 L99.8 1054.8 L94 1049.4 L85 1008.4 L79.3 996.8 L70.5 987 L42.2 966.2 L39.6 962.2 L38.2 954.3 L47.6 954.6 L55.7 958.5 L54.8 954.1 L52.4 949.4 L48.6 932.6 L45.5 893.1 L45.9 886.3 L44.5 878 L35.4 876.1 L28.2 875.8 L20.3 872.5 L-18.3 849 L-31.5 824.8 L-45 806.8 L-48.3 799 L-48.1 791 L-41.1 774.2 L-47.2 763.6 L-53.3 761.4 L-58.5 756.2 L-53.8 747.4 L-49.8 741.7 L-41.9 740.2 L-31.5 742.1 L-21.7 747.2 L-14 748.5 L-36.8 734.8 L-73.8 739.4 L-81.8 737.7 L-88.5 734.6 L-91.2 724.6 L-85.9 720 L-81.1 711.6 L-86.5 705.7 L-93.5 703.5 L-104.5 703.6 L-114.7 705.4 L-117.3 702 L-111.1 692.6 L-116.4 689.2 L-133.7 692.7 L-143.5 689.8 L-152.8 679.1 L-159 679.2 L-163.2 680.5 L-169.5 676.4 L-176.1 675.3 L-180.8 676.7 L-187 670.6 L-225.6 658.3 L-242.2 656.8 L-257.5 662.3 L-265.9 660.4 L-272.1 652.4 L-277.3 639 L-301.8 628.7 L-297 621.9 L-285.5 620.3 L-272.3 615.6 L-267.6 609.5 L-277.9 602.5 L-285.5 600.8 L-288.7 598.2 L-291.9 591.9 L-287.3 589 L-284.1 590.5 L-274.8 591.4 L-259 589.9 L-264.9 583.5 L-273.8 580.4 L-286.7 579.7 L-292.6 581.9 L-305.8 581.1 L-308.7 574.2 L-310 568.2 L-306 555 L-287.4 543.1 L-241.1 530.1 L-221.1 532 L-207.3 529.7 L-190.8 521.5 L-183.5 514.4 L-159.9 510.3 L-137.6 517.7 L-116.9 545.9 L-107.1 555.4 L-83 538.9 L-47 539.4 L-39.6 548.7 L-36.6 540.9 L-30 531.7 L-24.7 535.8 L-22 541.5 L15.9 539.9 L21.9 538.3 L11.7 531.6 L3.4 515.5 L1.7 456.2 L-8.9 439.6 L-20.9 412.9 L-26.5 397.1 L-27 391.6 L-25.1 383.6 L-10.3 384.1 L1.2 386.1 L23 380.1 L33.5 384.2 L32.8 396.6 L36.1 412.2 L39.7 419.8 L45.2 428.3 L62.8 427.5 L81.8 432.6 L105.8 433.4 L140.8 442 L155.8 437 L170.2 426.3 L197.7 419.2 L199.9 415.5 L184.1 417 L169.5 410.2 L167.6 402.7 L175.2 380.7 L217.3 356.4 L247.5 349.2 L279 335.8 L294.8 322 L305.3 304.2 L313 297 L309 290.6 L311.7 221.9 L314.7 209.5 L320.8 199.3 L330.2 191.4 L344.4 182.9 L396.6 171.1 L404.4 166.3 L405.5 173.7 L411.9 188.4 L409.7 195.2 L411.4 200.7 L418.5 210.7 L427.4 220.2 L435.3 226.2 L443.3 223.8 L453.2 217.6 L461.5 215.7 L468.8 223.1 L474 233.7 L477.8 254 L482 257.8 L497.7 259 L509.4 262.4 L512.4 265.5 L516.4 285.9 L518.6 288.7 L524.3 283 L528.3 282.4 L544.1 284.1 L553.3 286.4 L566.1 297.9 L562.3 313.6 L567.9 321.2 L567 327.5 L563.8 331.9 L562.4 335.6 L563.7 339.9 L566.3 341.6 L585.2 344 L602.5 341.6 L613.3 335.2 L618.3 320.7 L624.8 314.3 L629.3 312.2 L633.4 314.8 L626.5 341.7 L631.5 348.6 L634.1 367.8 L640.3 367.6 L647.7 369.3 L659.2 377.9 L668.1 382.8 L674.4 384.5 L676.7 388.6 L681.7 393.3 L689.7 403.2 L696.8 409.8 L700.2 409.8 L706.9 407.2 L716.7 405.5 L724.5 405.6 L727.8 410.7 L735.4 413 L741.1 418.3 L746.2 419.7 L752.4 418.3 L756.9 413.7 L762.8 411.6 L768.8 412.3 L778.9 418.6 L782.6 417.7 L790 420 L797.5 427.3 L801.4 438.6 L817.2 462.5 L821.2 463.5 L825.6 460.5 L828.4 456.3 L832.5 455.5 L843.3 459.6 L845.3 468.1 L846.7 469.7 L849.6 467.8 L854.6 467.4 L862.7 469.5 L873.9 467.1 L882.8 463.6 L887.3 463.7 L894.7 473.6 L903 477.3 L921.5 480.3 L941.3 484.9 L954.4 490.5 L954.9 503.5 L933.6 531.4 L925.3 540.7 L921.1 553.9 L918.2 574.2 L912.3 593.3 L903.6 611.5 L900.4 625.1 L902.8 634.1 L901.3 648.3 L895.9 667.6 L895 682.1 L898.6 691.9 L903.5 693.9Z M41.3 935.6 L37.9 947.9 L31.3 936.6 L22.7 926.6 L20.7 917.4 L20.7 914.9 L30.9 921.7 L41.3 935.6Z"
+                  fill="#f3ead9"
+                  stroke="#c9b48e"
+                  stroke-width="0.8"
+                />
+                <path
+                  d="M571.2 121 L578.9 124.9 L585.7 125.7 L588.6 124 L586.7 114.5 L592.2 109.4 L598.4 107.1 L601.1 111.2 L606.7 115.4 L611.2 115.4 L623.1 104.5 L625.9 106.7 L628.5 110.5 L629.5 116.9 L632.2 118.3 L641.6 117.6 L650.1 108 L652.9 110.5 L656.9 127.2 L668.1 137.8 L677.5 140.8 L689.2 138.8 L693.8 136.9 L696.9 138.5 L700 144 L706.7 150.4 L720.8 155 L725.1 157.5 L728.2 161.8 L727.3 167.9 L720.6 183.2 L719.7 187.7 L720.6 189.2 L719.3 192 L710.5 202.2 L709.8 205.7 L715.1 216.4 L720.3 218.8 L744.5 220.2 L745.7 223 L756.8 231.2 L760.2 237.7 L768.2 244 L761.6 251.9 L762.6 255.4 L765 259 L774 261.1 L778.5 266.3 L780.8 287.2 L762.3 300 L756.5 317.1 L753.8 311.9 L750.5 312 L742.8 310 L732 322.9 L724.3 341.5 L720 347.8 L719.1 354.5 L719.7 357.3 L718.2 360.9 L718.1 364.7 L724.3 372.2 L733.4 389.5 L729.2 399.6 L724.5 405.6 L716.7 405.5 L706.9 407.2 L700.2 409.8 L696.8 409.8 L689.7 403.2 L681.7 393.3 L676.7 388.6 L674.4 384.5 L668.1 382.8 L659.2 377.9 L647.7 369.3 L640.3 367.6 L634.1 367.8 L631.5 348.6 L626.5 341.7 L633.4 314.8 L629.3 312.2 L624.8 314.3 L618.3 320.7 L613.3 335.2 L602.5 341.6 L585.2 344 L566.3 341.6 L563.7 339.9 L562.4 335.6 L563.8 331.9 L567 327.5 L567.9 321.2 L562.3 313.6 L566.1 297.9 L553.3 286.4 L544.1 284.1 L528.3 282.4 L524.3 283 L518.6 288.7 L516.4 285.9 L512.4 265.5 L509.4 262.4 L497.7 259 L482 257.8 L477.8 254 L474 233.7 L468.8 223.1 L461.5 215.7 L453.2 217.6 L443.3 223.8 L435.3 226.2 L427.4 220.2 L418.5 210.7 L411.4 200.7 L409.7 195.2 L411.9 188.4 L405.5 173.7 L404.4 166.3 L447.1 140 L473.1 126.4 L485.3 122.3 L488.2 135.9 L490.5 140.2 L493.4 143 L497.3 143.6 L507.9 136.7 L517.8 138.3 L525.1 141.6 L527.6 145 L532.4 148.2 L539.4 149 L552.9 142.8 L565.9 133.4 L569.7 126.9 L571.2 121Z"
+                  fill="#ebe0cc"
+                  stroke="#c9b48e"
+                  stroke-width="0.8"
+                />
+                <path
+                  d="M439.9 285.6 L436.9 294.7"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M439.9 285.6 L436.9 294.7"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M567.3 600.2 L564.8 582.8 L565 570.5 L567.6 537 L571.8 526.7"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M567.3 600.2 L564.8 582.8 L565 570.5 L567.6 537 L571.8 526.7"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M571.8 527.6 L576.1 507.8 L578.5 483.4 L578.3 477.7"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M571.8 527.6 L576.1 507.8 L578.5 483.4 L578.3 477.7"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M551.3 442.8 L544.3 429.3 L539.2 411.6 L536.7 406.6 L533 403.1 L521.2 398.5"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M551.3 442.8 L544.3 429.3 L539.2 411.6 L536.7 406.6 L533 403.1 L521.2 398.5"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M521.2 398.5 L511.4 388.9 L498.6 381.8 L479.5 361.3 L476.6 355.6 L474.1 346 L469.3 333.8 L465.9 316.3 L462.3 308.7"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M521.2 398.5 L511.4 388.9 L498.6 381.8 L479.5 361.3 L476.6 355.6 L474.1 346 L469.3 333.8 L465.9 316.3 L462.3 308.7"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M443.4 289.2 L454.1 297.5 L458.7 302.2 L462.9 309.6"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M443.4 289.2 L454.1 297.5 L458.7 302.2 L462.9 309.6"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M347 191.6 L359 209.6 L365.2 217.4 L375.7 227.9 L382.4 239.3 L391.4 246 L396.4 251.7 L399.5 253.7 L415.3 256.6 L421.6 259 L423.5 261.8 L425.6 268.4 L432.4 277.6 L440.9 285.8 L443.4 289.2"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M347 191.6 L359 209.6 L365.2 217.4 L375.7 227.9 L382.4 239.3 L391.4 246 L396.4 251.7 L399.5 253.7 L415.3 256.6 L421.6 259 L423.5 261.8 L425.6 268.4 L432.4 277.6 L440.9 285.8 L443.4 289.2"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M578.9 479.8 L570.6 463.4 L566.8 459 L558.8 453.9 L557.1 451.5 L556.6 448.2"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M578.9 479.8 L570.6 463.4 L566.8 459 L558.8 453.9 L557.1 451.5 L556.6 448.2"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M188.3 130.4 L200.4 131.8 L203.9 133 L211.4 136.7 L221.9 143.4 L241.4 152.5 L246.1 156"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M188.3 130.4 L200.4 131.8 L203.9 133 L211.4 136.7 L221.9 143.4 L241.4 152.5 L246.1 156"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M444.6 285.3 L443.5 287.6"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M444.6 285.3 L443.5 287.6"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M175.2 441.7 L174.4 440.3 L174.6 438.5 L179.3 433 L180.2 430.7 L180.1 418 L184 409.3 L186.5 407.7 L193 406.2 L198 401.5 L217 391 L236.3 386.2 L241.6 386.4 L256 390.2 L271.9 391 L277.8 389.9 L282 387.6"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M175.2 441.7 L174.4 440.3 L174.6 438.5 L179.3 433 L180.2 430.7 L180.1 418 L184 409.3 L186.5 407.7 L193 406.2 L198 401.5 L217 391 L236.3 386.2 L241.6 386.4 L256 390.2 L271.9 391 L277.8 389.9 L282 387.6"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M369.6 353.7 L374.7 353"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M369.6 353.7 L374.7 353"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M301.3 372.4 L307.5 375.5 L312.4 375.6 L344.3 362 L352.9 360.3 L369.6 353.7 L374.7 353"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M301.3 372.4 L307.5 375.5 L312.4 375.6 L344.3 362 L352.9 360.3 L369.6 353.7 L374.7 353"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M373.6 358.5 L378.6 360.2 L420.3 356.1 L432.8 357.6"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M373.6 358.5 L378.6 360.2 L420.3 356.1 L432.8 357.6"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M432.8 357.6 L443.8 359.3 L466.5 359.7 L477.4 357.9"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M432.8 357.6 L443.8 359.3 L466.5 359.7 L477.4 357.9"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M282 387.6 L292.1 381.5 L296.6 377.6 L304.1 366.8 L308.2 358.3 L323.3 336.2"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M282 387.6 L292.1 381.5 L296.6 377.6 L304.1 366.8 L308.2 358.3 L323.3 336.2"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M596.9 195.1 L593.4 193.8 L588.7 194.5 L581.9 196.6 L576.8 199.9"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M596.9 195.1 L593.4 193.8 L588.7 194.5 L581.9 196.6 L576.8 199.9"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M595.6 186.9 L595.3 195.3"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M595.6 186.9 L595.3 195.3"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M404.9 481.3 L409.4 464.4 L411.9 458.8 L418.9 448.4 L421.2 443.8 L422.5 438.4 L422.1 410.5 L422.7 400.4 L428.3 370.5 L433.3 354.9 L438.9 328.8"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M404.9 481.3 L409.4 464.4 L411.9 458.8 L418.9 448.4 L421.2 443.8 L422.5 438.4 L422.1 410.5 L422.7 400.4 L428.3 370.5 L433.3 354.9 L438.9 328.8"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M437.5 292.3 L436.7 298.5 L438.6 317.1 L438.9 328.8"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M437.5 292.3 L436.7 298.5 L438.6 317.1 L438.9 328.8"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M438.9 329.7 L445.3 327.8 L450.1 324.9 L464.1 312.3"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M438.9 329.7 L445.3 327.8 L450.1 324.9 L464.1 312.3"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M582.7 249.2 L584.5 253.8 L591.5 258.8 L593.8 263"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M582.7 249.2 L584.5 253.8 L591.5 258.8 L593.8 263"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M577.7 199.6 L575.8 203.4 L575.7 206.2 L579.5 213.8 L575.7 228.7 L576.8 231.7 L579.7 233.5"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M577.7 199.6 L575.8 203.4 L575.7 206.2 L579.5 213.8 L575.7 228.7 L576.8 231.7 L579.7 233.5"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M580 233.3 L577.7 249"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M580 233.3 L577.7 249"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M466.1 220.2 L462.6 241.1"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M466.1 220.2 L462.6 241.1"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M524.8 265.1 L515.1 268 L512.5 269.9 L510.6 272.7 L508.3 279.5 L504.7 283.5 L502.7 284.1 L495.6 283.8 L493.6 284.7 L483.4 299.1 L479.2 303.6 L474.7 306.8 L468 309.7 L464.1 313.2"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M524.8 265.1 L515.1 268 L512.5 269.9 L510.6 272.7 L508.3 279.5 L504.7 283.5 L502.7 284.1 L495.6 283.8 L493.6 284.7 L483.4 299.1 L479.2 303.6 L474.7 306.8 L468 309.7 L464.1 313.2"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M562.3 258.2 L557.7 259.6 L547.5 259 L540.2 260.1 L524.8 265.1"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M562.3 258.2 L557.7 259.6 L547.5 259 L540.2 260.1 L524.8 265.1"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M582.9 248 L575.8 250.2 L565.3 256.7 L561.7 257.9"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M582.9 248 L575.8 250.2 L565.3 256.7 L561.7 257.9"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M462.6 241.1 L460.6 246.5 L453.5 260.1 L451.2 267.9 L449.6 278.2 L443.5 287.6"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M462.6 241.1 L460.6 246.5 L453.5 260.1 L451.2 267.9 L449.6 278.2 L443.5 287.6"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M387.3 505.9 L389.2 497 L403.9 486.5"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M387.3 505.9 L389.2 497 L403.9 486.5"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M416.8 510.1 L426.2 511.4 L432.6 510.3 L440.9 500.3 L452.2 496.8 L461.8 486.7 L468.6 482 L474.8 478.8 L483.1 477.9 L489.1 472.2 L492.8 470.7 L512.8 467.6 L516.7 466.3 L523.5 461.7 L526.7 455.7 L528.5 454.1 L531.9 453.1 L536.6 449.3 L542.7 448.7 L545.3 446.4"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M416.8 510.1 L426.2 511.4 L432.6 510.3 L440.9 500.3 L452.2 496.8 L461.8 486.7 L468.6 482 L474.8 478.8 L483.1 477.9 L489.1 472.2 L492.8 470.7 L512.8 467.6 L516.7 466.3 L523.5 461.7 L526.7 455.7 L528.5 454.1 L531.9 453.1 L536.6 449.3 L542.7 448.7 L545.3 446.4"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M673.2 348.8 L670.8 347.5 L669.5 344.9 L668.6 333.6 L666.8 328.5 L664.1 324.4 L656.3 316.3 L653.5 310.4 L646.8 275.2 L645.1 271.4 L634.2 257.1 L629.3 245.3 L626.3 240.3 L622 236.4 L610.2 229.5 L605.7 226 L596.7 214.5 L595.5 211.1"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M673.2 348.8 L670.8 347.5 L669.5 344.9 L668.6 333.6 L666.8 328.5 L664.1 324.4 L656.3 316.3 L653.5 310.4 L646.8 275.2 L645.1 271.4 L634.2 257.1 L629.3 245.3 L626.3 240.3 L622 236.4 L610.2 229.5 L605.7 226 L596.7 214.5 L595.5 211.1"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M725.6 386.4 L719.9 383.8"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M725.6 386.4 L719.9 383.8"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M756.6 405.2 L752.5 403.4 L746.1 394.5 L742.8 391.9 L725.6 386.4"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M756.6 405.2 L752.5 403.4 L746.1 394.5 L742.8 391.9 L725.6 386.4"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M598.6 196.8 L599.5 201.8 L595.9 208.7 L595.5 211.1"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M598.6 196.8 L599.5 201.8 L595.9 208.7 L595.5 211.1"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M869.5 518.3 L866.8 516.1 L860 513.8 L857 511.5 L854.8 507 L854.4 494.3 L850.7 485.9 L846.1 480.8 L838.1 476.1 L829.2 465.8"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M869.5 518.3 L866.8 516.1 L860 513.8 L857 511.5 L854.8 507 L854.4 494.3 L850.7 485.9 L846.1 480.8 L838.1 476.1 L829.2 465.8"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M816.3 461.8 L765.9 466.9"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M816.3 461.8 L765.9 466.9"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M816.3 461.8 L765.9 466.9"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M816.3 461.8 L765.9 466.9"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M829 465.6 L826.6 463.8"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M829 465.6 L826.6 463.8"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M762.3 457.5 L754.5 455.7 L742.4 455.9 L732.7 457.1 L727.2 458.7 L708.1 468.7 L687.7 472.7 L658.9 471.4 L635.8 474 L631.5 475 L612.9 482.5 L598.6 483.8 L588.5 482.8 L585 481.9 L578.3 478.6"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M762.3 457.5 L754.5 455.7 L742.4 455.9 L732.7 457.1 L727.2 458.7 L708.1 468.7 L687.7 472.7 L658.9 471.4 L635.8 474 L631.5 475 L612.9 482.5 L598.6 483.8 L588.5 482.8 L585 481.9 L578.3 478.6"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M919.7 535.6 L915.4 532.9 L910.5 524.2 L907.4 521.2 L903.9 519.3 L900.3 518.5 L873.2 519.1 L868.9 518.2"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M919.7 535.6 L915.4 532.9 L910.5 524.2 L907.4 521.2 L903.9 519.3 L900.3 518.5 L873.2 519.1 L868.9 518.2"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M915.5 533 L914.2 540.3 L912.1 544 L912.1 546.9 L909.2 550.4 L905.5 553.9 L902.3 555.7 L893.7 556.7 L892.3 557.6 L892.1 559.7 L894.3 565.1 L894.1 567 L888.5 576.2"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M915.5 533 L914.2 540.3 L912.1 544 L912.1 546.9 L909.2 550.4 L905.5 553.9 L902.3 555.7 L893.7 556.7 L892.3 557.6 L892.1 559.7 L894.3 565.1 L894.1 567 L888.5 576.2"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M765.9 466.9 L762.8 465.2"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M765.9 466.9 L762.8 465.2"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M765.9 466.9 L762.8 465.2"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M765.9 466.9 L762.8 465.2"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M767.4 466.1 L766.5 460.7 L762.3 457.5"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M767.4 466.1 L766.5 460.7 L762.3 457.5"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M919.7 535.6 L918.6 543.1 L912.1 553 L908.2 567.3 L905.4 572 L897.2 581.1"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M919.7 535.6 L918.6 543.1 L912.1 553 L908.2 567.3 L905.4 572 L897.2 581.1"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M757.8 394.8 L726.5 384.2"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M757.8 394.8 L726.5 384.2"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M762.7 468.6 L761.8 432.5 L757.8 394.8"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M762.7 468.6 L761.8 432.5 L757.8 394.8"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M569.5 605 L567.7 602 L566.8 594.6"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M569.5 605 L567.7 602 L566.8 594.6"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M668.2 648 L667 644.6 L663.5 640.4 L646.5 625.3 L636.9 623.7 L621.5 614.7 L601.6 609 L577 607.6 L571.1 605.6 L567.8 603.6"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M668.2 648 L667 644.6 L663.5 640.4 L646.5 625.3 L636.9 623.7 L621.5 614.7 L601.6 609 L577 607.6 L571.1 605.6 L567.8 603.6"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M628.1 882.2 L628.3 876.2 L629.7 870.6 L636 854.9 L637.4 846.5 L636.8 841.3 L631.5 826.3 L630.2 819.9 L629.4 799.2 L630.2 787.4 L633.1 778.6 L642.2 764.2 L646 756.2 L649.2 743.6 L650.7 742 L656.2 740.2 L660.3 737.2 L661.7 735.2"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M628.1 882.2 L628.3 876.2 L629.7 870.6 L636 854.9 L637.4 846.5 L636.8 841.3 L631.5 826.3 L630.2 819.9 L629.4 799.2 L630.2 787.4 L633.1 778.6 L642.2 764.2 L646 756.2 L649.2 743.6 L650.7 742 L656.2 740.2 L660.3 737.2 L661.7 735.2"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M669.1 694.6 L665.9 678.2 L666.6 673.2 L671.5 660.3 L672.1 654.5 L670.9 651 L667.9 646.5"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M669.1 694.6 L665.9 678.2 L666.6 673.2 L671.5 660.3 L672.1 654.5 L670.9 651 L667.9 646.5"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M715.9 897.2 L682.9 909.1 L679.3 909.7"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M715.9 897.2 L682.9 909.1 L679.3 909.7"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M683.2 653.5 L671.8 653.1"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M683.2 653.5 L671.8 653.1"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M651 733.5 L663.7 704.5 L679.4 655"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M651 733.5 L663.7 704.5 L679.4 655"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M631.4 955.8 L619.6 923.5 L630.4 878.2 L632.4 811.2 L631.4 776.7 L651 733.5"
+                  fill="none"
+                  stroke="#fbf6ec"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M631.4 955.8 L619.6 923.5 L630.4 878.2 L632.4 811.2 L631.4 776.7 L651 733.5"
+                  fill="none"
+                  stroke="#b8955c"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <g transform="translate(532.4 411.4)">
+                  <rect x="-16" y="-9" width="32" height="18" rx="3" fill="#473d35" />
+                  <text
+                    y="4.4"
+                    text-anchor="middle"
+                    font-size="12"
+                    font-weight="700"
+                    fill="#fbf6ec"
+                  >
+                    A26
+                  </text>
+                </g>
+                <g transform="translate(423.5 338.6)">
+                  <rect x="-16" y="-9" width="32" height="18" rx="3" fill="#473d35" />
+                  <text
+                    y="4.4"
+                    text-anchor="middle"
+                    font-size="12"
+                    font-weight="700"
+                    fill="#fbf6ec"
+                  >
+                    A29
+                  </text>
+                </g>
+                <g transform="translate(402.0 419.0)">
+                  <rect x="-16" y="-9" width="32" height="18" rx="3" fill="#473d35" />
+                  <text
+                    y="4.4"
+                    text-anchor="middle"
+                    font-size="12"
+                    font-weight="700"
+                    fill="#fbf6ec"
+                  >
+                    A1
+                  </text>
+                </g>
+                <g transform="translate(524.5 271.2)">
+                  <rect x="-16" y="-9" width="32" height="18" rx="3" fill="#473d35" />
+                  <text
+                    y="4.4"
+                    text-anchor="middle"
+                    font-size="12"
+                    font-weight="700"
+                    fill="#fbf6ec"
+                  >
+                    A2
+                  </text>
+                </g>
+                <circle cx="456.6" cy="239.0" r="4.5" fill="#473d35" />
+                <text
+                  x="447.6"
+                  y="243.0"
+                  text-anchor="end"
+                  font-size="20"
+                  font-weight="600"
+                  fill="#2b231e"
+                >
+                  Lille
+                </text>
+                <circle cx="381.9" cy="351.7" r="4.5" fill="#473d35" />
+                <text
+                  x="372.9"
+                  y="355.7"
+                  text-anchor="end"
+                  font-size="20"
+                  font-weight="600"
+                  fill="#2b231e"
+                >
+                  Amiens
+                </text>
+                <circle cx="387.5" cy="507.9" r="4.5" fill="#473d35" />
+                <text
+                  x="397.5"
+                  y="513.9"
+                  text-anchor="start"
+                  font-size="20"
+                  font-weight="600"
+                  fill="#2b231e"
+                >
+                  Paris
+                </text>
+                <circle cx="552.1" cy="447.8" r="4.5" fill="#473d35" />
+                <text
+                  x="561.1"
+                  y="451.8"
+                  text-anchor="start"
+                  font-size="20"
+                  font-weight="600"
+                  fill="#2b231e"
+                >
+                  Reims
+                </text>
+                <circle cx="479.0" cy="359.0" r="26" fill="#6e1f2a" fill-opacity="0.14" />
+                <circle
+                  cx="479.0"
+                  cy="359.0"
+                  r="9"
+                  fill="#6e1f2a"
+                  stroke="#fbf6ec"
+                  stroke-width="2.5"
+                />
+                <text
+                  x="494.0"
+                  y="347.0"
+                  font-family="Cormorant, Georgia, serif"
+                  font-size="32"
+                  font-weight="600"
+                  fill="#6e1f2a"
+                >
+                  Saint-Quentin
+                </text>
+              </svg>
+              <!-- carte:fin -->
+            </div>
+            <h4>
+              <svg class="i"><use href="#i-road" /></svg>Accès facile
+            </h4>
+            <p>Sur l'A26, près de l'A1 et de l'A29.</p>
+          </div>
+        </div>
+      </div>
+
+      <footer class="contact">
+        <div class="row">
+          <div>
+            <p class="eyebrow" style="color: var(--or)">Demande de devis</p>
+            <h3>Parlons de <em>votre évènement</em></h3>
+            <div class="lines">
+              <div>
+                <svg class="i"><use href="#i-mail" /></svg>contact@hotel-coulisses.com
+              </div>
+              <div>
+                <svg class="i"><use href="#i-phone" /></svg>+33 (0)3 23 67 90 09 · +33 (0)6 98 33 38
+                10
+              </div>
+              <div>
+                <svg class="i"><use href="#i-pin" /></svg>8 rue de la Comédie, 02100 Saint-Quentin
+              </div>
+            </div>
+          </div>
+          <div class="qrs">
+            <div>
+              <div class="code"><img src="qr/site.svg" alt="" /></div>
+              <b>Site officiel</b><span>Page séminaires</span>
+            </div>
+            <div>
+              <div class="code"><img src="qr/instagram.svg" alt="" /></div>
+              <b>Instagram</b><span>@hotel_lescoulisses</span>
+            </div>
+            <div>
+              <div class="code"><img src="qr/linkedin.svg" alt="" /></div>
+              <b>LinkedIn</b><span>Notre page</span>
+            </div>
+          </div>
+        </div>
+        <div class="base">
+          <span>Hôtel Les Coulisses du Théâtre ★★★</span>
+          <span>hotel-coulisses-du-theatre.com</span>
+        </div>
+      </footer>
+    </section>
+  </body>
+</html>

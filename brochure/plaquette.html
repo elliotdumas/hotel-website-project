@@ -1,0 +1,958 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Plaquette — Hôtel Les Coulisses du Théâtre</title>
+    <!--
+      Plaquette de présentation A4 (8 pages), à imprimer ou à envoyer en PDF.
+      Sources : src/data/hotel.ts, src/content/rooms/*.yaml, src/i18n/fr.json.
+      Générer le PDF : pnpm brochure  →  brochure/plaquette-les-coulisses-du-theatre.pdf
+    -->
+    <style>
+      @font-face {
+        font-family: 'Cormorant';
+        src: url('../node_modules/@fontsource-variable/cormorant-garamond/files/cormorant-garamond-latin-wght-normal.woff2')
+          format('woff2');
+        font-weight: 300 700;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: 'Cormorant';
+        src: url('../node_modules/@fontsource-variable/cormorant-garamond/files/cormorant-garamond-latin-wght-italic.woff2')
+          format('woff2');
+        font-weight: 300 700;
+        font-style: italic;
+      }
+      @font-face {
+        font-family: 'DM Sans';
+        src: url('../node_modules/@fontsource-variable/dm-sans/files/dm-sans-latin-wght-normal.woff2')
+          format('woff2');
+        font-weight: 100 1000;
+      }
+
+      :root {
+        --creme: #fbf6ec;
+        --ivoire: #fff9e9;
+        --sable: #f0e7d6;
+        --lin: #e3d6bf;
+        --brun: #473d35;
+        --nuit: #241c17;
+        --encre: #2b231e;
+        --taupe: #6a5d51;
+        --or: #b8955c;
+        --or-fonce: #7a5c2e;
+        --velours: #6e1f2a;
+        --serif: 'Cormorant', Georgia, serif;
+        --sans: 'DM Sans', system-ui, sans-serif;
+      }
+
+      @page {
+        size: A4;
+        margin: 0;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      body {
+        background: #8a8178;
+        font-family: var(--sans);
+        font-size: 9.5pt;
+        line-height: 1.55;
+        color: var(--encre);
+      }
+      img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .page {
+        position: relative;
+        width: 210mm;
+        height: 297mm;
+        overflow: hidden;
+        background: var(--creme);
+        page-break-after: always;
+        break-after: page;
+      }
+      @media screen {
+        .page {
+          margin: 10mm auto;
+          box-shadow: 0 4px 24px rgb(0 0 0 / 0.35);
+        }
+      }
+      .dark {
+        background: var(--nuit);
+        color: var(--creme);
+      }
+      .brown {
+        background: var(--brun);
+        color: var(--creme);
+      }
+
+      /* Typographie */
+      .eyebrow {
+        font-size: 7.5pt;
+        font-weight: 600;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--or-fonce);
+      }
+      .dark .eyebrow,
+      .brown .eyebrow,
+      .on-photo .eyebrow {
+        color: var(--or);
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: var(--serif);
+        font-weight: 500;
+        line-height: 1.05;
+      }
+      h2 {
+        font-size: 34pt;
+        margin: 2mm 0 5mm;
+      }
+      h2 em,
+      h1 em {
+        font-style: italic;
+        color: var(--or);
+      }
+      h3 {
+        font-size: 17pt;
+        margin-bottom: 1.5mm;
+      }
+      p + p {
+        margin-top: 2.5mm;
+      }
+      .lead {
+        font-family: var(--serif);
+        font-size: 14pt;
+        line-height: 1.4;
+      }
+      .rule {
+        width: 18mm;
+        height: 0.6pt;
+        background: var(--or);
+        margin: 5mm 0;
+      }
+      .muted {
+        color: var(--taupe);
+      }
+      .dark .muted,
+      .brown .muted {
+        color: var(--lin);
+      }
+      .small {
+        font-size: 7.5pt;
+      }
+      ul.dots {
+        list-style: none;
+      }
+      ul.dots li {
+        position: relative;
+        padding-left: 4.5mm;
+        margin-bottom: 1.2mm;
+      }
+      ul.dots li::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0.62em;
+        width: 1.8mm;
+        height: 0.6pt;
+        background: var(--or);
+      }
+      .folio {
+        position: absolute;
+        bottom: 9mm;
+        left: 16mm;
+        right: 16mm;
+        display: flex;
+        justify-content: space-between;
+        font-size: 6.5pt;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--taupe);
+      }
+      .dark .folio,
+      .brown .folio {
+        color: var(--or);
+      }
+      .pad {
+        padding: 16mm;
+      }
+      .frame {
+        position: absolute;
+        inset: 7mm;
+        border: 0.5pt solid rgb(184 149 92 / 0.55);
+        pointer-events: none;
+      }
+
+      /* 1. Couverture */
+      .cover img.bg {
+        position: absolute;
+        inset: 0;
+      }
+      .cover::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(180deg, rgb(36 28 23 / 0.7) 0%, rgb(36 28 23 / 0.05) 35%),
+          linear-gradient(0deg, rgb(36 28 23 / 0.92) 0%, rgb(36 28 23 / 0.35) 45%, transparent 65%);
+      }
+      .cover .content {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        color: var(--creme);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 22mm 20mm 20mm;
+      }
+      .cover .logo {
+        width: 34mm;
+        height: auto;
+      }
+      .cover .bottom {
+        margin-top: auto;
+      }
+      .cover h1 {
+        font-size: 44pt;
+        margin: 4mm 0 6mm;
+        font-weight: 400;
+      }
+      .cover .stars {
+        color: var(--or);
+        letter-spacing: 0.3em;
+      }
+      .cover .address {
+        margin-top: 9mm;
+        font-size: 7.5pt;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--lin);
+      }
+      .cover .frame {
+        z-index: 3;
+        border-color: rgb(184 149 92 / 0.6);
+      }
+
+      /* 2. L'hôtel */
+      .p-hotel .hero {
+        height: 128mm;
+      }
+      .p-hotel .body {
+        display: grid;
+        grid-template-columns: 1.05fr 1fr;
+        gap: 12mm;
+        padding: 14mm 16mm 0;
+      }
+      .figures {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        margin: 9mm 16mm 0;
+        border-top: 0.6pt solid var(--or);
+        border-bottom: 0.6pt solid var(--or);
+      }
+      .figures div {
+        text-align: center;
+        padding: 5mm 2mm;
+      }
+      .figures div + div {
+        border-left: 0.5pt solid var(--lin);
+      }
+      .figures strong {
+        display: block;
+        font-family: var(--serif);
+        font-size: 30pt;
+        font-weight: 500;
+        line-height: 1;
+        color: var(--velours);
+      }
+      .figures span {
+        font-size: 7pt;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--taupe);
+      }
+
+      /* 3. Chambres */
+      .rooms-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6mm 5mm;
+        margin-top: 6mm;
+      }
+      .room .ph {
+        height: 56mm;
+        margin-bottom: 3mm;
+      }
+      .room h3 {
+        font-size: 15pt;
+        margin: 0;
+      }
+      .room .tag {
+        font-family: var(--serif);
+        font-style: italic;
+        font-size: 10.5pt;
+        line-height: 1.25;
+        color: var(--taupe);
+        min-height: 2.6em;
+        margin: 0.5mm 0 2mm;
+      }
+      .room .meta {
+        font-size: 7.5pt;
+        color: var(--taupe);
+        border-top: 0.5pt solid var(--lin);
+        padding-top: 1.8mm;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+      }
+      .room .price {
+        font-family: var(--serif);
+        font-size: 9pt;
+        color: var(--velours);
+        white-space: nowrap;
+      }
+      .room .price b {
+        font-size: 15pt;
+        font-weight: 600;
+      }
+      .note {
+        margin-top: 7mm;
+        padding: 4mm 5mm;
+        background: var(--sable);
+        font-size: 7.8pt;
+        color: var(--taupe);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1mm 8mm;
+      }
+
+      /* Mise en page photo/texte */
+      .split {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        height: 148.5mm;
+      }
+      .split .text {
+        padding: 15mm 14mm;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .split h2 {
+        font-size: 28pt;
+      }
+      .meta-line {
+        margin-top: 5mm;
+        font-size: 7.5pt;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--or-fonce);
+      }
+      .dark .meta-line,
+      .brown .meta-line {
+        color: var(--or);
+      }
+      .duo {
+        display: grid;
+        grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 2mm;
+        min-height: 0;
+      }
+
+      /* 6. Séminaires */
+      .p-sem .top {
+        display: grid;
+        grid-template-columns: 1.3fr 1fr;
+        grid-template-rows: 112mm;
+        gap: 2mm;
+      }
+      .p-sem .top > * {
+        min-height: 0;
+      }
+      .p-sem .top .duo {
+        gap: 2mm;
+      }
+      .p-sem .body {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10mm;
+        padding: 12mm 16mm 0;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 4mm;
+        font-size: 8.5pt;
+      }
+      th {
+        text-align: left;
+        font-weight: 600;
+        font-size: 6.8pt;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--or);
+        padding: 0 2mm 2mm 0;
+        border-bottom: 0.6pt solid var(--or);
+      }
+      td {
+        padding: 2.4mm 2mm 2.4mm 0;
+        border-bottom: 0.5pt solid rgb(227 214 191 / 0.25);
+      }
+      td:first-child {
+        font-family: var(--serif);
+        font-size: 12pt;
+      }
+      .cta-box {
+        margin-top: 6mm;
+        border: 0.6pt solid var(--or);
+        padding: 5mm;
+      }
+      .cta-box strong {
+        font-family: var(--serif);
+        font-size: 14pt;
+        font-weight: 500;
+        display: block;
+        margin-bottom: 1mm;
+      }
+
+      /* 7. Services & ville */
+      .services-cols {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 8mm;
+        margin-top: 4mm;
+      }
+      .services-cols h3 {
+        font-size: 14pt;
+        border-bottom: 0.6pt solid var(--or);
+        padding-bottom: 1.5mm;
+        margin-bottom: 3mm;
+      }
+      .services-cols ul {
+        font-size: 8.3pt;
+      }
+      .hours {
+        margin-top: 10mm;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        background: var(--brun);
+        color: var(--creme);
+      }
+      .hours div {
+        padding: 4mm;
+        text-align: center;
+      }
+      .hours div + div {
+        border-left: 0.5pt solid rgb(184 149 92 / 0.4);
+      }
+      .hours b {
+        display: block;
+        font-family: var(--serif);
+        font-size: 15pt;
+        font-weight: 500;
+      }
+      .hours span {
+        font-size: 6.8pt;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--or);
+      }
+      .city {
+        display: grid;
+        grid-template-columns: 62mm 1fr;
+        gap: 9mm;
+        margin-top: 12mm;
+        align-items: center;
+      }
+      .city .ph {
+        height: 92mm;
+      }
+      .places {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3mm 6mm;
+        margin-top: 4mm;
+      }
+      .places b {
+        font-family: var(--serif);
+        font-size: 11.5pt;
+        font-weight: 600;
+        display: block;
+        line-height: 1.15;
+      }
+      .places span {
+        font-size: 7.8pt;
+        color: var(--taupe);
+      }
+
+      /* 8. Dos */
+      .back .ph {
+        height: 112mm;
+      }
+      .back .body {
+        padding: 13mm 18mm 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14mm;
+      }
+      .back .logo {
+        width: 26mm;
+        height: auto;
+        margin-bottom: 5mm;
+      }
+      .perks li {
+        font-size: 9pt;
+      }
+      .contact p {
+        margin: 0 0 3.5mm;
+      }
+      .contact .label {
+        font-size: 6.8pt;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--or);
+        display: block;
+      }
+      .contact .big {
+        font-family: var(--serif);
+        font-size: 15pt;
+        line-height: 1.2;
+      }
+      .book-btn {
+        display: inline-block;
+        margin-top: 2mm;
+        background: var(--velours);
+        color: var(--creme);
+        padding: 3mm 6mm;
+        font-size: 7.5pt;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        font-weight: 600;
+      }
+      .hashtags {
+        position: absolute;
+        bottom: 16mm;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-family: var(--serif);
+        font-style: italic;
+        font-size: 11pt;
+        color: var(--or);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ============ 1. COUVERTURE ============ -->
+    <section class="page cover">
+      <img class="bg" src="../src/assets/photos/hotel/cour-nuit.jpg" alt="" />
+      <div class="content">
+        <img class="logo" src="../src/assets/logo/logo-creme.png" alt="Les Coulisses du Théâtre" />
+        <div class="bottom on-photo">
+          <p class="eyebrow">Hôtel <span class="stars">★★★</span> · Saint-Quentin</p>
+          <h1>Bienvenue dans un univers <em>cosy et raffiné</em></h1>
+          <p class="lead" style="max-width: 130mm; margin: 0 auto">
+            Au cœur du centre historique, à quelques pas du Théâtre Jean-Vilar et de la Basilique.
+          </p>
+          <p class="address">8 rue de la Comédie · 02100 Saint-Quentin · France</p>
+        </div>
+      </div>
+      <div class="frame"></div>
+    </section>
+
+    <!-- ============ 2. L'HÔTEL ============ -->
+    <section class="page p-hotel">
+      <div class="hero">
+        <img src="../src/assets/photos/hotel/terrasse-cour.jpg" alt="" />
+      </div>
+      <div class="body">
+        <div>
+          <p class="eyebrow">En coulisses</p>
+          <h2>L'élégance <em>chaleureuse</em></h2>
+          <p class="lead">
+            Un environnement raffiné et cosy, à deux pas du Théâtre Jean-Vilar. Notre souhait :
+            offrir à nos hôtes une expérience unique et un accueil chaleureux.
+          </p>
+        </div>
+        <div style="padding-top: 7mm">
+          <p>
+            Bienvenue à l'hôtel Les Coulisses du Théâtre. Nous sommes ravis de vous accueillir dans
+            notre établissement 3 étoiles, pensé pour vous offrir une expérience hôtelière de
+            qualité.
+          </p>
+          <p>
+            Pièce de vie alliant confort et design, petit-déjeuner servi en terrasse aux beaux
+            jours, bar pour un café, un cocktail ou un verre de vin, piscine et espace bien-être :
+            tout est réuni pour un séjour de charme.
+          </p>
+          <p class="muted">
+            Chambres insonorisées, literie haut de gamme, mobilier sur mesure, salles de bain
+            soignées et produits d'accueil.
+          </p>
+        </div>
+      </div>
+      <div class="figures">
+        <div><strong>32</strong><span>chambres climatisées</span></div>
+        <div><strong>6</strong><span>catégories de chambres</span></div>
+        <div><strong>2</strong><span>appartements</span></div>
+        <div><strong>24/7</strong><span>réception ouverte</span></div>
+      </div>
+      <div class="folio"><span>Les Coulisses du Théâtre</span><span>02</span></div>
+    </section>
+
+    <!-- ============ 3. CHAMBRES ============ -->
+    <section class="page pad">
+      <p class="eyebrow">Nos chambres</p>
+      <h2>Six façons de <em>séjourner</em></h2>
+      <p style="max-width: 150mm">
+        32 chambres climatisées et insonorisées, décorées avec soin. La plupart donnent sur la cour
+        privative de l'hôtel, les autres sur l'une des rues typiques de Saint-Quentin. Deux chambres
+        sont adaptées aux personnes à mobilité réduite.
+      </p>
+      <div class="rooms-grid">
+        <article class="room">
+          <div class="ph"><img src="../src/assets/photos/chambres/confort-1.jpg" alt="" /></div>
+          <h3>Chambre Confort</h3>
+          <p class="tag">Le pied-à-terre idéal de vos escapades saint-quentinoises</p>
+          <p class="meta">
+            <span>12 à 15 m² · 1 à 2 pers.</span><span class="price">dès <b>89 €</b></span>
+          </p>
+        </article>
+        <article class="room">
+          <div class="ph">
+            <img src="../src/assets/photos/chambres/rooftop-terrasse-4.jpg" alt="" />
+          </div>
+          <h3>Chambre Rooftop</h3>
+          <p class="tag">Une vaste terrasse sur les toits, rien que pour vous</p>
+          <p class="meta">
+            <span>14 m² · 2 pers.</span><span class="price">dès <b>89 €</b></span>
+          </p>
+        </article>
+        <article class="room">
+          <div class="ph"><img src="../src/assets/photos/chambres/superieure-2.jpg" alt="" /></div>
+          <h3>Chambre Supérieure</h3>
+          <p class="tag">Plus d'espace, idéale pour les séjours en famille</p>
+          <p class="meta">
+            <span>16 à 20 m² · 2 à 3 pers.</span><span class="price">dès <b>99 €</b></span>
+          </p>
+        </article>
+        <article class="room">
+          <div class="ph"><img src="../src/assets/photos/chambres/patio-1.jpg" alt="" /></div>
+          <h3>Chambre Patio</h3>
+          <p class="tag">Une terrasse privée de plain-pied</p>
+          <p class="meta">
+            <span>17,5 à 20,5 m² · 2 pers.</span><span class="price">dès <b>99 €</b></span>
+          </p>
+        </article>
+        <article class="room">
+          <div class="ph"><img src="../src/assets/photos/chambres/privilege-6.jpg" alt="" /></div>
+          <h3>Chambre Privilège</h3>
+          <p class="tag">Le summum du confort, spacieuse et lumineuse</p>
+          <p class="meta">
+            <span>21 à 25 m² · 2 pers. (+1 enf.)</span><span class="price">dès <b>109 €</b></span>
+          </p>
+        </article>
+        <article class="room">
+          <div class="ph"><img src="../src/assets/photos/chambres/suite-6.jpg" alt="" /></div>
+          <h3>La Suite</h3>
+          <p class="tag">Un havre de luxe et de sérénité</p>
+          <p class="meta">
+            <span>24 et 30 m² · 2 pers.</span><span class="price">dès <b>129 €</b></span>
+          </p>
+        </article>
+      </div>
+      <div class="note">
+        <span>Tarifs indicatifs par nuit, à partir de · petit-déjeuner en supplément</span>
+        <span>Arrivée dès 15h · départ avant 11h</span>
+        <span>Wi-Fi haut débit gratuit dans toutes les chambres</span>
+        <span>Animaux acceptés dans certaines catégories (20 €)</span>
+      </div>
+      <div class="folio"><span>Les Coulisses du Théâtre</span><span>03</span></div>
+    </section>
+
+    <!-- ============ 4. APPARTEMENTS & BAR ============ -->
+    <section class="page">
+      <div class="split">
+        <div class="text">
+          <p class="eyebrow">Nos appartements</p>
+          <h2>Chez vous, <em>l'hôtel en plus</em></h2>
+          <p>
+            Pour un séjour en famille, une mission professionnelle ou un long séjour, nos
+            appartements avec cuisine équipée bénéficient du service hôtelier : linge de lit,
+            serviettes et ménage.
+          </p>
+          <ul class="dots" style="margin-top: 4mm">
+            <li><b>Appartement 131</b> · 55 m², 3 à 4 personnes, chambre séparée</li>
+            <li><b>Studio 132</b> · 35 m², cuisine équipée</li>
+            <li>Accès à la piscine, parking sur réservation</li>
+          </ul>
+          <p class="meta-line">Court ou long séjour · nous consulter</p>
+        </div>
+        <div class="duo">
+          <img src="../src/assets/photos/appartements/appartement-131-1.jpg" alt="" />
+          <img src="../src/assets/photos/appartements/appartement-131-3.jpg" alt="" />
+        </div>
+      </div>
+      <div class="split dark">
+        <div style="padding: 2mm 0 0 0">
+          <img src="../src/assets/photos/bar/bar-comptoir.jpg" alt="" />
+        </div>
+        <div class="text">
+          <p class="eyebrow">Le bar l'Entracte</p>
+          <h2>Une pause <em>élégante</em></h2>
+          <p>
+            Boissons chaudes, cocktails, vins choisis et planches à partager, dans une ambiance
+            feutrée mêlant influences marocaines et charme Art déco.
+          </p>
+          <p class="muted">
+            Aux beaux jours, la terrasse vous accueille dans un cadre verdoyant et apaisant, une
+            bulle de calme en plein cœur de Saint-Quentin.
+          </p>
+          <p class="meta-line">Tous les jours · 6h30 – 23h</p>
+        </div>
+      </div>
+      <div class="folio" style="color: var(--or)">
+        <span>Les Coulisses du Théâtre</span><span>04</span>
+      </div>
+    </section>
+
+    <!-- ============ 5. BIEN-ÊTRE & PETIT-DÉJEUNER ============ -->
+    <section class="page brown">
+      <div style="height: 168mm">
+        <img src="../src/assets/photos/services/piscine-tropicale-1.jpg" alt="" />
+      </div>
+      <div
+        class="pad"
+        style="display: grid; grid-template-columns: 1fr 1fr; gap: 12mm; padding-top: 12mm"
+      >
+        <div>
+          <p class="eyebrow">Bien-être</p>
+          <h2 style="font-size: 27pt">Une eau aux <em>airs tropicaux</em></h2>
+          <p>
+            Une piscine couverte et chauffée, avec couloir de nage à contre-courant, unique dans le
+            Saint-Quentinois. Transats au bord de l'eau, pour se ressourcer après une journée de
+            visite ou de travail.
+          </p>
+          <p class="meta-line">Tous les jours · 9h – 21h · réservée aux clients</p>
+        </div>
+        <div>
+          <div style="height: 38mm; margin-bottom: 5mm">
+            <img src="../src/assets/photos/services/petit-dejeuner-3.jpg" alt="" />
+          </div>
+          <p class="eyebrow">Le petit-déjeuner</p>
+          <h3 style="margin-top: 1.5mm">Bien commencer la journée</h3>
+          <p class="muted">
+            Un buffet généreux de produits bio, locaux et de qualité. En salle, en terrasse, à
+            emporter ou en chambre.
+          </p>
+          <p class="meta-line">Tous les jours · 6h30 – 10h30</p>
+        </div>
+      </div>
+      <div class="folio"><span>Les Coulisses du Théâtre</span><span>05</span></div>
+    </section>
+
+    <!-- ============ 6. SÉMINAIRES ============ -->
+    <section class="page dark p-sem">
+      <div class="top">
+        <img src="../src/assets/photos/seminaires/salle-1.jpg" alt="" />
+        <div class="duo">
+          <img src="../src/assets/photos/seminaires/buffet.jpg" alt="" />
+          <img src="../src/assets/photos/seminaires/jardin.jpg" alt="" />
+        </div>
+      </div>
+      <div class="body">
+        <div>
+          <p class="eyebrow">Séminaires &amp; réunions</p>
+          <h2>Vos réunions <em>en coulisses</em></h2>
+          <p>
+            Deux espaces modulables, utilisables séparément ou réunis : réunions en petit comité,
+            conférences ou formations. Baignée de lumière et ouverte sur un espace vert, la salle
+            offre un cadre propice au travail, aux échanges et à la concentration.
+          </p>
+          <p class="muted">
+            Restauration, moments de détente au bar et hébergement sur place : votre séminaire
+            résidentiel au cœur de Saint-Quentin.
+          </p>
+          <table>
+            <thead>
+              <tr>
+                <th>Salle</th>
+                <th>Surface</th>
+                <th>Écolier</th>
+                <th>Théâtre</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Salle 1</td>
+                <td>36 m²</td>
+                <td>12 – 15 pers.</td>
+                <td>40 pers.</td>
+              </tr>
+              <tr>
+                <td>Salle 2</td>
+                <td>30 m²</td>
+                <td>10 – 15 pers.</td>
+                <td>30 pers.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <h3>Inclus dans votre journée</h3>
+          <ul class="dots" style="margin-top: 3mm">
+            <li>Écran interactif 75 pouces</li>
+            <li>Rétroprojecteur et paperboard</li>
+            <li>Bouteille d'eau et verre</li>
+            <li>Une pause par demi-journée : thé, café, jus de fruits, viennoiseries et fruits</li>
+            <li>Accès PMR, en rez-de-chaussée avec porte-fenêtre sur espace vert</li>
+            <li>Wi-Fi haut débit gratuit</li>
+          </ul>
+          <p class="muted" style="margin-top: 4mm">
+            <b style="color: var(--creme)">Sur devis :</b> déjeuner en buffet, repas chaud ou
+            plateau-repas, hébergement des participants.
+          </p>
+          <div class="cta-box">
+            <strong>Demande de devis</strong>
+            <span class="muted">contact@hotel-coulisses.com<br />+33 (0)3 23 67 90 09</span>
+          </div>
+        </div>
+      </div>
+      <div class="folio"><span>Les Coulisses du Théâtre</span><span>06</span></div>
+    </section>
+
+    <!-- ============ 7. SERVICES & SAINT-QUENTIN ============ -->
+    <section class="page pad">
+      <p class="eyebrow">Services</p>
+      <h2>Tout pour un <em>séjour serein</em></h2>
+      <div class="services-cols">
+        <div>
+          <h3>À votre service</h3>
+          <ul class="dots">
+            <li>Accueil en présentiel 24 h/24, 7 j/7</li>
+            <li>Conciergerie et bagagerie sécurisée</li>
+            <li>Wi-Fi haut débit gratuit</li>
+            <li>Navette en ville sur demande</li>
+            <li>Location de vélos électriques</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Pour les pros</h3>
+          <ul class="dots">
+            <li>Day-use de 10h à 16h, bureau et room service</li>
+            <li>Salles de séminaire jusqu'à 40 pers.</li>
+            <li>Appartements pour missions longues</li>
+            <li>Parking privé sécurisé</li>
+            <li>Bornes de recharge électriques</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Côté détente</h3>
+          <ul class="dots">
+            <li>Piscine intérieure chauffée</li>
+            <li>Bar l'Entracte et sa terrasse</li>
+            <li>Petit-déjeuner bio et local</li>
+            <li>Chambres avec rooftop ou terrasse</li>
+            <li>Bons cadeaux en ligne</li>
+          </ul>
+        </div>
+      </div>
+      <div class="hours">
+        <div><span>Arrivée / départ</span><b>15h / 11h</b></div>
+        <div><span>Petit-déjeuner</span><b>6h30 – 10h30</b></div>
+        <div><span>Bar</span><b>6h30 – 23h</b></div>
+        <div><span>Piscine</span><b>9h – 21h</b></div>
+      </div>
+      <div class="city">
+        <div class="ph"><img src="../src/assets/photos/hotel/portail-logo.jpg" alt="" /></div>
+        <div>
+          <p class="eyebrow">Saint-Quentin</p>
+          <h2 style="font-size: 26pt; margin-bottom: 3mm">Côté <em>ville</em></h2>
+          <p>
+            Facile d'accès depuis Paris, Lille ou Amiens, Saint-Quentin séduit par son patrimoine
+            architectural, ses rues commerçantes et ses espaces verts.
+          </p>
+          <div class="places">
+            <div>
+              <b>Théâtre Jean-Vilar</b>
+              <span>Notre voisin de scène, pour une soirée sans prendre la voiture.</span>
+            </div>
+            <div>
+              <b>Basilique de Saint-Quentin</b>
+              <span>Joyau gothique, à quelques pas de l'hôtel.</span>
+            </div>
+            <div>
+              <b>Musée Antoine-Lécuyer</b>
+              <span>Le musée des beaux-arts de la ville.</span>
+            </div>
+            <div>
+              <b>Parc d'Isle</b>
+              <span>Un grand espace naturel pour une balade au grand air.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="folio"><span>Les Coulisses du Théâtre</span><span>07</span></div>
+    </section>
+
+    <!-- ============ 8. DOS / CONTACT ============ -->
+    <section class="page dark back">
+      <div class="ph"><img src="../src/assets/photos/hotel/facade-nuit.jpg" alt="" /></div>
+      <div class="body">
+        <div>
+          <img
+            class="logo"
+            src="../src/assets/logo/logo-creme.png"
+            alt="Les Coulisses du Théâtre"
+          />
+          <p class="eyebrow">Réservez en direct</p>
+          <h2 style="font-size: 26pt; margin-bottom: 4mm">Votre <em>scène</em> vous attend</h2>
+          <ul class="dots perks">
+            <li>Meilleur tarif garanti sur notre site officiel</li>
+            <li>Réception ouverte 24 h/24, 7 j/7</li>
+            <li>Parking privé sécurisé et bornes de recharge</li>
+            <li>Wi-Fi haut débit gratuit dans tout l'hôtel</li>
+          </ul>
+        </div>
+        <div class="contact" style="padding-top: 2mm">
+          <p>
+            <span class="label">Adresse</span>
+            <span class="big">8 rue de la Comédie<br />02100 Saint-Quentin, France</span>
+          </p>
+          <p>
+            <span class="label">Téléphone</span>
+            <span class="big">+33 (0)3 23 67 90 09<br />+33 (0)6 98 33 38 10</span>
+          </p>
+          <p>
+            <span class="label">E-mail</span>
+            <span class="big">contact@hotel-coulisses.com</span>
+          </p>
+          <p>
+            <span class="label">Site &amp; réseaux</span>
+            hotel-coulisses-du-theatre.com<br />
+            <span class="muted">Instagram @hotel_lescoulisses · Facebook · LinkedIn</span>
+          </p>
+          <span class="book-btn">Réserver en direct</span>
+        </div>
+      </div>
+      <p class="hashtags">#LesCoulissesDuThéâtre · #HôtelDeCharme</p>
+      <div class="frame"></div>
+    </section>
+  </body>
+</html>
