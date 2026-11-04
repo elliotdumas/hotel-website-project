@@ -6,7 +6,7 @@ import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
 import MobileBar from '@/components/MobileBar.astro';
 import { htmlLang, locales, ogLocale, useTranslations, type Locale } from '@/i18n/config';
-import { routes, type PageKey } from '@/i18n/routes';
+import { routes, withBase, type PageKey } from '@/i18n/routes';
 import { hotel } from '@/data/hotel';
 import { photos } from '@/data/photos';
 
@@ -26,9 +26,14 @@ const { locale, page, title, description, image, preloadImage, noindex = false }
 const t = useTranslations(locale);
 const site = Astro.site ?? new URL(hotel.url);
 
-const canonical = new URL(routes[page][locale], site).href;
-const alternates = locales.map((l) => ({ hreflang: l, href: new URL(routes[page][l], site).href }));
-const xDefault = new URL(routes[page].fr, site).href;
+const canonical = new URL(withBase(routes[page][locale]), site).href;
+const alternates = locales.map((l) => ({
+  hreflang: l,
+  href: new URL(withBase(routes[page][l]), site).href,
+}));
+const xDefault = new URL(withBase(routes[page].fr), site).href;
+/** Aperçu servi depuis un sous-dossier (GitHub Pages) : à ne pas indexer. */
+const isPreview = import.meta.env.BASE_URL !== '/';
 
 const fullTitle =
   page === 'home' ? `${t.meta.siteName} · ${title}` : `${title} · ${t.meta.siteName}`;
@@ -48,7 +53,7 @@ const jsonLd = {
   '@id': `${hotel.url}/#hotel`,
   name: hotel.name,
   description: t.meta.defaultDescription,
-  url: new URL(routes.home[locale], site).href,
+  url: new URL(withBase(routes.home[locale]), site).href,
   telephone: hotel.phones[0].href.replace('tel:', ''),
   email: hotel.email,
   image: ogImage,
@@ -90,17 +95,17 @@ const jsonLd = {
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    {noindex && <meta name="robots" content="noindex" />}
+    {(noindex || isPreview) && <meta name="robots" content="noindex" />}
     {alternates.map((alt) => (
       <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />
     ))}
     <link rel="alternate" hreflang="x-default" href={xDefault} />
 
-    <link rel="icon" href="/favicon.ico" sizes="any" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" href={withBase('/favicon.ico')} sizes="any" />
+    <link rel="apple-touch-icon" href={withBase('/apple-touch-icon.png')} />
+    <link rel="manifest" href={withBase('/manifest.webmanifest')} />
     <meta name="theme-color" content="#241c17" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="sitemap" href={withBase('/sitemap-index.xml')} />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={t.meta.siteName} />

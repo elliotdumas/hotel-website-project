@@ -33,8 +33,14 @@ export const routes = {
 
 export type PageKey = keyof typeof routes;
 
+/** Préfixe un chemin absolu du site avec le dossier de base (« / » en production, sous-dossier sur GitHub Pages). */
+export function withBase(path: string): string {
+  const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+  return base + path;
+}
+
 export function url(page: PageKey, locale: Locale, hash?: string): string {
-  return routes[page][locale] + (hash ? `#${hash}` : '');
+  return withBase(routes[page][locale]) + (hash ? `#${hash}` : '');
 }
 
 /** Pages affichées dans la navigation principale, dans l'ordre. */
